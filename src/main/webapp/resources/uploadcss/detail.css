@@ -28,18 +28,19 @@
 .view_content {s
 	width : 800px;
 	margin-top : 5px;
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 
 /* ATTACH */
 .view_attach {
 	width : 800px;
+	margin-bottom: 50px;
 }
 #cnt {
 		
 }
 
-/* button */
+/* BUTTON */
 .btn {
 	width : 80px;
 	display : inline-block;

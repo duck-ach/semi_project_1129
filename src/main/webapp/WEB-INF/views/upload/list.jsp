@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="업로드목록" name="title" />
@@ -26,7 +27,7 @@
 			<table>
 				<colgroup>
 					<col style="width:7%">
-					<col style="width:43%">
+					<col style="width:45%">
 					<col style="width:12%">
 					<col style="width:8%">
 					<col style="width:8%">
@@ -46,7 +47,7 @@
 							<td class="a_hover_tit td_center">${upload.uploadNo}</td>
 							<td class="a_hover_tit"><a href="${contextPath}/upload/increase/hit?uploadNo=${upload.uploadNo}">${upload.uploadTitle}</a></td>
 							<td class="a_hover_tit">${upload.id}</td>
-							<td class="a_hover_tit">${upload.createDate}</td>
+							<td class="a_hover_tit td_center"><fmt:formatDate value="${upload.createDate}" pattern="yy. M. d HH:mm" /></td>
 							<td class="a_hover_tit td_center">${upload.hit}</td>
 						</tr>
 					</c:forEach>

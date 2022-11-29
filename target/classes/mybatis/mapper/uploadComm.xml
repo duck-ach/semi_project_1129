@@ -16,9 +16,9 @@
 	<!-- 댓글 삽입 -->
 	<insert id="insertComment" parameterType="UploadCommDTO">
 		INSERT INTO UPLOAD_COMM
-			(UPLOAD_COMM_NO, UPLOAD_NO, ID, USER_IP, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE)
+			(UPLOAD_COMM_NO, UPLOAD_NO, USER_IP, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE)
 		VALUES
-			(UPLOAD_COMMENTS_SEQ.NEXTVAL, #{id}, #{uploadNo}, #{commUserIp},#{commContent}, 1, 0, COMMENTS_SEQ.CURRVAL, SYSDATE)
+			(UPLOAD_COMMENTS_SEQ.NEXTVAL, #{uploadNo}, #{commUserIp},#{commContent}, 1, 0, COMMENTS_SEQ.CURRVAL, SYSDATE)
 	</insert>
 	
 	<!-- 댓글 리스트 -->
