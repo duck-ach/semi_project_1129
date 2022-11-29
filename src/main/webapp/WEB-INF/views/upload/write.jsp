@@ -18,6 +18,7 @@
 	$(function(){
 		// function 실행 목록
 		fn_fileCheck();
+		fn_removeAttach();
 		
 		// summernote
 		$('#content').summernote({
@@ -41,7 +42,7 @@
 			let fileList = $('#files')[0].files;
 			fileListTag = '<h3>첨부파일 목록</h3>' + fileList.length + '개의 파일이 첨부되었습니다.';
 			for(i = 0; i < fileList.length; i++) {
-				fileListTag += '<li>' + fileList[i].name + '<input type="button" onclick="fn_removeAttach(i)" class="remove_btn" value="삭제"></li>';
+				fileListTag += '<li>' + fileList[i].name + '<input type="button" class="remove_btn" value="삭제"></li>';
 			}
 			$('#fileList').html(fileListTag);
 			  
@@ -67,11 +68,17 @@
 				}
 			}
 		});
+
+		function fn_removeAttach(){
+			$(document).on('click', 'remove_btn', function(){
+				$.ajax({
+					type : 'get',
+					url  : '${contextPath}/write/attach/remove',
+				});
+			});
+		}
 	}
 	
-	function fn_removeAttach(){
-
-	}
 	
 </script>
 </head>

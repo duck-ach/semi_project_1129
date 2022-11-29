@@ -55,15 +55,16 @@ li{list-style: none;}
 	padding: 10px;
 }
 
+h1 a{text-decoration: none; color:000;}
 </style>
 </head>
 <body>
 	
 	<div class="header_wrap">
 		we are best team
-		<h1>2조 Semi Project   header 임</h1>
+		<h1><a href="${contextPath}/">2조 Semi Project   header 임</a></h1>
 		<ul class="header_top_menu_area">
-			<li><a href="${contextPath}/user/login">로그인</a></li>
+			<li><a href="${contextPath}/user/login/form">로그인</a></li>
 			<li><a href="${contextPath}/user/join">회원가입</a></li>
 			<li><a href="${contextPath}/user/info">회원정보</a></li>
 			<li><a href="${contextPath}/bbs/list">자유게시판</a></li>
