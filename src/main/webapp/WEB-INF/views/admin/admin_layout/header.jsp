@@ -27,6 +27,7 @@
 	background-color:#000;
 	padding:20px 0;
 	text-align:center;
+	cursor:pointer;
 }
 @font-face {
   font-family: neon;
@@ -183,7 +184,9 @@ $(function(){
     });
 	
 	
-	
+	$('#bestTeam_area').click(function(){
+		location.href='${contextPath}/';
+	})
 	
 	
 	
