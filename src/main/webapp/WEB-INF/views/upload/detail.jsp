@@ -51,37 +51,43 @@
 				&nbsp;&nbsp;&nbsp;
 				<span class="view_date">수정일 <fmt:formatDate value="${upload.modifyDate}" pattern="yyyy. M. d HH:mm" /></span>
 			</div>
+		<!-- 내용 -->
 		<div>
 			<div>
 				<span class="view_title">${upload.uploadTitle}</span>
 			</div>
+		</div>
 		<hr>
+		<!-- 첨부파일 -->
+		<div>
+			<div class="attach_location">
+				<span id="cnt"></span>
+				<div class="view_attach blind">
+					<c:forEach items="${attachList}" var="attach" varStatus="status">
+					<input type="hidden" class="attachCnt" value="${status.count}">	
+						<div>
+							<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
+						</div>
+					</c:forEach>
+					<div>
+						<a href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
+					</div>
+				</div>
+			
+				<script>
+					// 첨부파일 개수
+					var att_cnt = $('.attachCnt').length;
+					$('#cnt').text('첨부파일 (' + att_cnt + ')');
+				</script>
+			</div>
+			
 			<div class="view_content">
 				<span>${upload.uploadContent}</span>
 			</div>
 		</div>
 		
 		
-		<div class="view_attach">
-			<span id="cnt" class="blind"></span>
-			<c:forEach items="${attachList}" var="attach" varStatus="status">
-			<input type="hidden" class="attachCnt" value="${status.count}">	
-				<div>
-					<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
-				</div>
-			</c:forEach>
-			<br>
-			<div>
-				<a href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
-			</div>
-		</div>
-	
-		<script>
-			// 첨부파일 개수
-			var att_cnt = $('.attachCnt').length;
-			$('#cnt').text('첨부파일 (' + att_cnt + ')');
-			
-		</script>
+
 		<hr>
 		<div>
 			<form id="frm_add_comment">
@@ -101,6 +107,7 @@
 	<script>
 	
 		// 함수 호출
+		fn_switchAttachList();
 		fn_commentCount();
 		fn_switchCommentList();
 		fn_addComment();
@@ -109,6 +116,13 @@
 		fn_removeComment();
 		fn_switchReplyArea();
 		fn_addReply();
+		
+		// 첨부파일 toggle
+		function fn_switchAttachList() {
+			$('#cnt').click(function(){
+				$('.view_attach').toggleClass('blind');
+			});
+		}
 		
 		// 함수 정의
 		function fn_commentCount(){

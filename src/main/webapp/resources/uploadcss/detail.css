@@ -37,7 +37,15 @@
 	margin-bottom: 50px;
 }
 #cnt {
-		
+	cursor:pointer;
+}
+.attach_location {
+	text-align: right;
+}
+
+/* BLIND */
+.blind {
+	display: none;
 }
 
 /* BUTTON */
