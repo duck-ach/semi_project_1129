@@ -1,0 +1,59 @@
+@charset "UTF-8";
+@import url("${contextPath}/resources/uploadcss/reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+
+/* ALL */
+.frm_detail {
+	width : 800px;
+	margin: 0 auto;
+	padding-top: 50px;
+	margin-bottom: 50px;
+}
+
+/* TITLE */
+.view_title {
+	font-size: 25px;	
+}
+
+/* DATE */
+.view_date {
+	font-size: 9px;
+	color: #c8c8c8;
+}
+.date_location {
+	text-align: right;
+}
+
+/* CONTENT */
+.view_content {s
+	width : 800px;
+	margin-top : 5px;
+	margin-bottom: 30px;
+}
+
+/* ATTACH */
+.view_attach {
+	width : 800px;
+}
+#cnt {
+		
+}
+
+/* button */
+.btn {
+	width : 80px;
+	display : inline-block;
+	height: 30px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	line-height: 30px;
+	text-align: center;
+	background: #FFF;
+	border: 1px solid #c8c8c8;
+	color: #464646;
+	font-size: 11px;
+	margin: 1px;
+}
+.btn_location {
+	text-align: right;
+}

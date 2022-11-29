@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.semi02.mapper.BbsMapper">
+
+	<select id="selectAllBbsCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM BBS
+	</select>
+
+	<select id="selectAllBbsList" parameterType="Map" resultType="BbsDTO">
+		SELECT BBS_NO, USER_ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT
+		  FROM BBS
+	</select>
+	
+	<insert id="insertBbs" parameterType="BbsDTO">
+		INSERT INTO BBS
+			(BBS_NO, USER_ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT)
+		VALUES
+			(BBS_SEQ.NEXTVAL, #{userId}, #{bbsTitle}, #{bbsContent}, #{bbsIp}, SYSTIMESTAMP, 0)
+	</insert>
+	
+	<delete id="deleteBbs" parameterType="BbsDTO">
+		DELETE
+		FROM BBS
+		WHERE BBS_NO = #{bbsNo}
+	</delete>
+
+</mapper>

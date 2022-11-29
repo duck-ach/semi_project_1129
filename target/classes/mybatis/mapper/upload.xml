@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.semi02.mapper.UploadMapper">
+	
+	<!-- 업로드 게시판 목록 -->	
+	<select id="selectUploadListByPage" parameterType="Map" resultType="UploadDTO">
+		SELECT A.RN, A.UPLOAD_NO, A.ID, A.UPLOAD_TITLE, A.UPLOAD_CONTENT, A.CREATE_DATE, A.MODIFY_DATE, A.HIT, A.UPLOAD_USER_IP
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY UPLOAD_NO DESC) AS RN, UPLOAD_NO, ID, UPLOAD_TITLE, UPLOAD_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, UPLOAD_USER_IP
+		          FROM UPLOAD) A
+		 WHERE A.RN BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<!-- 게시물 개수 -->
+	<select id="selectAllUploadListCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM UPLOAD
+	</select>
+	
+	<!-- 업로드 게시판 삽입(첨부파일 추가) -->
+	<insert id="insertUpload" parameterType="UploadDTO">
+		<!-- selectKey uploadNo -->
+		<selectKey keyProperty="uploadNo" resultType="int" order="BEFORE">
+			SELECT UPLOAD_SEQ.NEXTVAL
+			  FROM DUAL
+		</selectKey> <!-- 2번째 컬럼에 ID넣어야함! -->
+		INSERT INTO UPLOAD
+			(UPLOAD_NO, UPLOAD_TITLE, UPLOAD_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, UPLOAD_USER_IP)
+		VALUES
+			(#{uploadNo}, #{uploadTitle}, #{uploadContent}, SYSDATE, SYSDATE, 0, #{uploadUserIp})
+	</insert>
+	<!-- 첨부파일 삽입 -->
+	<insert id="insertAttach" parameterType="AttachDTO">
+		INSERT INTO ATTACH <!-- 3번째 컬럼에 ID넣어야함! -->
+			(ATTACH_NO, UPLOAD_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT)
+		VALUES
+			(ATTACH_SEQ.NEXTVAL, #{uploadNo}, #{path}, #{origin}, #{filesystem}, 0)
+	</insert>	
+	
+	<!-- 상세보기 --> <!-- 3번째 컬럼에 ID 넣어야함! -->
+	<select id="selectUploadByNo" parameterType="int" resultType="UploadDTO">
+		SELECT UPLOAD_NO, UPLOAD_TITLE, UPLOAD_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, UPLOAD_USER_IP
+		  FROM UPLOAD
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</select>
+	<!-- 상세보기(첨부파일) -->
+	<select id="selectAttachList" parameterType="int" resultType="AttachDTO">
+		SELECT ATTACH_NO, UPLOAD_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT
+		  FROM ATTACH
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</select>
+	  
+	<!-- 상세보기(조회수) -->
+	<update id="updateHit" parameterType="int">
+		UPDATE UPLOAD
+		   SET HIT = HIT + 1
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</update>
+	
+	<!-- 다운로드 할때도 DB작업 해줘야함 -->
+	<!-- 다운로드 횟수 (조회수 증가와 비슷) -->
+	<update id="updateDownloadCnt" parameterType="int">
+		UPDATE ATTACH
+		   SET DOWNLOAD_CNT = DOWNLOAD_CNT + 1
+		 WHERE ATTACH_NO = #{attachNo}
+	</update>
+	
+	<!-- 첨부파일 다운 시 정보 -->
+	<select id="selectAttachByNo" parameterType="int" resultType="AttachDTO">
+		SELECT ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO
+		  FROM ATTACH
+		 WHERE ATTACH_NO = #{attachNo}
+	</select>
+	
+	<!-- 게시글 수정 -->
+	<update id="updateUpload" parameterType="UploadDTO">
+		UPDATE UPLOAD
+		   SET UPLOAD_TITLE = #{uploadTitle}
+		     , UPLOAD_CONTENT = #{uploadContent}
+		     , MODIFY_DATE = SYSTIMESTAMP
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="deleteUpload" parameterType="int">
+		DELETE
+		  FROM UPLOAD
+		 WHERE UPLOAD_NO = #{uploadNo}
+	</delete>
+	
+	<!-- 첨부파일 삭제 -->
+	<delete id="deleteAttach" parameterType="int">
+		DELETE
+		  FROM ATTACH
+		 WHERE ATTACH_NO = #{attachNo}
+	</delete>
+	
+</mapper>

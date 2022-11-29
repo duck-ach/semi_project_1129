@@ -1,0 +1,153 @@
+@charset "UTF-8";
+@import url("${contextPath}/resources/uploadcss/reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+
+
+
+#parentDiv {
+	width : 900px;
+	height : 1200px;
+	display : block;
+	margin: 0 auto;
+	padding-top: 30px;
+	margin-bottom: 50px;
+}
+
+.upload_header_title {
+	width:100%;
+	height : 50px;
+	border-radius: 5px;
+	margin-bottom: 3px;
+}
+/* HEADER */
+#upload_title {
+	padding-left : 5px;
+	padding-top : 5px;
+	color: #000;
+	font-size: 20px;
+	font-weight: 700px;
+}
+#upload_info {
+	padding-left: 5px;
+	color : #000;
+	font-size: 13px;
+}
+
+/* TABLE */
+table {
+	padding:0;
+	background-color: #ffffff;
+	width: 100%;
+	margin: 0 auto;
+	border-bottom: 1px solid grey;
+	border-collapse: collapse;
+}
+thead {
+	width: 150px;
+	text-align: center;
+}
+
+thead th {
+	font-size: 13px;
+	font-weight: 800px;
+	padding: 8px 5px;
+	text-align: center;
+	border-bottom: 1px solid grey;
+}
+
+tr {
+	display : table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+	font-size: 13px;
+	font-weight: 800px;
+}
+
+ .mouse_hover_tit_a:hover .a_hover_tit{
+	background-color: WhiteSmoke;
+}
+
+td {
+	width:30px;
+	border-bottom: 1px solid grey;
+	font-size: 13px;
+}
+
+.td_center {
+	text-align: center;
+}
+
+.now_page{
+	border: none;
+	display:inline-block;
+	
+	width: 25px;
+	height:25px;
+	background-color: #a0a0a0;
+	color : white;
+		
+	text-align: center;
+	text-decoration: none;
+	
+}
+/*
+.pageNum a {
+	border: none;
+	display:inline-block;
+	
+	width: 25px;
+	height:25px;
+	background-color: #a0a0a0;
+	color : white;
+		
+	text-align: center;
+	text-decoration: none;
+}
+
+
+*/
+.pageNum a{
+	margin:0 5px;
+	
+}
+
+/* PAGE */
+.write_div {
+	text-align: right;
+}
+
+
+.p {
+	display:inline-block;
+	width : 25px;
+	height: 25px;
+	background-color : #a0a0a0;
+	color : white;
+	
+	text-align: center;
+	text-decoration: none;
+}
+tfoot > td {
+	text-align: center;
+	border: none;
+}
+.hidden {
+display: none;
+}
+
+/* button */
+.btn {
+	width : 80px;
+	display : inline-block;
+	height: 30px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	line-height: 30px;
+	text-align: center;
+	background: #FFF;
+	border: 1px solid #c8c8c8;
+	color: #464646;
+	font-size: 11px;
+	margin: 1px;
+}
+

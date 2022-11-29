@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.semi02.mapper.AdminMapper">
+	
+
+	<select id="selectAllUsersCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM USERS
+	</select>
+	
+	
+	<select id="selectAllUsers"  resultType="UsersDTO">
+		  SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, USER_LEVEL, POINT
+		  FROM USERS
+		  ORDER BY USER_NO
+	</select>
+	
+	<select id="selectUsersByQuery" parameterType="Map" resultType="UsersDTO">
+		SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, USER_LEVEL, POINT
+		  FROM USERS
+		 WHERE ${column} LIKE '%' || #{searchText} || '%'
+	</select>
+	
+	<delete id="deleteUsers" parameterType="Map">
+		DELETE
+		  FROM USERS
+		 WHERE USER_NO = #{userNo}
+	</delete>
+	
+	
+	
+		
+	
+</mapper>

@@ -1,0 +1,84 @@
+@charset "UTF-8";
+@import url("${contextPath}/resources/uploadcss/reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100&display=swap');
+
+.frm_write {
+	width : 800px;
+	margin: 0 auto;
+	padding-top: 50px;
+	margin-bottom: 50px;
+}
+
+
+
+#title {
+	display: block;
+	width: 800px;
+	height: 30px;
+	font-size: 24px;
+    padding: 5px 0 5px 5px;
+    border: none;
+    outline: none;
+}
+
+
+/* button */
+.btn {
+	width : 80px !important;
+	display : inline-block !important;
+	height: 30px !important;
+	border-radius: 3px !important;
+	box-sizing: border-box !important;
+	line-height: 30px !important;
+	text-align: center !important;
+	background: #FFF !important;
+	border: 1px solid #c8c8c8 !important;
+	color: #464646 !important;
+	font-size: 11px !important;
+	margin: 1px !important;
+}
+.btn_location {
+	text-align: right;
+}
+.remove_btn {
+	width : 40px;
+	height: 25px;
+	line-height:25px;
+	
+	display : inline-block;
+	margin: 1px;
+	
+	border-radius: 3px;
+	box-sizing: border-box;
+	background: #FFF;
+	margin-left:3px;
+	
+	text-align: center;
+	border: 1px solid #c8c8c8;
+	color: #464646;
+	font-size: 11px;
+}
+
+/* FILE */
+.filebox {
+	text-align: right;
+}
+
+.filebox label {
+	width : 80px;
+	display : inline-block;
+	height: 30px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	line-height: 30px;
+	text-align: center;
+	background: #FFF;
+	border: 1px solid #c8c8c8;
+	color: #464646;
+	font-size: 11px;
+	margin: 1px;
+}
+
+.filebox input[type="file"] {  /* 파일 필드 숨기기 */
+	display: none;
+}

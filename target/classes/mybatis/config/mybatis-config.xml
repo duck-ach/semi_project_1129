@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<typeAliases>
+	<!-- 회원 테이블 -->
+		<typeAlias type="com.gdu.semi02.domain.UserDTO" alias="UserDTO" />
+		<typeAlias type="com.gdu.semi02.domain.SleepUserDTO" alias="SleepUserDTO" />
+		<typeAlias type="com.gdu.semi02.domain.RetireUserDTO" alias="RetireUserDTO" />
+	<!-- 자유게시판 테이블 -->
+		<typeAlias type="com.gdu.semi02.domain.BbsDTO" alias="BbsDTO" />
+		<typeAlias type="com.gdu.semi02.domain.BbsCommDTO" alias="BbsCommDTO" />
+	<!-- 갤러리 테이블 -->
+		<typeAlias type="com.gdu.semi02.domain.GalleryDTO" alias="GalleryDTO" />
+		<typeAlias type="com.gdu.semi02.domain.GalleryCommDTO" alias="GalleryCommDTO" />
+		<typeAlias type="com.gdu.semi02.domain.LikedDTO" alias="LikedDTO" />
+		<typeAlias type="com.gdu.semi02.domain.SummernoteImageDTO" alias="SummernoteImageDTO" />
+	<!-- 업로드 테이블 -->
+		<typeAlias type="com.gdu.semi02.domain.UploadDTO" alias="UploadDTO" />
+		<typeAlias type="com.gdu.semi02.domain.UploadCommDTO" alias="UploadCommDTO" />
+		<typeAlias type="com.gdu.semi02.domain.AttachDTO" alias="AttachDTO" />
+		
+	</typeAliases>
+
+</configuration>
