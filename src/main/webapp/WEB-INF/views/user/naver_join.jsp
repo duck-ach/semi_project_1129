@@ -14,6 +14,9 @@
 	
 	$(function(){
 		fn_emailCheck();
+		fn_checkAll();
+		fn_checkOne();
+		fn_toggleCheck();
 		fn_join();
 	});
 	
@@ -39,9 +42,42 @@
 		});
 	}
 	
+	function fn_checkAll() {
+		$('#check_all').click(function() {
+			$('.check_one').prop('checked', $(this).prop('checked'));
+			if($(this).is(':checked')) {
+				$('.lbl_one').addClass('lbl_checked');
+			} else {
+				$('.lbl_one').removeClass('lbl_checked');
+			}
+		});
+	}
+	
+	function fn_checkOne() {
+		$('.check_one').click(function() {
+			let checkCount = 0;
+			for(let i = 0; i < $('.check_one').length; i++) {
+				checkCount += $($('.check_one')[i]).prop('checked');
+			}
+			$('#check_all').prop('checked', $('.check_one').length == checkCount);
+			if($('#check_all').is(':checked')) {
+				$('.lbl_all').addClass('lbl_checked');
+			} else{
+				$('.lbl_all').removeClass('lbl_checked');
+			}
+		});
+	}
+	
+	function fn_toggleCheck() {
+		$('.lbl_all, .lbl_one').click(function() {
+			$(this).toggleClass('lbl_checked');
+		});
+	}
+	
 	function fn_join(){
 		$('#frm_join').submit(function(event){
 			if(emailPass == false){
+				alert('${profile.id}');
 				alert('이메일을 확인하세요.');
 				event.preventDefault();
 				return;
@@ -69,6 +105,8 @@
 		<form id="frm_join" action="${contextPath}/user/naver/join" method="post">
 		
 			<input type="hidden" name="id" id="id" value="${profile.id}">
+			
+			
 			
 			<div>
 				<label for="name">이름*</label>
@@ -137,16 +175,18 @@
 				</div>
 			</div>
 			<div>
-				<input type="checkbox" id="promotion" name="promotion" class="check_one blind">
+				<input type="checkbox" id="promotion" name="location" class="check_one blind">
 				<label for="promotion" class="lbl_one">마케팅 동의(선택)</label>
 				<div>
 					<textarea>이벤트 ...</textarea>
 				</div>
 			</div>
 			
+			<hr>
+			
 			<div>
 				<button>가입하기</button>
-				<input type="button" value="취소하기" onclick="location.href='${contextPath}'">
+				<input type="button" value="취소하기" onclick="history.back();">
 			</div>
 		
 		</form>

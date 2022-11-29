@@ -523,8 +523,8 @@ public class UserServiceImpl implements UserService {
 		
 		try {
 			
-			String clientId = "ZuA2Hxw8DnfFAdWjRSk4";
-			String redirectURI = URLEncoder.encode("http://localhost:8080" + request.getContextPath() + "/user/naver/login", "UTF-8");  
+			String clientId = "bRRJOp5FZR_iFTOgpM3k";
+			String redirectURI = URLEncoder.encode("http://localhost:9990" + request.getContextPath() + "/user/naver/login", "UTF-8");  
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
 			
@@ -547,14 +547,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public String getNaverLoginToken(HttpServletRequest request) {
 		
-		String clientId = "ZuA2Hxw8DnfFAdWjRSk4";
-		String clientSecret = "aSF2zE3ZRQ";
+		String clientId = "bRRJOp5FZR_iFTOgpM3k";
+		String clientSecret = "diyC_RRtYP";
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
 		
 		String redirectURI = null;
 		try {
-			redirectURI = URLEncoder.encode("http://localhost:8080" + request.getContextPath(), "UTF-8");
+			redirectURI = URLEncoder.encode("http://localhost:9990" + request.getContextPath(), "UTF-8");
 		} catch(UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
