@@ -1,20 +1,59 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="블로그목록" name="title" />
+	<jsp:param value="갤러리 목록" name="title"/>
 </jsp:include>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-</head>
-<body>
+
+<div>
+	<h1>갤러리 목록(전체 ${totalRecord}개)</h1>
 	
-	<h1>이미지 게시판 입니당!히히히</h1>
+	<%-- 
+	<c:if test="${loginUser != null}">
+	
+		<input type="button" value="갤러리 작성하기" onclick="${contextPath}/gallery/write">
+	</c:if>
+	--%>
+	<div>
+		<input type="button" value="게시글 작성하기" onclick="location.href='${contextPath}/gallery/write'">
+	</div>
+	
+	<div>
+		<table border="1">
+			<thead>
+				<tr>
+					<td>순번</td>
+					<td>제목</td>
+					<td>작성자</td>
+					<td>작성일</td>
+					<td>조회수</td>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
+					<tr>
+						<td>${beginNo - vs.index}</td>
+						<td><a href="${contextPath}/gallery/increase/hit?galleryNo=${gallery.galleryNo}">${gallery.galleryTitle}</a> </td>
+						<td>${gallery.id}</td>						
+						<td>${gallery.createDate}</td>
+						<td>${gallery.hit}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						${paging}
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
 
 </body>
 </html>
