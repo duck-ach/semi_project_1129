@@ -2,7 +2,6 @@ package com.gdu.semi02.service;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -11,12 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.gdu.semi02.domain.BbsDTO;
 import com.gdu.semi02.mapper.BbsMapper;
-import com.gdu.semi02.util.PageUtil;
+import com.gdu.semi02.util.BbsPageUtil;
 
 //@AllArgsConstructor
 @Service
@@ -25,7 +23,7 @@ public class BbsServiceImpl implements BbsService {
     @Autowired
 	private BbsMapper bbsMapper;
     @Autowired
-	private PageUtil pageUtil;
+	private BbsPageUtil pageUtil;
 
 	
 	@Override

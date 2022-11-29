@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.gdu.semi02.domain.BbsCommDTO;
 import com.gdu.semi02.mapper.BbsCommMapper;
-import com.gdu.semi02.util.PageUtil;
+import com.gdu.semi02.util.BbsPageUtil;
 
 //@AllArgsConstructor
 @Service
@@ -19,7 +19,7 @@ public class BbsCommServiceImpl implements BbsCommService {
     @Autowired
 	private BbsCommMapper bbsCommMapper;
     @Autowired
-	private PageUtil pageUtil;
+	private BbsPageUtil pageUtil;
 
 	@Override
 	public Map<String, Object> getBbsCommentCount(int bbsNo) {
