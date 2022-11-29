@@ -20,7 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 @Aspect
 public class requiredLoginAspect {
 
-	@Pointcut("execution(* com.gdu.semi.controller.*Controller.requiredLogin_*(..))")
+	@Pointcut("execution(* com.gdu.semi02.controller.*Controller.requiredLogin_*(..))")
 	public void requiredLogin() { }
 	
 	@Before("requiredLogin()")
