@@ -116,7 +116,7 @@
 				</div><br>
 				
 				<div>
-				<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=bRRJOp5FZR_iFTOgpM3k&redirect_uri=http%3A%2F%2Flocalhost%3A9990%2Fsemi_pjt_2%2Fuser%2Fnaver%2Flogin&state=369583993916108389369394549118797326852"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+				<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=bRRJOp5FZR_iFTOgpM3k&redirect_uri=http%3A%2F%2Flocalhost%3A9090%2Fsemi_pjt_2%2Fuser%2Fnaver%2Flogin&state=369583993916108389369394549118797326852"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 				</div>
 				
 			</footer>
