@@ -135,6 +135,11 @@ public class UserController {
 		userService.modifyPassword(request, response);
 	}
 	
+	@PostMapping("/user/modify/info")
+	public void requiredLogin_modifyInfo(HttpServletRequest request, HttpServletResponse response) {
+		userService.modifyInfo(request, response);
+	}
+	
 	@GetMapping("/user/sleep/display")
 	public String sleepDisplay() {
 		return "user/sleep";
