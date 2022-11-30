@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class SummernoteImageDTO {
-   private int blogNo;
+   private int galleryNo;
    private String path;
    private String filesystem;
 }

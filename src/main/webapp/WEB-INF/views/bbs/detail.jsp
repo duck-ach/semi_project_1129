@@ -180,15 +180,15 @@
 					});
 					// paging
 					$('#paging').empty();
-					var pageUtil = resData.pageUtil;
+					var galleryPageUtil = resData.galleryPageUtil;
 					var paging ='';
 					// 이전 블록
-					if(pageUtil.beginPage != 1){
-						paging += '<span class="enable_link" data-page="'+ (pageUtil.beginPage - 1) +'">◀</span>';
+					if(galleryPageUtil.beginPage != 1){
+						paging += '<span class="enable_link" data-page="'+ (galleryPageUtil.beginPage - 1) +'">◀</span>';
 					}
 					
 					// 페이지 번호
-					for(let p = pageUtil.beginPage; p <= pageUtil.endPage; p++){
+					for(let p = galleryPageUtil.beginPage; p <= galleryPageUtil.endPage; p++){
 						if(p == $('#page').val()){
 							paging += '<strong>' + p + '</strong>';
 						} else {
@@ -196,8 +196,8 @@
 						}
 					}
 					// 다음 블록
-					if(pageUtil.endPage != pageUtil.totalPage){
-						paging += '<span class="enable_link" data-page="' + (pageUtil.endPage + 1) +'">▶</span>';
+					if(galleryPageUtil.endPage != galleryPageUtil.totalPage){
+						paging += '<span class="enable_link" data-page="' + (galleryPageUtil.endPage + 1) +'">▶</span>';
 					}
 					$('#paging').append(paging);
 				}

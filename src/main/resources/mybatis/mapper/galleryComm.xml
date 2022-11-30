@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.semi02.mapper.GalleryCommMapper">
+
+	<select id="selectCommentCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM GALLERY_COMM
+		 WHERE GALLERY_NO = #{galleryNo}
+	</select>
+	
+	<insert id="insertComment" parameterType="GalleryCommDTO">
+		INSERT INTO GALLERY_COMM
+			(GALLERY_COMM_NO, GALLERY_NO, COMM_CONTENT, COMM_STATE, COMM_DEPTH, COMM_GROUP_NO, COMM_DATE)
+		VALUES
+			(GALLERY_COMM_SEQ.NEXTVAL, #{galleryNo}, #{commContent}, 1, 0, GALLERY_COMM_SEQ.CURRVAL, SYSDATE)
+	</insert>
+	
+	<select id="selectCommentList" parameterType="Map" resultType="GalleryCommDTO">
+		SELECT A.ROW_NUM, A.GALLERY_COMM_NO, A.GALLERY_NO, A.COMM_CONTENT, A.COMM_STATE, A.COMM_DEPTH, A.COMM_GROUP_NO, A.COMM_DATE
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY COMM_GROUP_NO DESC, COMM_DEPTH ASC, COMM_DATE DESC) AS ROW_NUM, GALLERY_COMM_NO, GALLERY_NO, COMM_CONTENT, COMM_STATE, COMM_DEPTH, COMM_GROUP_NO, COMM_DATE
+		          FROM GALLERY_COMM
+		         WHERE GALLERY_NO = #{galleryNo}) A
+		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<update id="deleteComment" parameterType="int">
+		UPDATE GALLERY_COMM
+		   SET COMM_STATE = -1
+		 WHERE GALLERY_COMM_NO = #{galleryCommNo}
+	</update>
+	
+	<insert id="insertReply" parameterType="GalleryCommDTO">
+		INSERT INTO GALLERY_COMM
+			(GALLERY_COMM_NO, GALLERY_NO, COMM_CONTENT, COMM_STATE, COMM_DEPTH, COMM_GROUP_NO, COMM_DATE)
+		VALUES
+			(GALLERY_COMM_SEQ.NEXTVAL, #{galleryNo}, #{commContent}, 1, 1, #{commGroupNo}, SYSDATE)
+	</insert>
+	
+</mapper>
