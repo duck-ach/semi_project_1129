@@ -98,10 +98,10 @@
 		 WHERE ATTACH_NO = #{attachNo}
 	</delete>
 	
-	<!-- POINT -->
+	<!-- POINT 게시글 -->
 	<update id="updateUserPoint" parameterType="int">
 		UPDATE USERS
-		   SET POINT = POINT + 5
+		   SET POINT = POINT + 10
 		 WHERE USER_NO = #{userNo}
 	</update>
 	

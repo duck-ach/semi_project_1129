@@ -67,11 +67,11 @@
 						<c:forEach items="${attachList}" var="attach" varStatus="status">
 						<input type="hidden" class="attachCnt" value="${status.count}">	
 							<div>
-								<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
+								<a class="attachFile" href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
 							</div>
 						</c:forEach>
 						<div>
-							<a href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
+							<a class="attachFile" href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
 						</div>
 					</div>
 				

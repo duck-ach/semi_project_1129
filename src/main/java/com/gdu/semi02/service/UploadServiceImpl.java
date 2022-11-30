@@ -91,6 +91,8 @@ public class UploadServiceImpl implements UploadService {
 		HttpSession session = multipartRequest.getSession();
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		
+		loginUser.setPoint(uploadMapper.updateUserPoint(loginUser.getUserNo()));
+		
 		// DB로 보낼 UploadDTO
 		UploadDTO upload = UploadDTO.builder()
 				.uploadTitle(uploadTitle)
@@ -197,7 +199,7 @@ public class UploadServiceImpl implements UploadService {
 	}
 	
 	@Override // ResponseEntity는 페이지변화 X, 값 반환 (보통 ajax에서 많이 사용함)
-	public ResponseEntity<Resource> download(String userAgent, int attachNo) {
+	public ResponseEntity<Resource> download(String userAgent, int attachNo, HttpServletRequest request) {
 		
 		// 다운로드 할 첨부 파일의 정보(경로, 이름)
 		AttachDTO attach = uploadMapper.selectAttachByNo(attachNo);
@@ -210,6 +212,13 @@ public class UploadServiceImpl implements UploadService {
 		if(resource.exists() == false) {
 			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND); // '못찾겠다~' 만 간단히 반환한것
 		}
+		
+		// Session의 User 정보
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		loginUser.setPoint(uploadMapper.updateUserPointDownload(loginUser.getUserNo()));
+		
 		
 		// 다운로드 횟수 증가
 		uploadMapper.updateDownloadCnt(attachNo);
