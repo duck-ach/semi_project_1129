@@ -28,17 +28,17 @@
 	
 	function fn_showHide(){
 		
-		$('#modify_pw_area').hide();
+		$('#modify_info_area').hide();
 		
 		$('#btn_edit_pw').click(function(){
 			fn_init();
-			$('#modify_pw_area').show();
+			$('#modify_info_area').show();
 			
 		});
 		
-		$('#btn_edit_pw_cancel').click(function(){
+		$('#btn_edit_info_cancel').click(function(){
 			fn_init();
-			$('#modify_pw_area').hide();
+			$('#modify_info_area').hide();
 			
 		});
 		
@@ -96,7 +96,7 @@
 	
 	function fn_pwSubmit(){
 		
-		$('#frm_edit_pw').submit(function(event){
+		$('#frm_edit_info').submit(function(event){
 			
 			if(pwPass == false || rePwPass == false){
 				alert('비밀번호 입력을 확인하세요.');
@@ -116,65 +116,66 @@
 		<h1>마이페이지</h1>
 		
 		<form>
-			<div>
-				<label for="id">아이디*</label>
-				<input type="text" name="id" id="id" readonly value="${user.id}">
-				<span id="msg_id"></span>
-			</div>
 			
-			<div>
-				<label for="name">이름*</label>
-				<input type="text" name="name" id="name" value="${user.name}">
-			</div>
-			
-			<div>
-				<label for="none">선택 안함</label>
-				<input type="radio" name="gender" id="none" value="NO" checked="checked">
-				<label for="male">남자</label>
-				<input type="radio" name="gender" id="male" value="M">
-				<label for="female">여자</label>
-				<input type="radio" name="gender" id="female" value="F">
-			</div>
-		
-			<div>
-				<label for="mobile">휴대전화*</label>
-				<input type="text" name="mobile" id="mobile" placeholder=" - 제외">
-				<span id="msg_mobile"></span>
-			</div>
-		
-			<div>
-				<label for="birthyear">생년월일*</label>
-				<select name="birthyear" id="birthyear"></select>
-				<select name="birthmonth" id="birthmonth"></select>
-				<select name="birthdate" id="birthdate"></select>				
-			</div>
-			
-			<div>
-				<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly>
-				<input type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
-				<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" readonly><br>
-				<span id="guide" style="color:#999;display:none"></span>
-				<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
-				<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" readonly>
-				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-			</div>
-			
-			<div>
-				<label for="email">이메일*</label>
-				<input type="text" name="email" id="email">
-				<input type="button" value="인증번호받기" id="btn_getAuthCode">
-				<span id="msg_email"></span><br>
-				<input type="text" name="authCode" id="authCode" placeholder="인증코드 입력">
-				<input type="button" value="인증하기" id="btn_verifyAuthCode">
-			</div>
 		</form>
 		
 		<div>
 			<input type="button" value="비밀번호변경" id="btn_edit_pw">
 		</div>
-		<div id="modify_pw_area">
-			<form id="frm_edit_pw" action="${contextPath}/user/modify/pw" method="post">
+		<div id="modify_info_area">
+			<form id="frm_edit_info" action="${contextPath}/user/modify/pw" method="post">
+				<div>
+					<label for="id">아이디*</label>
+					<input type="text" name="id" id="id" readonly value="${user.id}">
+					<span id="msg_id"></span>
+				</div>
+				
+				<div>
+					<label for="name">이름*</label>
+					<input type="text" name="name" id="name" value="${name}">
+				</div>
+				
+				<div>
+					<label for="none">선택 안함</label>
+					<input type="radio" name="gender" id="none" value="NO" checked="checked">
+					<label for="male">남자</label>
+					<input type="radio" name="gender" id="male" value="M">
+					<label for="female">여자</label>
+					<input type="radio" name="gender" id="female" value="F">
+				</div>
+			
+				<div>
+					<label for="mobile">휴대전화*</label>
+					<input type="text" name="mobile" id="mobile" placeholder=" - 제외">
+					<span id="msg_mobile"></span>
+				</div>
+			
+				<div>
+					<label for="birthyear">생년월일*</label>
+					<select name="birthyear" id="birthyear"></select>
+					<select name="birthmonth" id="birthmonth"></select>
+					<select name="birthdate" id="birthdate"></select>				
+				</div>
+				
+				<div>
+					<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly>
+					<input type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
+					<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
+					<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" readonly><br>
+					<span id="guide" style="color:#999;display:none"></span>
+					<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
+					<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" readonly>
+					<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+				</div>
+				
+				<div>
+					<label for="email">이메일*</label>
+					<input type="text" name="email" id="email">
+					<input type="button" value="인증번호받기" id="btn_getAuthCode">
+					<span id="msg_email"></span><br>
+					<input type="text" name="authCode" id="authCode" placeholder="인증코드 입력">
+					<input type="button" value="인증하기" id="btn_verifyAuthCode">
+				</div>
 				<div>
 					<label for="pw">비밀번호</label>
 					<input type="password" name="pw" id="pw">
@@ -188,7 +189,7 @@
 				</div>
 				<div>
 					<button>비밀번호 변경하기</button>
-					<input type="button" value="취소하기" id="btn_edit_pw_cancel">
+					<input type="button" value="취소하기" id="btn_edit_info_cancel">
 				</div>
 			</form>
 		</div>
