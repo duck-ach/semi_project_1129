@@ -29,4 +29,7 @@ public interface UploadMapper {
 	public int deleteUpload(int uploadNo);
 	// 첨부파일 삭제
 	public int deleteAttach(int attachNo);
+	// 유저 포인트
+	public int updateUserPoint(int userNo);
+	public int updateUserPointDownload(int userNo);
 }

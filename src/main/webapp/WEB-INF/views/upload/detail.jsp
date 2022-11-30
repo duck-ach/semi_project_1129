@@ -75,11 +75,6 @@
 						</div>
 					</div>
 				
-					<script>
-						// 첨부파일 개수
-						var att_cnt = $('.attachCnt').length;
-						$('#cnt').text('첨부파일 (' + att_cnt + ')');
-					</script>
 				</div>
 				
 			</div>
@@ -92,38 +87,47 @@
 
 		<hr>
 		<div>
-			<form id="frm_add_comment">
-				<div class="add_comment">
-					<div class="add_comment_input">
-						<input type="text" name="commContent" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요">
+			<c:if test="${loginUser.id != null}">
+				<form id="frm_add_comment">
+					<div class="add_comment">
+						<div class="add_comment_input">
+								<input type="text" name="commContent" id="content" placeholder="댓글을 작성해주세요.">
+						</div>
+						<div class="add_comment_btn">
+							<input type="button" value="작성완료" id="btn_add_comment">
+						</div>
 					</div>
-					<div class="add_comment_btn">
-						<input type="button" value="작성완료" id="btn_add_comment">
+					<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
+				</form>
+				<div>
+					<span id="btn_comment_list">
+						댓글<span id="comment_count"></span>개
+					</span>
+					<hr>
+			
+					<div id="comment_area">
+						<div id="comment_list"></div>
+						<div id="paging"></div>
 					</div>
 				</div>
-				<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
-			</form>
-			<div>
-				<span id="btn_comment_list">
-					댓글<span id="comment_count"></span>개
-				</span>
-				<hr>
-		
-				<div id="comment_area">
-					<div id="comment_list"></div>
-					<div id="paging"></div>
-				</div>
-			</div>
+			</c:if>
 		</div>
-	</div>
+		<c:if test="${loginUser.id == null}">
+			<div class="unlogin_comment">
+				<span>댓글을 작성하시려면 로그인이 필요합니다.</span>
+			</div>
+		</c:if>
+</div>
 	
 	<!-- 현재 페이지 번호를 저장하고 있는 hidden -->
 	<input type="hidden" id="page" value="1">
 	
 	<script>
-	
+		
 		// 함수 호출
-		fn_switchAttachList();
+		fn_comment_submit_return();
+		fn_attach_download_return();
+		fn_attachblind();
 		fn_commentCount();
 		fn_switchCommentList();
 		fn_addComment();
@@ -132,6 +136,38 @@
 		fn_removeComment();
 		fn_switchReplyArea();
 		fn_addReply();
+		
+ 		function fn_comment_submit_return() {
+			$('.unlogin_comment').click(function(){
+				location.href='${contextPath}/user/login/form';
+				return;
+			});
+		};
+		
+		function fn_attach_download_return() {
+			if(${loginUser == null}) {
+				$('#cnt').click(function(){
+					alert('첨부파일을 다운로드 받기 위해서는 로그인이 필요합니다.');
+					event.preventDefault();
+					location.href='${contextPath}/user/login/form';
+					return;
+				});			
+			} else {
+				fn_switchAttachList();
+			}
+		};
+
+		
+		// 첨부파일 없으면 안보이게 하는 것
+		function fn_attachblind() {
+			// 첨부파일 개수
+			var att_cnt = $('.attachCnt').length;
+			$('#cnt').text('첨부파일 (' + att_cnt + ')');
+			
+			if(att_cnt == 0) {
+				$('.attach_location').prop('class', 'blind');
+			}
+		}
 		
 		// 첨부파일 toggle
 		function fn_switchAttachList() {
@@ -205,6 +241,7 @@
 					// 화면에 댓글 목록 뿌리기
 					$('#comment_list').empty();
 					$.each(resData.commentList, function(i, comment){
+						var date = '${comment.commDate}';
 						var div = '';
 						if(comment.depth == 0){
 							div += '<div>';
@@ -213,6 +250,7 @@
 						}
 						if(comment.state == 1) {
 							div += '<div>';
+							div += comment.id;
 							div += comment.commContent;
 							// 작성자만 지울 수 있도록 if 처리 필요
 							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
@@ -221,6 +259,7 @@
 							if(comment.depth == 0) {
 								div += '<input type="button" value="답글" class="btn_reply_area">'; // comment의 commentNo가 groupNo와 같다.
 							}
+							div += comment.commDate;
 							div += '</div>';
 						} else {
 							if(comment.depth == 0) {
@@ -233,7 +272,7 @@
 						div += '<form class="frm_reply">';
 						div += '<input type="hidden" name="uploadNo" value="' + comment.uploadNo + '">'; // hidden에는 name속성이 있어야함(serialize로 보낼것임)
 						div += '<input type="hidden" name="groupNo" value="' + comment.uploadCommNo + '">';
-						div += '<input type="text" name="content" placeholder="답글을 작성하려면 로그인을 해 주세요">'
+						div += '<input type="text" name="commContent" placeholder="답글을 작성하려면 로그인을 해 주세요">'
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">' // type을 submit으로 해버리면 ajax 처리가 안됨. mvc처리가 됨
 						div += '</form>';
@@ -279,7 +318,7 @@
 					$.ajax({
 						type : 'post', // 큰 차이는 없음
 						url : '${contextPath}/comment/remove',
-						data : 'uploadCommNo=' + $(this).data('comment_no'), // 클릭한 버튼의 data속성에 넣음
+						data : 'uploadCommentNo=' + $(this).data('comment_no'), // 클릭한 버튼의 data속성에 넣음
 						dataType : 'json',
 						success : function(resData) { // resData = {"isRemove" : true}
 							if(resData.isRemove) {
@@ -295,7 +334,7 @@
 		
 		function fn_switchReplyArea() {
 			$(document).on('click', '.btn_reply_area', function() {
-				$(this).parent().next().next().toggleClass('blind'); // this의 부모의 형제의 형제
+				$(this).parent().next('.reply_area').toggleClass('blind'); // this의 부모의 형제의 형제
 			}); // event
 		} // function
 		
@@ -319,6 +358,7 @@
 				});
 			});
 		}
+		
 		
 		
 	</script>

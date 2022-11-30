@@ -98,4 +98,17 @@
 		 WHERE ATTACH_NO = #{attachNo}
 	</delete>
 	
+	<!-- POINT -->
+	<update id="updateUserPoint" parameterType="int">
+		UPDATE USERS
+		   SET POINT = POINT + 5
+		 WHERE USER_NO = #{userNo}
+	</update>
+	
+	<!-- POINT 사용 -->
+	<update id="updateUserPointDownload" parameterType="int">
+		UPDATE USERS
+		   SET POINT = POINT - 5
+		 WHERE USER_NO = #{userNo}
+	</update>
 </mapper>
