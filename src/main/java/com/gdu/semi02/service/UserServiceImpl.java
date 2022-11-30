@@ -390,12 +390,6 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserDTO getUserByUserNo(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public void modifyPassword(HttpServletRequest request, HttpServletResponse response) {
 		
 		HttpSession session = request.getSession();
@@ -524,7 +518,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			
 			String clientId = "bRRJOp5FZR_iFTOgpM3k";
-			String redirectURI = URLEncoder.encode("http://localhost:9990" + request.getContextPath() + "/user/naver/login", "UTF-8");  
+			String redirectURI = URLEncoder.encode("http://localhost:9090" + request.getContextPath() + "/user/naver/login", "UTF-8");  
 			SecureRandom random = new SecureRandom();
 			String state = new BigInteger(130, random).toString();
 			
@@ -554,7 +548,7 @@ public class UserServiceImpl implements UserService {
 		
 		String redirectURI = null;
 		try {
-			redirectURI = URLEncoder.encode("http://localhost:9990" + request.getContextPath(), "UTF-8");
+			redirectURI = URLEncoder.encode("http://localhost:9090" + request.getContextPath(), "UTF-8");
 		} catch(UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -763,10 +757,5 @@ public class UserServiceImpl implements UserService {
 		}
 		
 	}
-	
-	
-	
-	
-	
 	
 }
