@@ -34,7 +34,7 @@
 	<delete id="deleteComment" parameterType="int">
 		UPDATE UPLOAD_COMM
 		   SET STATE = -1
-		 WHERE UPLOAD_COMM_NO = #{uploadCommentNo}
+		 WHERE UPLOAD_COMM_NO = #{uploadCommNo}
 	</delete>
 	
 	<!-- 답글 삽입 (DEPTH와 GROUP_NO가 달라짐) -->

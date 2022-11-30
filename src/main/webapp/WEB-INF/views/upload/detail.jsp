@@ -318,7 +318,7 @@
 					$.ajax({
 						type : 'post', // 큰 차이는 없음
 						url : '${contextPath}/comment/remove',
-						data : 'uploadCommentNo=' + $(this).data('comment_no'), // 클릭한 버튼의 data속성에 넣음
+						data : 'uploadCommNo=' + $(this).data('comment_no'), // 클릭한 버튼의 data속성에 넣음
 						dataType : 'json',
 						success : function(resData) { // resData = {"isRemove" : true}
 							if(resData.isRemove) {
