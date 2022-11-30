@@ -46,7 +46,7 @@
 						<tr class="mouse_hover_tit_a">
 							<td class="a_hover_tit td_center">${upload.uploadNo}</td>
 							<td class="a_hover_tit"><a href="${contextPath}/upload/increase/hit?uploadNo=${upload.uploadNo}">${upload.uploadTitle}</a></td>
-							<td class="a_hover_tit">${upload.id}</td>
+							<td class="a_hover_tit td_center">${upload.id}</td>
 							<td class="a_hover_tit td_center"><fmt:formatDate value="${upload.createDate}" pattern="yy. M. d HH:mm" /></td>
 							<td class="a_hover_tit td_center">${upload.hit}</td>
 						</tr>

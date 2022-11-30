@@ -15,10 +15,9 @@ public class UploadCommDTO {
 	private int uploadCommNo;
 	private int uploadNo;
 	private String id;
-	private String commUserIp;
 	private String commContent;
 	private Date commDate;
-	private int commState;
+	private int state;
 	private int depth;
 	private int groupNo;
 }

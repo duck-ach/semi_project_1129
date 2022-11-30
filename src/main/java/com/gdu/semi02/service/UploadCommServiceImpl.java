@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gdu.semi02.domain.UploadCommDTO;
+import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.mapper.UploadCommMapper;
 import com.gdu.semi02.util.UploadCommPageUtil;
 
@@ -22,14 +24,21 @@ public class UploadCommServiceImpl implements UploadCommService {
 	private UploadCommPageUtil pageUtil;
 	
 	@Override
-	public Map<String, Object> getCommentCount(int blogNo) {
+	public Map<String, Object> getCommentCount(int uploadNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("commentCount", commentMapper.selectCommentCount(blogNo)); // ajax로 넘겨줄 resData
+		result.put("commentCount", commentMapper.selectCommentCount(uploadNo)); // ajax로 넘겨줄 resData
 		return result;
 	}
 	
 	@Override
-	public Map<String, Object> addComment(UploadCommDTO comment) {
+	public Map<String, Object> addComment(UploadCommDTO comment, HttpServletRequest request) {
+		
+		// Session의 User 정보
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		comment.setId(loginUser.getId());
+		
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isAdd", commentMapper.insertComment(comment) == 1); // ajax로 넘겨줄 resData
 		return result;
@@ -60,14 +69,19 @@ public class UploadCommServiceImpl implements UploadCommService {
 	}
 
 	@Override
-	public Map<String, Object> removeComment(int commentNo) {
+	public Map<String, Object> removeComment(int uploadCommNo) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isRemove", commentMapper.deleteComment(commentNo) == 1);
+		result.put("isRemove", commentMapper.deleteComment(uploadCommNo) == 1);
 		return result;
 	}
 	
 	@Override
-	public Map<String, Object> addReply(UploadCommDTO reply) {
+	public Map<String, Object> addReply(UploadCommDTO reply, HttpServletRequest request) {
+		// Session의 User 정보
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		reply.setId(loginUser.getId());
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isAdd", commentMapper.insertReply(reply) == 1);
 		return result;

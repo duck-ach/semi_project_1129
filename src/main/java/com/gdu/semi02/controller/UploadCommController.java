@@ -22,14 +22,14 @@ public class UploadCommController {
 	
 	@ResponseBody
 	@GetMapping(value="/comment/getCount", produces="application/json")
-	public Map<String, Object> getCount(@RequestParam("blogNo") int blogNo) {
-		return commentService.getCommentCount(blogNo);
+	public Map<String, Object> getCount(@RequestParam("uploadNo") int uploadNo) {
+		return commentService.getCommentCount(uploadNo);
 	}
 	
 	@ResponseBody
 	@PostMapping(value="/comment/add", produces="application/json")
-	public Map<String, Object> add(UploadCommDTO comment) {
-		return commentService.addComment(comment);
+	public Map<String, Object> add(UploadCommDTO comment, HttpServletRequest request) {
+		return commentService.addComment(comment, request);
 	}
 	
 	@ResponseBody
@@ -40,13 +40,13 @@ public class UploadCommController {
 	
 	@ResponseBody
 	@PostMapping(value="/comment/remove", produces="application/json")
-	public Map<String, Object> remove(@RequestParam("commentNo") int commentNo) { // CommentNo만 받으면되니까 requestParam으로 바로 받아줌
-		return commentService.removeComment(commentNo);
+	public Map<String, Object> remove(@RequestParam("uploadCommNo") int uploadCommNo) { // CommentNo만 받으면되니까 requestParam으로 바로 받아줌
+		return commentService.removeComment(uploadCommNo);
 	}
 	
 	@ResponseBody
 	@PostMapping(value="/comment/reply/add", produces="application/json")
-	public Map<String, Object> addReply(UploadCommDTO reply) {
-		return commentService.addReply(reply);
+	public Map<String, Object> addReply(UploadCommDTO reply, HttpServletRequest request) {
+		return commentService.addReply(reply, request);
 	}
 }

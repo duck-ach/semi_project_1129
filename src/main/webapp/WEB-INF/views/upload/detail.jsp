@@ -59,7 +59,7 @@
 		</div>
 		<hr>
 		<!-- 첨부파일 -->
-		<c:if test="attach != null">
+
 			<div>
 				<div class="attach_location">
 					<span id="cnt"></span>
@@ -83,7 +83,7 @@
 				</div>
 				
 			</div>
-		</c:if>
+
 		<div class="view_content">
 			<span>${upload.uploadContent}</span>
 		</div>
@@ -103,6 +103,17 @@
 				</div>
 				<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
 			</form>
+			<div>
+				<span id="btn_comment_list">
+					댓글<span id="comment_count"></span>개
+				</span>
+				<hr>
+		
+				<div id="comment_area">
+					<div id="comment_list"></div>
+					<div id="paging"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	
@@ -202,10 +213,11 @@
 						}
 						if(comment.state == 1) {
 							div += '<div>';
-							div += comment.content;
+							div += comment.commContent;
 							// 작성자만 지울 수 있도록 if 처리 필요
 							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
 							// 댓글만 답글을 달 수 있도록 if 처리 필요
+							
 							if(comment.depth == 0) {
 								div += '<input type="button" value="답글" class="btn_reply_area">'; // comment의 commentNo가 groupNo와 같다.
 							}
@@ -217,10 +229,6 @@
 								div += '<div>삭제된 답글입니다.</div>';
 							}
 						}
-						div += '<div>';
-						moment.locale('ko-KR');
-						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.commDate).format('YYYY. MM. DD hh:mm') + '</span>';
-						div += '</div>';
 						div += '<div style="margin-left:40px;" class="reply_area blind">';
 						div += '<form class="frm_reply">';
 						div += '<input type="hidden" name="uploadNo" value="' + comment.uploadNo + '">'; // hidden에는 name속성이 있어야함(serialize로 보낼것임)
@@ -229,7 +237,6 @@
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">' // type을 submit으로 해버리면 ajax 처리가 안됨. mvc처리가 됨
 						div += '</form>';
-						div += '</div>';
 						div += '</div>';
 						$('#comment_list').append(div);
 						$('#comment_list').append('<div style="border-bottom: 1px dotted gray;"></div>');

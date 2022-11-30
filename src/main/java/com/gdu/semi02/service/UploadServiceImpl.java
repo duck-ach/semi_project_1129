@@ -1,4 +1,4 @@
-package com.gdu.semi02.service;
+ package com.gdu.semi02.service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -88,15 +88,15 @@ public class UploadServiceImpl implements UploadService {
 		
 		
 		// Session의 User 정보
-//		HttpSession session = multipartRequest.getSession();
-//		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		HttpSession session = multipartRequest.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		
 		// DB로 보낼 UploadDTO
 		UploadDTO upload = UploadDTO.builder()
 				.uploadTitle(uploadTitle)
 				.uploadContent(uploadContent)
 				.uploadUserIp(ip)
-//				.id(loginUser.getId())
+				.id(loginUser.getId())
 				.build();
 		System.out.println(upload.toString());
 		
@@ -146,6 +146,7 @@ public class UploadServiceImpl implements UploadService {
 					AttachDTO attach = AttachDTO.builder()
 							.path(path)						// 경로
 							.origin(origin) 				// 원래이름
+							.id(loginUser.getId())
 							.filesystem(filesystem)			// 바뀐 이름
 							.uploadNo(upload.getUploadNo()) // 업로드 번호(DB에서 가져옴)
 							.build();
