@@ -18,7 +18,7 @@ public class UploadCommDTO {
 	private String commUserIp;
 	private String commContent;
 	private Date commDate;
-	private int state;
+	private int commState;
 	private int depth;
 	private int groupNo;
 }

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="업로드게시판-${upload.uploadTitle}번게시글" name="title" />
+	<jsp:param value="업로드게시판-${upload.uploadTitle}" name="title" />
 </jsp:include>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/uploadcss/detail.css">
@@ -59,31 +59,33 @@
 		</div>
 		<hr>
 		<!-- 첨부파일 -->
-		<div>
-			<div class="attach_location">
-				<span id="cnt"></span>
-				<div class="view_attach blind">
-					<c:forEach items="${attachList}" var="attach" varStatus="status">
-					<input type="hidden" class="attachCnt" value="${status.count}">	
+		<c:if test="attach != null">
+			<div>
+				<div class="attach_location">
+					<span id="cnt"></span>
+					<div class="view_attach blind">
+						<c:forEach items="${attachList}" var="attach" varStatus="status">
+						<input type="hidden" class="attachCnt" value="${status.count}">	
+							<div>
+								<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
+							</div>
+						</c:forEach>
 						<div>
-							<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
+							<a href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
 						</div>
-					</c:forEach>
-					<div>
-						<a href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
 					</div>
+				
+					<script>
+						// 첨부파일 개수
+						var att_cnt = $('.attachCnt').length;
+						$('#cnt').text('첨부파일 (' + att_cnt + ')');
+					</script>
 				</div>
-			
-				<script>
-					// 첨부파일 개수
-					var att_cnt = $('.attachCnt').length;
-					$('#cnt').text('첨부파일 (' + att_cnt + ')');
-				</script>
+				
 			</div>
-			
-			<div class="view_content">
-				<span>${upload.uploadContent}</span>
-			</div>
+		</c:if>
+		<div class="view_content">
+			<span>${upload.uploadContent}</span>
 		</div>
 		
 		
@@ -93,7 +95,7 @@
 			<form id="frm_add_comment">
 				<div class="add_comment">
 					<div class="add_comment_input">
-						<input type="text" name="content" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요">
+						<input type="text" name="commContent" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요">
 					</div>
 					<div class="add_comment_btn">
 						<input type="button" value="작성완료" id="btn_add_comment">
@@ -103,6 +105,9 @@
 			</form>
 		</div>
 	</div>
+	
+	<!-- 현재 페이지 번호를 저장하고 있는 hidden -->
+	<input type="hidden" id="page" value="1">
 	
 	<script>
 	
@@ -129,7 +134,7 @@
 			$.ajax({
 				type: 'get',
 				url: '${contextPath}/comment/getCount',
-				data: 'blogNo=${blog.blogNo}',
+				data: 'uploadNo=${upload.uploadNo}',
 				dataType: 'json',
 				success: function(resData){  // resData = {"commentCount": 개수}
 					$('#comment_count').text(resData.commentCount);
@@ -170,7 +175,7 @@
 			$.ajax({
 				type: 'get',
 				url: '${contextPath}/comment/list',
-				data: 'blogNo=${blog.blogNo}&page=' + $('#page').val(),
+				data: 'uploadNo=${upload.uploadNo}&page=' + $('#page').val(),
 				dataType: 'json',
 				success: function(resData){
 					/*
@@ -199,7 +204,7 @@
 							div += '<div>';
 							div += comment.content;
 							// 작성자만 지울 수 있도록 if 처리 필요
-							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '">';
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
 							// 댓글만 답글을 달 수 있도록 if 처리 필요
 							if(comment.depth == 0) {
 								div += '<input type="button" value="답글" class="btn_reply_area">'; // comment의 commentNo가 groupNo와 같다.
@@ -214,12 +219,12 @@
 						}
 						div += '<div>';
 						moment.locale('ko-KR');
-						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.createDate).format('YYYY. MM. DD hh:mm') + '</span>';
+						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.commDate).format('YYYY. MM. DD hh:mm') + '</span>';
 						div += '</div>';
 						div += '<div style="margin-left:40px;" class="reply_area blind">';
 						div += '<form class="frm_reply">';
-						div += '<input type="hidden" name="blogNo" value="' + comment.blogNo + '">'; // hidden에는 name속성이 있어야함(serialize로 보낼것임)
-						div += '<input type="hidden" name="groupNo" value="' + comment.commentNo + '">';
+						div += '<input type="hidden" name="uploadNo" value="' + comment.uploadNo + '">'; // hidden에는 name속성이 있어야함(serialize로 보낼것임)
+						div += '<input type="hidden" name="groupNo" value="' + comment.uploadCommNo + '">';
 						div += '<input type="text" name="content" placeholder="답글을 작성하려면 로그인을 해 주세요">'
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">' // type을 submit으로 해버리면 ajax 처리가 안됨. mvc처리가 됨
@@ -267,7 +272,7 @@
 					$.ajax({
 						type : 'post', // 큰 차이는 없음
 						url : '${contextPath}/comment/remove',
-						data : 'commentNo=' + $(this).data('comment_no'), // 클릭한 버튼의 data속성에 넣음
+						data : 'uploadCommNo=' + $(this).data('comment_no'), // 클릭한 버튼의 data속성에 넣음
 						dataType : 'json',
 						success : function(resData) { // resData = {"isRemove" : true}
 							if(resData.isRemove) {

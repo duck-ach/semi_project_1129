@@ -28,21 +28,21 @@
 			  FROM DUAL
 		</selectKey> <!-- 2번째 컬럼에 ID넣어야함! -->
 		INSERT INTO UPLOAD
-			(UPLOAD_NO, UPLOAD_TITLE, UPLOAD_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, UPLOAD_USER_IP)
+			(UPLOAD_NO, ID, UPLOAD_TITLE, UPLOAD_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, UPLOAD_USER_IP)
 		VALUES
-			(#{uploadNo}, #{uploadTitle}, #{uploadContent}, SYSDATE, SYSDATE, 0, #{uploadUserIp})
+			(#{uploadNo}, #{id}, #{uploadTitle}, #{uploadContent}, SYSDATE, SYSDATE, 0, #{uploadUserIp})
 	</insert>
 	<!-- 첨부파일 삽입 -->
 	<insert id="insertAttach" parameterType="AttachDTO">
 		INSERT INTO ATTACH <!-- 3번째 컬럼에 ID넣어야함! -->
-			(ATTACH_NO, UPLOAD_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT)
+			(ATTACH_NO, UPLOAD_NO, ID, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT)
 		VALUES
-			(ATTACH_SEQ.NEXTVAL, #{uploadNo}, #{path}, #{origin}, #{filesystem}, 0)
+			(ATTACH_SEQ.NEXTVAL, #{uploadNo}, #{id}, #{path}, #{origin}, #{filesystem}, 0)
 	</insert>	
 	
 	<!-- 상세보기 --> <!-- 3번째 컬럼에 ID 넣어야함! -->
 	<select id="selectUploadByNo" parameterType="int" resultType="UploadDTO">
-		SELECT UPLOAD_NO, UPLOAD_TITLE, UPLOAD_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, UPLOAD_USER_IP
+		SELECT UPLOAD_NO, UPLOAD_TITLE, ID, UPLOAD_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, UPLOAD_USER_IP
 		  FROM UPLOAD
 		 WHERE UPLOAD_NO = #{uploadNo}
 	</select>

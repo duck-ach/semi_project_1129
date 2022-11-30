@@ -39,16 +39,16 @@ public class UploadCommServiceImpl implements UploadCommService {
 	public Map<String, Object> getCommentList(HttpServletRequest request) {
 		
 		// 파라미터
-		int blogNo = Integer.parseInt(request.getParameter("blogNo"));
+		int uploadNo = Integer.parseInt(request.getParameter("uploadNo"));
 		int page = Integer.parseInt(request.getParameter("page"));
 		
 		// comment 개수
-		int commentCount = commentMapper.selectCommentCount(blogNo);
+		int commentCount = commentMapper.selectCommentCount(uploadNo);
 		
 		pageUtil.setPageUtil(page, commentCount); // 페이지에대한 계산(페이지수, 댓글개수)
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("blogNo", blogNo);
+		map.put("uploadNo", uploadNo);
 		map.put("begin", pageUtil.getBegin());
 		map.put("end", pageUtil.getEnd());
 		
