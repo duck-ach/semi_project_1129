@@ -14,9 +14,13 @@
 
 <div>
 
-	<div>제목</div>
-	
 	<div>${bbs.bbsTitle}</div>
+	<div>${user.id}</div>
+	<div>${bbs.bbsCreateDate}</div>
+	<div>${bbs.bbsIp}</div>
+	<div>${bbs.bbsHit}</div>
+	
+	
 	
 	<hr>	
 	

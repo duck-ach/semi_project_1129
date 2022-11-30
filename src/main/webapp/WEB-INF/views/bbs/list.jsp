@@ -15,12 +15,13 @@
 	</div>
 	
 	<div>
-		<table border="1">
+		<table>
 			<thead>
 				<tr>	
 					<td>번호</td>
 					<td>제목</td>
-					<td>날짜</td>
+					<td>작성자</td>
+					<td>작성일</td>
 					<td>조회</td>
 				</tr>
 			</thead>
@@ -29,6 +30,7 @@
 					<tr>
 						<td>${beginNo - vs.index}</td>
 						<td><a href="${contextPath}/bbs/increase/hit?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+						<td>${user.id}</td>
 						<td>${bbs.bbsCreateDate}</td>
 						<td>${bbs.bbsHit}</td>
 					</tr>
