@@ -11,19 +11,68 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-<script src="${contextPath}/resources/js/agree.js"></script>
+<script>
+	$(function() {
+		fn_checkAll();
+		fn_checkOne();
+		fn_toggleCheck();
+		fn_submit();
+	});
+	
+	function fn_checkAll() {
+		$('#check_all').click(function() {
+			$('.check_one').prop('checked', $(this).prop('checked'));
+			if($(this).is(':checked')) {
+				$('.lbl_one').addClass('lbl_checked');
+			} else {
+				$('.lbl_one').removeClass('lbl_checked');
+			}
+		});
+	}
+	
+	function fn_checkOne() {
+		$('.check_one').click(function() {
+			let checkCount = 0;
+			for(let i = 0; i < $('.check_one').length; i++) {
+				checkCount += $($('.check_one')[i]).prop('checked');
+			}
+			$('#check_all').prop('checked', $('.check_one').length == checkCount);
+			if($('#check_all').is(':checked')) {
+				$('.lbl_all').addClass('lbl_checked');
+			} else{
+				$('.lbl_all').removeClass('lbl_checked');
+			}
+		});
+	}
+	
+	function fn_toggleCheck() {
+		$('.lbl_all, .lbl_one').click(function() {
+			$(this).toggleClass('lbl_checked');
+		});
+	}
+	
+	function fn_submit() {
+		$('#frm_agree').submit(function(event) {
+			if($('#service').is(':checked') == false || $('#privacy').is(':checked') == false) {
+				alert('필수 약관에 동의하세요.');
+				event.preventDefault();
+				return;
+			}
+		});
+	}
+</script>
 <style>
 	.blind {
 		display: none;
 	}
 	.lbl_all, .lbl_one {
 		padding-left: 20px;
-		background-image: url(../..//resources/images/uncheck.png);
+		background-image: url(${contextPath}/resources/userImages/uncheck.png);
 		background-size: 18px 18px;
 		background-repeat: no-repeat;
 	}
 	.lbl_checked {
-		background-image:  url(../..//resources/images/check.png);
+		background-image:  url(${contextPath}/resources/userImages/check.png);
 	}
 </style>
 </head>

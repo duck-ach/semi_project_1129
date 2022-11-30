@@ -73,7 +73,7 @@ public class UserController {
 	@GetMapping("user/login/form")
 	public String loginForm(HttpServletRequest request, Model model) {
 		
-		model.addAttribute("url", "http://localhost:8080" + request.getContextPath() + "/user/login/form");
+		model.addAttribute("url", "http://localhost:9090" + request.getContextPath() + "/user/login/form");
 		
 		model.addAttribute("apiURL", userService.getNaverLoginApiURL(request));
 		
@@ -126,7 +126,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/mypage")
-	public String requiredLogin_mypage(HttpServletRequest request, HttpServletResponse response) {
+	public String requiredLogin_mypage() {
 		return "user/mypage";
 	}
 	

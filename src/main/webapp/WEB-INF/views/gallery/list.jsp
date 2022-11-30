@@ -11,15 +11,13 @@
 <div>
 	<h1>갤러리 목록(전체 ${totalRecord}개)</h1>
 	
-	<%-- 
 	<c:if test="${loginUser != null}">
 	
 		<input type="button" value="갤러리 작성하기" onclick="${contextPath}/gallery/write">
 	</c:if>
-	--%>
-	<div>
-		<input type="button" value="게시글 작성하기" onclick="location.href='${contextPath}/gallery/write'">
-	</div>
+<!-- 	<div> -->
+<%-- 		<input type="button" value="게시글 작성하기" onclick="location.href='${contextPath}/gallery/write'"> --%>
+<!-- 	</div> -->
 	
 	<div>
 		<table border="1">
@@ -46,7 +44,7 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="4">
+					<td colspan="5">
 						${paging}
 					</td>
 				</tr>

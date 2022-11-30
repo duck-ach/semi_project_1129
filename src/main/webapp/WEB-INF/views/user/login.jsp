@@ -116,7 +116,7 @@
 				</div><br>
 				
 				<div>
-				<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=YUpOo8sLi4iApjV3POFX&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fsemi%2Fuser%2Fnaver%2Flogin&state=369583993916108389369394549118797326852"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+				<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=bRRJOp5FZR_iFTOgpM3k&redirect_uri=http%3A%2F%2Flocalhost%3A9090%2Fsemi_pjt_2%2Fuser%2Fnaver%2Flogin&state=369583993916108389369394549118797326852"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 				</div>
 				
 			</footer>
@@ -131,15 +131,6 @@
 			<a href="${contextPath}/user/check/form">${loginUser.name}</a> 님 반갑습니다.
 		</div>
 		<a href="${contextPath}/user/logout">로그아웃</a>
-		<a href="javascript:fn_abc()">회원탈퇴</a>
-		<form id="lnk_retire" action="${contextPath}/user/retire" method="post"></form>
-		<script>
-			function fn_abc(){
-				if(confirm('탈퇴하시겠습니까?')){
-					$('#lnk_retire').submit();
-				}
-			}
-		</script>
 		
 	</c:if>
 

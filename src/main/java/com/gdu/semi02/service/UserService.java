@@ -19,7 +19,6 @@ public interface UserService {
 	public void keepLogin(HttpServletRequest request, HttpServletResponse response);
 	public void logout(HttpServletRequest request, HttpServletResponse response);
 	public UserDTO getUserBySessionId(Map<String, Object> map);
-	public UserDTO getUserByUserNo(Map<String, Object> map);
 	public Map<String, Object> confirmPassword(HttpServletRequest request);
 	public void modifyPassword(HttpServletRequest request, HttpServletResponse response);
 	public void sleepUserHandle();  //
