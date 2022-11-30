@@ -17,5 +17,7 @@ public interface AdminService {
 	public List<AdminDTO> getAllUserList(HttpServletRequest request);
 	public List<AdminDTO> findSearchUserList(HttpServletRequest request, Model model); 
 	public void removeUsers(String userNo , HttpServletResponse response, HttpServletRequest request );   
+//	public void retire(HttpServletRequest request, HttpServletResponse response);
+
 }
  

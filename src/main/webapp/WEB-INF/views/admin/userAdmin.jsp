@@ -155,6 +155,7 @@
 			<input type="text" id="searchText" name="searchText">
 			<input type="button" id="btn_search" value="검색">
 			<input type="button" id="btn_init" value="초기화">
+			
 			<!--  
 			<input type="hidden"  class="remov_submit_check"  name='userNo'>
 			-->

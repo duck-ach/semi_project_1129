@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.semi02.domain.AdminDTO;
+import com.gdu.semi02.domain.RetireUserDTO;
 
 @Mapper
 public interface AdminMapper {	
@@ -14,6 +15,7 @@ public interface AdminMapper {
 	public List<AdminDTO> selectUsersByQuery(Map<String, Object> map);
 	public List<AdminDTO> selectComedyUser();
 	public int deleteUsers(Map<String, Object> userNo);
-	
+	public int deleteUser(int userNo);
+	public int insertRetireUser(RetireUserDTO retireUser);
 	
 }
