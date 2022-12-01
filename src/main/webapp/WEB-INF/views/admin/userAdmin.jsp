@@ -137,7 +137,6 @@
 					.append($('<td>').text(users.mobile))
 					.append($('<td class="userJoinDate">').text(users.joinDate))
 					.append($('<input type="hidden" value=""  class="userJoinDateIn">'))
-					.append($('<td>').text(users.userLevel))
 					.append($('<td>').text(users.point))
 				//	.append($('<td>').text(${cntUserBoard}))
 					
