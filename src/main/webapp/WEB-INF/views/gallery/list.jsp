@@ -59,15 +59,15 @@
 	</div>
 </div>
 <script>
-	$('#moveDetail').click(function(){
-		if(${loginUser == null}){
-			alert('로그인한 뒤 조회가능합니다.');
-			event.preventDefault();
-			history.back();
-			location.href='${contextPath}/user/login/form';
-			return;
-		}
-	})
+// 	$('#moveDetail').click(function(){
+// 		if(${loginUser == null}){
+// 			alert('로그인한 뒤 조회가능합니다.');
+// 			event.preventDefault();
+// 			history.back();
+// 			location.href='${contextPath}/user/login/form';
+// 			return;
+// 		}
+// 	})
 </script>
 
 </body>

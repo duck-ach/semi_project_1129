@@ -36,16 +36,16 @@
 	<div>
 		${gallery.galleryContent}
 	</div>
-	<div>
-	 <a>좋아요</a>
-	</div>
 	
 	<div>
 		<form id="frm_btn" method="post">
 			<input type="hidden" name="galleryNo" value="${gallery.galleryNo}">
-			<input type="button" value="수정" id="btn_edit_gallery">
-			<input type="button" value="삭제" id="btn_remove_gallery">
+			<c:if test="${loginUser.id == null}">
+				<input type="button" value="수정" id="btn_edit_gallery">
+				<input type="button" value="삭제" id="btn_remove_gallery">
+			</c:if>
 		</form>
+	</div>
 		
 		
 		<script>
@@ -61,7 +61,6 @@
 			});
 		</script> 
 		
-	</div>
    
    <hr>
    
@@ -195,9 +194,14 @@
                      div += '<div>'
                      div += comment.id + '<br>';
                      div += comment.commContent;   // 정상일 때 내용 보여줌
-                     // 작성자만 삭제할 수 있도록 if 처리 필요
-						div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.galleryCommNo + '">';
+                     // 작성자, 로그인 유저만 댓글 삭제, 대댓글 가능
+                     if(${loginUser.id == 'admin'}) {
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.galleryCommNo + '">';
+						} else if ('${loginUser.id}' == comment.id){
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.galleryCommNo + '">';
+						}
 						if(comment.commDepth == 0) {
+						}if ('${loginUser.id}' == comment.id){
 							div += '<input type="button" value="답글" class="btn_reply_area">';
 						}
 						div += '</div>';

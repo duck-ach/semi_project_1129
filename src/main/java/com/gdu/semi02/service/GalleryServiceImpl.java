@@ -287,7 +287,8 @@ public class GalleryServiceImpl implements GalleryService {
 
 				HttpSession session = request.getSession();
 				UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-				loginUser.setPoint(galleryMapper.cancelUserPoint(loginUser.getUserNo()));
+				galleryMapper.cancelUserPoint(loginUser.getUserNo());
+				loginUser.setPoint(loginUser.getPoint() - 5);
 
 				out.println("location.href='" + request.getContextPath() + "/gallery/list';");
 			} else {
@@ -302,5 +303,17 @@ public class GalleryServiceImpl implements GalleryService {
 		}
 
 	}
+
+	@Override
+	public int getLike(int galleryNo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+//	@Override
+//	public Map<String, Object> getLiked(map) {
+//		
+//		return 0;
+//	}
 
 }

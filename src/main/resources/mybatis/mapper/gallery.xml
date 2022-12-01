@@ -88,23 +88,27 @@
 		WHERE USER_NO = #{userNo}
 	</update>
 	
-	<!-- 갤러리 좋아요 카운트 -->
-	<select id="selectLikedCnt" resultType="int">
-		SELECT COUNT(*)
+	<!-- 좋아요 테이블 조회 -->
+	<select id="selectLiked" resultType="LikedDTO">
+		SELECT ISLIKED
 		FROM LIKED
+		WHERE USER_NO = #{userNo} AND GALLERY_NO = #{galleryNo}
 	</select>
 	
-	<update id="updateLiked" parameterType="int">
-	UPDATE LIKED
-	SET ISLIKED = ISLIKED + 1
-	WHERE USER_NO =#{userNo}
-	</update>
 	
-	<update id="cancelLiked" parameterType="int">
-	UPDATE LIKED
-	SET ISLIKED = 0
-	WHERE USER_NO =#{userNo}
-	</update>
+	<insert id="insertLiked" parameterType="LikedDTO">
+		INSERT INTO LIKED (GALLERY_NO, ISLIKED, ID)
+		 VALUES (#{galleryNo}, 1, #{id})
+		 WHERE ISLIKED = 0
+	</insert>
+	
+	<delete id="deleteLiked" parameterType="LikedDTO">
+		DELETE ISLIKE
+		FROM LIKED
+		WHERE ISLIKE != 0
+	</delete>
+	
+	
 	
 	
 	
