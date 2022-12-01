@@ -100,10 +100,7 @@
 		     , DETAIL_ADDRESS = #{detailAddress}
 		     , EXTRA_ADDRESS = #{extraAddress}
 		     , MOBILE = #{mobile}
-<<<<<<< HEAD
-=======
 		     , EMAIL = #{email}
->>>>>>> main
 		     , INFO_MODIFY_DATE = SYSDATE
 		 WHERE ID = #{id}
 	</update>
