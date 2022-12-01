@@ -10,20 +10,24 @@
 <head>
 <meta charset="UTF-8">
 <title>인덱스_메인</title>
+ <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
 <style type="text/css">
 .master_area{
 	border:1px solid #fff;
 	cursor:pointer;
 }
 
-h1{color:#fff;}
+.h1{color:#fff;}
 
 body {
   background: #000;
   padding: 2rem;
 }
 
-h2 {
+.master_area h2 {
   font-family: 'Arial';
   color: #fff;
   text-transform: uppercase;
@@ -32,18 +36,18 @@ h2 {
   line-height: 0.75;
 }
 
-span {
+.master_area span {
   display: block;
   margin:15px 0;
   line-height: 50px;
 }
 
-span:not(.light) {
+.master_area span:not(.light) {
   opacity: 0;
   animation: flashText .5s ease-out alternate infinite;
 }
 
-span.light {
+.master_area span.light {
   position: relative;
   display: inline-block;
   
@@ -72,8 +76,40 @@ span.light {
     opacity: 0.15;
   }
 }
+
+
+.wrap{
+	outline: #fff;
+	width:70%;
+	margin:50px auto;
+}
+
+
+    
+
+      .swiper {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -150px;
+        margin-top: -150px;
+      } 
+
+      .swiper-slide {
+        background-position: center;
+        background-size: cover;
+      }
+
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+      }
+
 </style>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('.master_area').click(function(){
@@ -88,7 +124,34 @@ $(function(){
 </head>
 <body>
 	
-	<h1>이곳은 인덱스 임</h1>
+	<div class="wrap">
+		
+	<div class="team_area">    
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <img src="${contextPath}/resources/image/juno.png">
+        </div>
+        <div class="swiper-slide">
+          <img src="${contextPath}/resources/image/ny.png">
+        </div>
+        <div class="swiper-slide">
+          <img src="${contextPath}/resources/image/jw.png">
+        </div>
+        <div class="swiper-slide">
+          <img src="${contextPath}/resources/image/hr.png">
+        </div>
+        <div class="swiper-slide">
+          <img src="${contextPath}/resources/image/jh.png">
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>   
+    </div>    
+	
+	</div>
+		
+	
+	
 	
 	<c:if test="${loginUser.id == 'admin'}">
 		<div class="master_area">
@@ -104,6 +167,24 @@ $(function(){
 					
 		</div>
 	</c:if>
+	</div><!-- wrap -->
+	
+	
+	<script>
+      var swiper = new Swiper(".mySwiper", {
+        effect: "cube",
+        grabCursor: true,
+        cubeEffect: {
+          shadow: true,
+          slideShadows: true,
+          shadowOffset: 20,
+          shadowScale: 0.94,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+        },
+      });
+    </script>
 	
 </body>
 </html>
