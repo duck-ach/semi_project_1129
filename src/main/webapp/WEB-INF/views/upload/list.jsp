@@ -14,7 +14,7 @@
 	<div id="parentDiv">
 		<div class="upload_header_title">
 			<h2 id="upload_title">업로드용 게시판</h2>
-			<p id="upload_info">다양한 파일을 공유하는 게시판입니다. 첨부파일을 자유롭게 업로드해 보세요!</br>
+			<p id="upload_info">다양한 파일을 공유하는 게시판입니다. 첨부파일을 자유롭게 업로드해 보세요!<br>
 							게시글 작성 시 10포인트를 지급하고, 다운로드 시 첨부파일 하나당 5포인트가 차감됩니다.</p>
 		</div>
 		<div class="write_div">
@@ -48,7 +48,7 @@
 							<td class="a_hover_tit td_center">${upload.uploadNo}</td>
 							<td class="a_hover_tit"><a href="${contextPath}/upload/increase/hit?uploadNo=${upload.uploadNo}">${upload.uploadTitle}</a></td>
 							<td class="a_hover_tit td_center">${upload.id}</td>
-							<td class="a_hover_tit td_center"><fmt:formatDate value="${upload.createDate}" pattern="yy. M. d HH:mm" /></td>
+							<td class="a_hover_tit td_center"><fmt:formatDate value="${upload.createDate}" pattern="yy-M-dd  HH:mm" /></td>
 							<td class="a_hover_tit td_center">${upload.hit}</td>
 						</tr>
 					</c:forEach>

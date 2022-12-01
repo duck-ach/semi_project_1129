@@ -51,14 +51,16 @@
 				</form>
 			</div>
 			<div class="date_location">
+				<span class="view_date">작성자 : ${upload.id}</span>
+				&nbsp;&nbsp;&nbsp;
 				<span class="view_date">작성일 : <fmt:formatDate value="${upload.createDate}" pattern="yyyy. M. d HH:mm" /></span>
 				&nbsp;&nbsp;&nbsp;
-				<span class="view_date">수정일 <fmt:formatDate value="${upload.modifyDate}" pattern="yyyy. M. d HH:mm" /></span>
+				<span class="view_date">수정일 : <fmt:formatDate value="${upload.modifyDate}" pattern="yyyy. M. d HH:mm" /></span>
 			</div>
 		<!-- 내용 -->
 		<div>
-			<div>
-				<span class="view_title">${upload.uploadTitle}</span>
+			<div class="view_header">
+				<div class="view_title">${upload.uploadTitle}</div>
 			</div>
 		</div>
 		<hr>
@@ -94,9 +96,7 @@
 				<form id="frm_add_comment">
 					<div class="add_comment">
 						<div class="add_comment_input">
-								<input type="text" name="commContent" id="content" class="content_write" placeholder="댓글을 작성해주세요.">
-						</div>
-						<div class="add_comment_btn">
+							<input type="text" name="commContent" id="content" class="content_write">
 							<input type="button" value="작성완료" id="btn_add_comment">
 						</div>
 					</div>
@@ -191,7 +191,7 @@
 				fn_switchAttachList();
 			}
 		};
-
+		
 		
 		// 첨부파일 없으면 안보이게 하는 것
 		function fn_attachblind() {
@@ -232,7 +232,7 @@
 		
 		function fn_addComment(){
 			$('#btn_add_comment').click(function(){
-				if($('#comment').val() == ''){
+				if($('#content').val() == ''){
 					alert('댓글 내용을 입력하세요');
 					return;
 				}

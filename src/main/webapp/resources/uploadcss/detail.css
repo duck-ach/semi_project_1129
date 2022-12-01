@@ -10,9 +10,26 @@
 	margin-bottom: 50px;
 }
 
+/* VIEW */
+.view_header {
+	position: relative;
+	width : 800px;
+	height : 30px;
+}
+.view_writer {
+	position: absolute;
+	width : 100px;
+	right : 0;
+	bottom : 0;
+	display: block;
+	text-align: right;
+	
+}
+
+
 /* TITLE */
 .view_title {
-	font-size: 25px;	
+	font-size: 25px;
 }
 
 /* DATE */
@@ -45,8 +62,42 @@
 #cnt {
 	cursor:pointer;
 }
+#cnt:hover {
+	color:#7B68EE;
+}
 .attach_location {
 	text-align: right;
+}
+
+.attachFile:hover {
+	color:#C1AEEE;
+}
+
+/* COMMENT */
+.add_comment_input {
+	position: relative;
+	height: 50px;
+}
+.content_write {
+	display: block;
+	width : 700px;
+	height : 40px;
+	position: absolute;
+	border: 1px solid #7B68EE;
+	outline-color: #7B68EE;
+	border-radius: 3px;
+}
+#btn_add_comment {
+	display:block;
+	width : 80px;
+	height : 44px;
+	position: absolute;
+	right: 0;
+	margin-right: 10px;
+	background-color: #7B68EE;
+	color:#fff;
+	border: none;
+	border-radius: 5px;
 }
 
 /* BLIND */
@@ -63,9 +114,23 @@
 	box-sizing: border-box;
 	line-height: 30px;
 	text-align: center;
-	background: #FFF;
+	background: #B4B4FF;
 	border: 1px solid #c8c8c8;
-	color: #464646;
+	color: #fff;
+	font-size: 11px;
+	margin: 1px;
+}
+.btn:hover {
+	width : 80px;
+	display : inline-block;
+	height: 30px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	line-height: 30px;
+	text-align: center;
+	background: #7B68EE;
+	border: 1px solid #c8c8c8;
+	color: #fff;
 	font-size: 11px;
 	margin: 1px;
 }

@@ -55,6 +55,7 @@
 
 .btn_location {
 	text-align: right;
+	margin-top: 3px;
 }
 .remove_btn {
 	width : 40px;
@@ -78,6 +79,7 @@
 /* FILE */
 .filebox {
 	text-align: right;
+	margin-bottom: 3px;
 }
 
 .filebox label {
@@ -90,11 +92,16 @@
 	text-align: center;
 	background: #FFF;
 	border: 1px solid #c8c8c8;
-	color: #464646;
+	color: #7B68EE;
 	font-size: 11px;
 	margin: 1px;
 }
 
 .filebox input[type="file"] {  /* 파일 필드 숨기기 */
 	display: none;
+}
+
+/* HR TAG */
+.hr_color {
+	background: 7B68EE;
 }
