@@ -32,6 +32,6 @@ public interface GalleryMapper {
 	public int cancelUserPoint(int userNo);
 	
 	// liked
-	public
+
 
 }
