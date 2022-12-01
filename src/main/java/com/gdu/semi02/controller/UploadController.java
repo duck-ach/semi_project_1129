@@ -63,8 +63,8 @@ public class UploadController {
 	
 	@ResponseBody
 	@GetMapping("/upload/downloadAll")
-	public ResponseEntity<Resource> requiredLogin_downloadAll(HttpServletRequest request, HttpServletResponse response) {
-		return uploadService.downloadAll(request, response);
+	public ResponseEntity<Resource> requiredLogin_downloadAll(HttpServletRequest request) {
+		return uploadService.downloadAll(request);
 	}
 	
 	@PostMapping("/upload/edit")
