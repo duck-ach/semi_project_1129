@@ -111,4 +111,10 @@
 		   SET POINT = POINT - 5
 		 WHERE USER_NO = #{userNo}
 	</update>
+	
+	<update id="updateUserPointDownloadAll" parameterType="Map">
+		UPDATE USERS
+		   SET POINT = POINT - (#{downCnt} * 5)
+		 WHERE USER_NO = #{userNo}
+	</update>
 </mapper>

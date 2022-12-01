@@ -199,7 +199,12 @@ public class UploadServiceImpl implements UploadService {
 	}
 	
 	@Override // ResponseEntity는 페이지변화 X, 값 반환 (보통 ajax에서 많이 사용함)
-	public ResponseEntity<Resource> download(String userAgent, int attachNo, HttpServletRequest request) {
+	public ResponseEntity<Resource> download(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		String userAgent = request.getParameter("userAgent");
+		int attachNo = Integer.parseInt(request.getParameter("attachNo"));
+		int uploadNo = Integer.parseInt(request.getParameter("uploadNo"));
 		
 		// 다운로드 할 첨부 파일의 정보(경로, 이름)
 		AttachDTO attach = uploadMapper.selectAttachByNo(attachNo);
@@ -213,12 +218,12 @@ public class UploadServiceImpl implements UploadService {
 			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND); // '못찾겠다~' 만 간단히 반환한것
 		}
 		
-		// Session의 User 정보
+		// 유저 포인트 차감(-5 point)
 		HttpSession session = request.getSession();
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		
-		loginUser.setPoint(uploadMapper.updateUserPointDownload(loginUser.getUserNo()));
-		
+		int downloadResult = uploadMapper.updateUserPointDownload(loginUser.getUserNo());
+		loginUser.setPoint(downloadResult);
 		
 		// 다운로드 횟수 증가
 		uploadMapper.updateDownloadCnt(attachNo);
@@ -243,17 +248,43 @@ public class UploadServiceImpl implements UploadService {
 			e.printStackTrace();
 		}
 		
+		// 응답메세지
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(downloadResult > 0) { // files는 첨부된 모든 애들 (list는 size가 개수)
+				out.println("<script>");
+				out.println("alert('회원님의 포인트가 -5 차감되었습니다.');");
+				out.println("location.href='" + request.getContextPath() + "/upload/detail?uploadNo=" + uploadNo + "';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('다운로드를 실패했습니다. 다시 시도해 주세요.');");
+				out.println("'history.back();'");
+				out.println("</script>");
+			}
+			
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		// 다운로드 헤더 만들기(spring framework)
 		HttpHeaders header = new HttpHeaders();
 		header.add("Content-Disposition", "attachment; filename=" + origin); // attach만 하고 끝내도 됨(하지만 다운로드 이름 정해주어야 함)
 		header.add("Content-Length", file.length() + "");
 		
 		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
+		
+		
 	}
 	
 	
 	@Override
-	public ResponseEntity<Resource> downloadAll(String userAgent, int uploadNo) {
+	public ResponseEntity<Resource> downloadAll(String userAgent, int uploadNo, HttpServletRequest request) {
 		
 		// storage/temp 디렉터리에 임시 zip 파일을 만든 뒤 이를 다운로드 받을 수 있음
 		// com.gdu.app14.batch.DeleteTmpFiles에 의해서 storage/temp 디렉터리의 임시 zip 파일은 주기적으로 삭제됨
@@ -312,7 +343,18 @@ public class UploadServiceImpl implements UploadService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
+		// 유저 포인트 차감(하나당 -5 point)
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		// Mapper로 전달할 포인트차감
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNo", loginUser.getUserNo());
+		map.put("downCnt", attachList.size());
+		
+		// Mapper 전달
+		int minusPointResult = uploadMapper.updateUserPointDownloadAll(map);
 		
 		// 반환할 Resource
 		File file = new File(tmpPath, tmpName);

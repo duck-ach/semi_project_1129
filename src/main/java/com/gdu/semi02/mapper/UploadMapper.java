@@ -32,4 +32,5 @@ public interface UploadMapper {
 	// 유저 포인트
 	public int updateUserPoint(int userNo);
 	public int updateUserPointDownload(int userNo);
+	public int updateUserPointDownloadAll(Map<String, Object> map);
 }

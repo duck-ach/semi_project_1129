@@ -67,7 +67,7 @@
 						<c:forEach items="${attachList}" var="attach" varStatus="status">
 						<input type="hidden" class="attachCnt" value="${status.count}">	
 							<div>
-								<a class="attachFile" href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>
+								<a class="attachFile attachFileDown" href="${contextPath}/upload/download?attachNo=${attach.attachNo}&uploadNo=${attach.uploadNo}">${attach.origin}</a>
 							</div>
 						</c:forEach>
 						<div>
@@ -137,6 +137,7 @@
 		fn_switchReplyArea();
 		fn_addReply();
 		
+		// 로그인안된 사용자가 댓글을 달려고할 때 막기
  		function fn_comment_submit_return() {
 			$('.unlogin_comment').click(function(){
 				location.href='${contextPath}/user/login/form';
@@ -144,6 +145,7 @@
 			});
 		};
 		
+		// 로그인안된 사용자가 첨부파일 다운로드 받으려고할 때 막기
 		function fn_attach_download_return() {
 			if(${loginUser == null}) {
 				$('#cnt').click(function(){
