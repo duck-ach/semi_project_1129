@@ -25,11 +25,17 @@
 }
 
 /* CONTENT */
-.view_content {s
+.view_content {
 	width : 800px;
 	margin-top : 5px;
 	margin-bottom: 50px;
 }
+
+.content_write {
+	display:block;
+	width: 800px;
+}
+
 
 /* ATTACH */
 .view_attach {

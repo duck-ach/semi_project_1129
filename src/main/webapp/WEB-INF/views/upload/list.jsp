@@ -14,7 +14,8 @@
 	<div id="parentDiv">
 		<div class="upload_header_title">
 			<h2 id="upload_title">업로드용 게시판</h2>
-			<p id="upload_info">다양한 파일을 공유하는 게시판입니다. 첨부파일을 자유롭게 업로드해 보세요!</p>
+			<p id="upload_info">다양한 파일을 공유하는 게시판입니다. 첨부파일을 자유롭게 업로드해 보세요!</br>
+							게시글 작성 시 10포인트를 지급하고, 다운로드 시 첨부파일 하나당 5포인트가 차감됩니다.</p>
 		</div>
 		<div class="write_div">
 			<a id="btn_write" class="btn" href="${contextPath}/upload/write">작성하기</a>
