@@ -14,9 +14,11 @@
 
 <div>
 
-	<div>제목</div>
-	
 	<div>${bbs.bbsTitle}</div>
+	<div>${bbs.id}</div>
+	<div>${bbs.bbsCreateDate}</div>
+	<div>${bbs.bbsIp}</div>
+	<div>${bbs.bbsHit}</div>
 	
 	<hr>	
 	
@@ -150,6 +152,7 @@
 						}
 						if(comment.state == 1){
 							div += '<div>';
+							div += comment.id;
 							div += comment.commContent;
 							// 작성자 if 처리 
 							div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';
@@ -164,9 +167,10 @@
 								div += '<div>삭제된 답글입니다.</div>';
 							}
 						}
-						div += '<div>';
+
 						div += '<div style="margin-left: 40px;" class="reply_area blind">';		// 공백으로 구분했기 때문에 현재 class 는 2개임
 						div += '<form class="frm_reply">';
+					
 						div += '<input type="hidden" name="bbsNo" value="' + comment.bbsNo + '">';
 						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
 						div += '<input type="text" name="commContent" placeholder="답글을 작성하려면 로그인을 해주세요">';
@@ -174,7 +178,7 @@
 						div += '<input type="button" value="답글 작성 완료" class="btn_reply_add">';
 						div += '</form>';
 						div += '</div>';
-						div += '</div>';
+
 						$('#bbs_comm_list').append(div);
 						$('#bbs_comm_list').append('<div style="border-bottom: 1px dotted gray;"></div>');
 					});
@@ -203,9 +207,7 @@
 				}
 			});
 		}
-		
-		
-		
+
 		
 		function fn_changePage(){
 			$(document).on('click', '.enable_link', function(){
@@ -237,7 +239,7 @@
 		
 		function fn_switchReplyArea(){
 			$(document).on('click', '.btn_reply_area', function(){
-				$(this).parent().next().next().toggleClass('blind');
+				$(this).parent().next().toggleClass('blind');
 			});
 		}
 		
