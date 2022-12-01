@@ -45,7 +45,7 @@ body {
   margin:15px 0;
   line-height: 50px;
 }
-
+  
 .master_area span:not(.light) {
   opacity: 0;
   animation: flashText .5s ease-out alternate infinite;
