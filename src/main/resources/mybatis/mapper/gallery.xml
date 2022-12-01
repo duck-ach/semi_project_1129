@@ -6,4 +6,95 @@
 
 <mapper namespace="com.gdu.semi02.mapper.GalleryMapper">
 
+	<select id="selectGalleryListCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM GALLERY
+	</select>
+	
+	<!-- 게시판목록 -->
+	<select id="selectGalleryList" parameterType="Map" resultType="GalleryDTO">
+		SELECT A.ROW_NUM, A.GALLERY_NO, A.GALLERY_TITLE, A.GALLERY_CONTENT, A.CREATE_DATE, A.MODIFY_DATE, A.HIT, A.WRITER_IP, A.ID
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY GALLERY_NO DESC) AS ROW_NUM, GALLERY_NO, GALLERY_TITLE, GALLERY_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, WRITER_IP, ID
+		  FROM GALLERY) A
+		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<!-- 게시판 삽입(첨부파일 추가) -->
+	<insert id="insertGallery" parameterType="GalleryDTO">
+		INSERT INTO GALLERY
+			(GALLERY_NO, GALLERY_TITLE, GALLERY_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, WRITER_IP, ID)
+		VALUES
+			(GALLERY_SEQ.NEXTVAL, #{galleryTitle}, #{galleryContent}, SYSDATE, SYSDATE, 0, #{writerIp}, #{id})
+	</insert>
+	
+	<!-- 이미지 삽입 -->
+	<insert id="insertSummernoteImage" parameterType="SummernoteImageDTO">
+		INSERT INTO SUMMERNOTE_IMAGE
+			(gallery_NO, FILESYSTEM)
+		VALUES
+			(#{galleryNo}, #{filesystem})
+	</insert>
+	
+	<!-- 상세보기 -->
+	<select id="selectGalleryByNo" parameterType="int" resultType="GalleryDTO">
+	  SELECT GALLERY_NO, GALLERY_TITLE, GALLERY_CONTENT, CREATE_DATE, MODIFY_DATE, HIT, WRITER_IP
+	  FROM GALLERY
+	  WHERE GALLERY_NO = #{galleryNo}
+	</select>
+	
+		<!-- 상세보기(조회수) -->
+	<update id="updateHit" parameterType="int">
+		UPDATE GALLERY
+		   SET HIT = HIT + 1
+		 WHERE GALLERY_NO = #{galleryNo}
+	</update>
+	
+	<!-- 수정 -->
+	<update id="updateGallery" parameterType="GalleryDTO">
+		UPDATE GALLERY
+		   SET GALLERY_TITLE = #{galleryTitle}, GALLERY_CONTENT = #{galleryContent}, MODIFY_DATE = SYSDATE
+		 WHERE GALLERY_NO = #{galleryNo}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteGallery" parameterType="int">
+		DELETE
+		  FROM GALLERY
+		 WHERE GALLERY_NO = #{galleryNo}
+	</delete>
+	
+	<select id="selectSummernoteImageListInGallery" parameterType="int" resultType="SummernoteImageDTO">
+		SELECT GALLERY_NO, FILESYSTEM
+		  FROM SUMMERNOTE_IMAGE
+		 WHERE GALLERY_NO = #{galleryNo}
+	</select>
+	
+	<select id="selectAllSummernoteImageList" resultType="SummernoteImageDTO">
+		SELECT GALLERY_NO, FILESYSTEM
+		  FROM SUMMERNOTE_IMAGE
+	</select>
+	
+	<!-- 이미지게시하면 포인트+ -->
+	<update id="updateUserPoint" parameterType="int">
+		UPDATE USERS
+		SET POINT = POINT + 5
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<!-- 게시글 삭제하면 포인트- -->
+	<update id="cancelUserPoint" parameterType="int">
+		UPDATE USERS
+		SET POINT = POINT - 5
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<!-- 갤러리 좋아요 카운트 -->
+	<select id="selectLikedCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM LIKED
+	</select>
+	
+	
+	
+	
 </mapper>
