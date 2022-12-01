@@ -42,7 +42,11 @@
 			<div class="btn_location">
 				<form id="frm_upload" method="post">
 					<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
-					<c:if test="${loginUser.id == upload.id} || ${loginUser.userNo == 1}">
+					<c:if test="${loginUser.id == 'admin'}">
+						<input type="button" value="게시글편집" id="btn_upload_edit" class="btn"> 			
+						<input type="button" value="게시글삭제" id="btn_upload_remove" class="btn"> 			
+					</c:if>
+					<c:if test="${loginUser.id} == ${upload.id}">
 						<input type="button" value="게시글편집" id="btn_upload_edit" class="btn"> 			
 						<input type="button" value="게시글삭제" id="btn_upload_remove" class="btn"> 			
 					</c:if>
