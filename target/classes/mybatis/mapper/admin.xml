@@ -25,6 +25,12 @@
 		 WHERE ${column} LIKE '%' || #{searchText} || '%'
 	</select>
 	
+	<select id="selectUsersByNo" parameterType="int" resultType="UserDTO">
+		SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE, USER_LEVEL, POINT
+		  FROM USERS
+		 WHERE USER_NO = #{userNo}
+	</select>
+	
 	<delete id="deleteUsers" parameterType="Map">
 		DELETE
 		  FROM USERS
@@ -32,13 +38,23 @@
 	</delete>
 	
 	<!-- 회원탈퇴2 : RETIRE_USERS 테이블에 추가 -->
-	<insert id="insertRetireUser" parameterType="RetireUserDTO">
+	<insert id="insertRetireUser" parameterType="Map">
 		INSERT INTO RETIRE_USERS
 			(USER_NO, ID, JOIN_DATE, RETIRE_DATE)
 		VALUES
 			(#{userNo}, #{id}, #{joinDate}, SYSDATE)
 	</insert>
 	
-		
+	<!-- 게시글 수 세기 -->
+	<select id="selectUploadUserAll" resultType="int"  >
+		SELECT COUNT(*)
+		  FROM UPLOAD L INNER JOIN USERS U
+		    ON L.ID = U.ID
+		  WHERE USER_NO = #{userNo}
+	</select>
+	
+	
+	
+	
 	
 </mapper>

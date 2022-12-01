@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.gdu.semi02.domain.AdminDTO;
+import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.service.AdminService;
 
 @Controller
@@ -24,14 +24,14 @@ public class AdminController {
 	
 	
 	@GetMapping("/admin/adminIndex")
-	public String adminIndex() {
+	public String requiredAdmin_adminIndex() {
 		return "admin/adminIndex";
 	}
 	
 	
 	
 	@GetMapping("/admin/userAdmin")
-	public String userAdmin() {
+	public String requiredAdmin_userAdmin() {
 		return "admin/userAdmin";
 	}
 	
@@ -39,13 +39,14 @@ public class AdminController {
 	
 	@ResponseBody
 	@GetMapping(value="/searchAllUsers", produces="application/json; charset=UTF-8")
-	public List<AdminDTO> list(HttpServletRequest request) {
+	public List<UserDTO> list(HttpServletRequest request) {
 		return adminService.getAllUserList(request);
 	}
 
 	@ResponseBody
 	@GetMapping(value="/searchUser", produces="application/json; charset=UTF-8")
-	public List<AdminDTO> getSearchUser(HttpServletRequest request, Model model) {
+	public List<UserDTO> getSearchUser(HttpServletRequest request, Model model) {
+		
 		return adminService.findSearchUserList(request, model);
 	}
 	

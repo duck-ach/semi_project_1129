@@ -30,15 +30,22 @@
 
 	 $("body").on("click", ".checkUserNo", function() {
 		 var td_check = $(this).children();
-		 var td_val = $(this).parent().children('.td_userNo').text();
+		 var td_userNo = $(this).parent().children('.td_userNo').text();
+		 var td_userId = $(this).parent().children('.userId').text();
+		 var td_userJoinData = $(this).parent().children('.userJoinDate').text();
+		 
 		 if($(td_check).is(":checked") == true){
-			 $(this).children().attr('value',td_val);
+			 $(this).children().attr('value',td_userNo);
+			 $(this).parent().children('.userIdIn').attr('name','id').attr('value',td_userId);
+			 $(this).parent().children('.userJoinDateIn').attr('name','joinDate').attr('value',td_userJoinData);
 			}else{
 				$(this).children().attr('value','');
+				$(this).parent().children('.userIdIn').attr('name','').attr('value','');
+				 $(this).parent().children('.userJoinDateIn').attr('name','').attr('value','');
 			}
 		 
+		 
 		
-		 	
 		//	$('.remov_submit_check').clone().attr('value',td_val).attr('name','userNo').removeClass().appendTo($('#frm_search'));
 		
 	 });
@@ -55,15 +62,20 @@
 			//	alert("전체"+trs+" 개의 목록을 가져왔습니다.");
 				$.each(resData, function(i, users){
 					$('<tr>')					
-					.append($('<td>').text(users.id))
+					.append($('<td class="userId" >').text(users.id))
+					.append($('<input type="hidden" value=""  class="userIdIn" >'))
 					.append($('<td class="td_userNo">').text(users.userNo))
-					.append($('<td>').text(users.name))
-					.append($('<td>').text(users.gender))
+					.append($('<td>').text(users.name))					
+					.append($('<td>').text(users.gender))					
 					.append($('<td>').text(users.email))
 					.append($('<td>').text(users.mobile))
-					.append($('<td>').text(users.joinDate))
+					.append($('<td class="userJoinDate">').text(users.joinDate))
+					.append($('<input type="hidden" value=""  class="userJoinDateIn">'))
 					.append($('<td>').text(users.userLevel))
 					.append($('<td>').text(users.point))
+					.append($('<td>').text(${userUploadCnt}))
+					
+					
 					.append($('<td class="checkUserNo">').html("<input type='checkBox' name='userNo'   >"))							
 					.appendTo('#list');					
 				});
@@ -175,10 +187,11 @@
 						<td>회원 생년월일</td>
 						<td>회원 주소</td>
 						-->
-						<td>회원 가입일</td>
+						<td>회원 가입일</td>						
 						<td>회원 레벨</td>
-						<td>회원 포인트</td>
-						<td><button class="del_user_click">삭제</button>  </td>
+						<td>회원 포인트</td>	
+						<td>작성 글 수</td>
+						<td><button class="del_user_click">탈퇴</button>  </td>
 					</tr>
 				</thead>
 				<tbody id="list">

@@ -15,16 +15,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.gdu.semi02.domain.UserDTO;
+
 @EnableAspectJAutoProxy
 @Component
 @Aspect
 
 public class RequiredAdminAspect {
-
-	@Pointcut("execution(* com.gdu.app13.controller.*Controller.requiredLogin_*(..))")
-	public void requiredLogin() {}
 	
-	@Before("requiredLogin()") // 포인트컷 실행 전에 requiredLogin() 메소드 실행
+	@Pointcut("execution(* com.gdu.semi02.controller.*Controller.requiredAdmin_*(..))")	
+	public void requiredAdmin() {}
+	
+	@Before("requiredAdmin()") // 포인트컷 실행 전에 requiredLogin() 메소드 실행
 	public void requiredAdminAspect(JoinPoint joinPoint) throws Throwable{
 		
 		// 로그인이 되어있는지 확인하기 위해서 sesstion이 필요하므로,
@@ -37,10 +39,13 @@ public class RequiredAdminAspect {
 		
 		// 세션
 		HttpSession session = request.getSession();
-		
+		UserDTO user = (UserDTO) session.getAttribute("loginUser");
+		System.out.println("유저정보  getId는"+user.getId());
+		System.out.println("유저정보는 getName "+user.getName());
 		// 로그인 여부 확인
-		if( session.getAttribute("loginUser")== null ) {
+		if(!user.getId().equals("admin")) {
 			
+	//	if(session.getAttribute("loginUser") == null) {
 	       response.setContentType("text/html; charset=UTF-8");
 	         PrintWriter out = response.getWriter();
 	            
