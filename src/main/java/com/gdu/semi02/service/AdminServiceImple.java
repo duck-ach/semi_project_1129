@@ -87,6 +87,7 @@ public class AdminServiceImple implements AdminService {
 		map.put("joinDate", user.getJoinDate());
 		result = adminMapper.deleteUsers(map);
 		int retireUserResult = adminMapper.insertRetireUser(map);
+		
 		response.setContentType("text/html; charset=UTF-8");
 		
 		try {
@@ -113,9 +114,6 @@ public class AdminServiceImple implements AdminService {
 	@Override
 	public void SleepAllUsers(String userNo, HttpServletResponse response, HttpServletRequest request) {
 		int userIntNo = Integer.parseInt(userNo);
-
-	    
-		int result = 0;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		
@@ -124,14 +122,14 @@ public class AdminServiceImple implements AdminService {
 	
 		map.put("userNo", userNo);
 		map.put("id", user.getId());
-		map.put("joinDate", user.getJoinDate());
-		result = adminMapper.deleteUsers(map);
-		int retireUserResult = adminMapper.insertSleepAllUsers(map);
+		int sleepUserResult = adminMapper.insertSleepAllUsers(map);
+		int deleteUserResult = adminMapper.deleteUsers(map);
+		
 		response.setContentType("text/html; charset=UTF-8");
 		
 		try {
 			PrintWriter out = response.getWriter();
-			if(result > 0 && retireUserResult > 0) {  // if(result == 1) {
+			if(sleepUserResult > 0 && deleteUserResult > 0) {  // if(result == 1) {
 				out.println("<script>");
 				out.println("alert('회원 휴면 처리가 되었습니다.');");
 				out.println("location.href='" + request.getContextPath() + "/admin/userAdmin';");
