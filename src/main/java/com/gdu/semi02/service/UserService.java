@@ -20,8 +20,9 @@ public interface UserService {
 	public void logout(HttpServletRequest request, HttpServletResponse response);
 	public UserDTO getUserBySessionId(Map<String, Object> map);
 	public Map<String, Object> confirmPassword(HttpServletRequest request);
+	public void modifyInfo(HttpServletRequest request, HttpServletResponse response);
 	public void modifyPassword(HttpServletRequest request, HttpServletResponse response);
-	public void sleepUserHandle();  //
+	public void sleepUserHandle();
 	public SleepUserDTO getSleepUserById(String id);
 	public void restoreUser(HttpServletRequest request, HttpServletResponse response);
 	public String getNaverLoginApiURL(HttpServletRequest request); 
