@@ -30,8 +30,8 @@ public class BbsCommController {
 	
 	@ResponseBody
 	@PostMapping(value="/bbsComm/add", produces="application/json")
-	public Map<String, Object> add(BbsCommDTO bbsComm){
-		return bbsCommService.addBbsComment(bbsComm);
+	public Map<String, Object> add(BbsCommDTO bbsComm, HttpServletRequest request){
+		return bbsCommService.addBbsComment(bbsComm, request);
 	}
 	
 	
@@ -49,8 +49,8 @@ public class BbsCommController {
 	
 	@ResponseBody
 	@PostMapping(value="/bbsComm/reply/add", produces="application/json")
-	public Map<String, Object> replyAdd(BbsCommDTO reply){
-		return bbsCommService.addReply(reply);
+	public Map<String, Object> replyAdd(BbsCommDTO reply, HttpServletRequest request){
+		return bbsCommService.addReply(reply, request);
 	}
 	
 	

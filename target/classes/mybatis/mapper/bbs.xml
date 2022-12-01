@@ -12,17 +12,17 @@
 	</select>
 
 	<select id="selectAllBbsList" parameterType="Map" resultType="BbsDTO">
-		SELECT A.RW, A.BBS_NO, A.BBS_TITLE, A.BBS_CONTENT, A.BBS_IP, A.BBS_CREATE_DATE, A.BBS_HIT
-        FROM (SELECT ROW_NUMBER() OVER(ORDER BY BBS_NO DESC) AS RW, BBS_NO, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT
+		SELECT A.RW, A.BBS_NO, A.ID, A.BBS_TITLE, A.BBS_CONTENT, A.BBS_IP, A.BBS_CREATE_DATE, A.BBS_HIT
+        FROM (SELECT ROW_NUMBER() OVER(ORDER BY BBS_NO DESC) AS RW, BBS_NO, ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT
                 FROM BBS) A
        WHERE A.RW BETWEEN #{begin} AND #{end}
 	</select>
 	
 	<insert id="insertBbs" parameterType="BbsDTO">
 		INSERT INTO BBS
-			(BBS_NO, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT )
+			(BBS_NO, ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT )
 		VALUES
-			(BBS_SEQ.NEXTVAL, #{bbsTitle}, #{bbsContent}, #{bbsIp}, SYSTIMESTAMP, 0)
+			(BBS_SEQ.NEXTVAL, #{id}, #{bbsTitle}, #{bbsContent}, #{bbsIp}, SYSTIMESTAMP, 0)
 	</insert>
 	
 	<update id="updateHit" parameterType="int">
@@ -32,7 +32,7 @@
 	</update>
 	
 	<select id="selectBbsByNo" parameterType="int" resultType="BbsDTO">
-		SELECT BBS_NO, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT
+		SELECT BBS_NO, ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT
 		  FROM BBS
 		 WHERE BBS_NO = #{bbsNo}
 	</select>

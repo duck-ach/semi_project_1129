@@ -30,7 +30,7 @@
 					<tr>
 						<td>${beginNo - vs.index}</td>
 						<td><a href="${contextPath}/bbs/increase/hit?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
-						<td>${user.id}</td>
+						<td>${bbs.id}</td>
 						<td>${bbs.bbsCreateDate}</td>
 						<td>${bbs.bbsHit}</td>
 					</tr>
