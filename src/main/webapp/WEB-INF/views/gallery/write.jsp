@@ -89,7 +89,7 @@
 				alert('제목은 필수입니다.');
 				event.preventDefault(); // 서브밋 취소
 				return; // 더 이상 코드 실행할 필요 없음
-			}else if()
+			}
 		});
 		
 	});

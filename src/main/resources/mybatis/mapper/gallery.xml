@@ -94,6 +94,17 @@
 		FROM LIKED
 	</select>
 	
+	<update id="updateLiked" parameterType="int">
+	UPDATE LIKED
+	SET ISLIKED = ISLIKED + 1
+	WHERE USER_NO =#{userNo}
+	</update>
+	
+	<update id="cancelLiked" parameterType="int">
+	UPDATE LIKED
+	SET ISLIKED = 0
+	WHERE USER_NO =#{userNo}
+	</update>
 	
 	
 	

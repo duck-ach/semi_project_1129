@@ -36,6 +36,9 @@
 	<div>
 		${gallery.galleryContent}
 	</div>
+	<div>
+	 <a>좋아요</a>
+	</div>
 	
 	<div>
 		<form id="frm_btn" method="post">

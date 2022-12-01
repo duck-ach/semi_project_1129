@@ -4,9 +4,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<jsp:include page="../layout/header.jsp">
-	<jsp:param value="갤러리 목록" name="title"/>
+<c:if test="${loginUser.id == 'admin'}">
+<jsp:include page="../admin/admin_layout/header.jsp">
+   <jsp:param value="갤러리 관리 페이지" name="title" />
 </jsp:include>
+</c:if>
+
+
+
+<c:if test="${loginUser.id != 'admin'}">
+<jsp:include page="../layout/header.jsp">
+   <jsp:param value="${bbs.bbsNo}번 게시글 상세내용" name="title" />
+</jsp:include>
+</c:if>
 
 <div>
 	<h1>갤러리 목록(전체 ${totalRecord}개)</h1>
@@ -34,7 +44,7 @@
 						<td>${gallery.id}</td>						
 						<td>${gallery.createDate}</td>
 						<td>${gallery.hit}</td>
-						<td>${liked.likedCnt}</td>
+						<td>${likedCnt}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

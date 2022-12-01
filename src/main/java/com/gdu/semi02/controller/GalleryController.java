@@ -40,8 +40,8 @@ public class GalleryController {
 	
 	@ResponseBody // ajax
 	@PostMapping(value="/gallery/uploadImage", produces = "application/json")
-	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest){
-		return galleryService.saveSummernoteImage(multipartRequest);
+	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response){
+		return galleryService.saveSummernoteImage(multipartRequest, response);
 	}
 	
 	@GetMapping("/gallery/increase/hit")
