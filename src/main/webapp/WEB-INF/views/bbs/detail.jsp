@@ -10,15 +10,22 @@
 	.blind {
 		display: none;
 	}
+	.div_title {
+		font-size: 32px;
+		font-weight: 1000;
+	}
+	.div_iddate{
+		text-align: right;
+    	color: #C8C8C8;
+    	font-size: 12px;
+	}
+	
 </style>
 
 <div>
 
-	<div>${bbs.bbsTitle}</div>
-	<div>${bbs.id}</div>
-	<div>${bbs.bbsCreateDate}</div>
-	<div>${bbs.bbsIp}</div>
-	<div>${bbs.bbsHit}</div>
+	<div class="div_title">${bbs.bbsTitle}</div>
+	<div class="div_iddate">작성자 ${bbs.id} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  작성일 ${bbs.bbsCreateDate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP ${bbs.bbsIp} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  조회수 ${bbs.bbsHit}</div>
 	
 	<hr>	
 	
@@ -27,8 +34,10 @@
 	<div>
 		<form id="frm_btn" method="post">
 			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
-			<input type="button" value="수정" id="btn_edit_bbs">
-			<input type="button" value="삭제" id="btn_remove_bbs">
+			<c:if test="${loginUser.id == bbs.id}">
+				<input type="button" value="수정" id="btn_edit_bbs">
+				<input type="button" value="삭제" id="btn_remove_bbs">
+			</c:if>
 			<input type="button" value="목록" onclick="location.href='${contextPath}/bbs/list'">
 		</form>
 		<script>
@@ -53,7 +62,7 @@
 	
 	<hr>
 	
-	<div id="comment_area" class="blind">
+	<div id="comment_area">		<!-- class="blind" -->
 		<div id="bbs_comm_list"></div>
 		<div id="paging"></div>
 	</div>
@@ -64,10 +73,10 @@
 		<form id="frm_add_comment">
 			<div class="add_comment">
 				<div class="add_comment_input">
-					<input type="text" name="commContent" id="commContent" placeholder="댓글을 작성해주세요" >
+					<input type="text" name="commContent" id="commContent" >
 				</div>
 				<div class="add_comment_btn">
-					<input type="button" value="작성완료" id="btn_add_comment">
+					<input type="button" value="댓글 쓰기" id="btn_add_comment">
 				</div>
 			</div>
 			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
@@ -155,9 +164,15 @@
 							div += comment.id;
 							div += comment.commContent;
 							// 작성자 if 처리 
-							div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';
+							if(${loginUser.id == 'admin'}){
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';								
+							} else if('${loginUser.id}' == comment.id){
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
+							}
 							if(comment.depth == 0){
-								div += '<input type="button" value="답글" class="btn_reply_area">';
+								if(${loginUser != null}) {
+									div += '<input type="button" value="답글" class="btn_reply_area">';	
+								}
 							}
 							div += '</div>';
 						} else {
@@ -173,9 +188,9 @@
 					
 						div += '<input type="hidden" name="bbsNo" value="' + comment.bbsNo + '">';
 						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
-						div += '<input type="text" name="commContent" placeholder="답글을 작성하려면 로그인을 해주세요">';
+						div += '<input type="text" name="commContent">';
 						// 로그인한 사용자만 볼 수 있도록 if 처리
-						div += '<input type="button" value="답글 작성 완료" class="btn_reply_add">';
+						div += '<input type="button" value="답글 쓰기" class="btn_reply_add">';
 						div += '</form>';
 						div += '</div>';
 
