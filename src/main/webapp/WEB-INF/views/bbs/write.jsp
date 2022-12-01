@@ -65,20 +65,11 @@
 	});
 
 
-    $(window).on("beforeunload", function() {
-        return "작성중인 글이 존재합니다. 페이지를 나가시겠습니까?";
-    });
-	
-    $("#admin_post_write_form").on("submit", function() {
-        $(window).off("beforeunload");
-    });
-
 
 	
 </script>
 </head>
 <body>
-	
 
 	<div>
 		<form id="frm_write" action="${contextPath}/bbs/add" method="post">

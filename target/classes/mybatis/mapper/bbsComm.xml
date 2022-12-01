@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gdu.semi02.mapper.BbsCommMapper">
+
+	<select id="selectBbsCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM BBS_COMM
+		WHERE BBS_NO = #{bbsNo}
+	</select>
+	
+	<insert id="insertBbsComment" parameterType="BbsCommDTO">
+		INSERT INTO BBS_COMM
+			(BBS_COMM_NO, BBS_NO, ID, COMM_CONTENT, COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO)
+		VALUES
+			(BBS_COMM_SEQ.NEXTVAL, #{bbsNo}, #{id}, #{commContent}, SYSDATE, 1, 0, BBS_COMM_SEQ.CURRVAL)
+	</insert>
+	
+	<select id="selectBbsCountList" parameterType="Map" resultType="BbsCommDTO">
+		SELECT A.ROW_NUM, A.BBS_COMM_NO, A.BBS_NO, A.ID, A.COMM_CONTENT, A.COMM_CREATE_DATE, A.STATE, A.DEPTH, A.GROUP_NO
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY GROUP_NO DESC, DEPTH ASC, COMM_CREATE_DATE DESC) AS ROW_NUM, BBS_COMM_NO, BBS_NO, ID, COMM_CONTENT, COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO
+		  		  FROM BBS_COMM
+		  		 WHERE BBS_NO = #{bbsNo}) A
+		  WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<update id="deleteBbsComment" parameterType="int">
+		UPDATE BBS_COMM
+		   SET STATE = -1
+		 WHERE BBS_COMM_NO = #{bbsCommNo} 
+	</update>
+	
+	<insert id="insertReply" parameterType="BbsCommDTO">
+		INSERT INTO BBS_COMM
+			(BBS_COMM_NO, BBS_NO, ID, COMM_CONTENT, COMM_CREATE_DATE, STATE, DEPTH, GROUP_NO)
+		VALUES
+			(BBS_COMM_SEQ.NEXTVAL, #{bbsNo}, #{id}, #{commContent}, SYSDATE, 1, 1, #{groupNo})
+		
+	</insert>
+
+
+</mapper>

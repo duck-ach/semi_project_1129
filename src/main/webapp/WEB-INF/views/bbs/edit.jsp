@@ -31,7 +31,7 @@
 		console.log(getContextPath());
 		
 		// 서머노트
-		$('#content').summernote({
+		$('#bbsContent').summernote({
 			width: 800,
 			height: 400,
 			lang: 'ko-KR',

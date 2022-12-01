@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BbsDTO {
 	private int bbsNo;
+	private String id;
 	private String bbsTitle;
 	private String bbsContent;
 	private String bbsIp;

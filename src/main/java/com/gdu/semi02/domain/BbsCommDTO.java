@@ -1,7 +1,6 @@
 package com.gdu.semi02.domain;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class BbsCommDTO {
 	private int bbsCommNo;
+	private String id;
 	private int bbsNo;
 	private String commContent;
 	private String commIp;
