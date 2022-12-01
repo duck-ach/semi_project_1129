@@ -11,7 +11,7 @@
 <script>
 
 	$(function(){
-		
+	
 		// 게시글 수정화면으로 이동
 		$('#btn_upload_edit').click(function(event){
 			$('#frm_upload').attr('action', '${contextPath}/upload/edit');
@@ -20,7 +20,7 @@
 		
 		// 게시글 삭제
 		$('#btn_upload_remove').click(function(event){
-			if(confirm('첨부된 모든 파일이 함께 삭제됩니다. 삭제할까요?')){
+			if(confirm('첨부된 모든 파일이 함께 삭제되고, 포인트가 10 차감됩니다.\n삭제하시겠습니까?')){
 				$('#frm_upload').attr('action', '${contextPath}/upload/remove');
 				$('#frm_upload').submit();
 			}
@@ -30,6 +30,7 @@
 		$('#btn_upload_list').click(function(event){
 			location.href = '${contextPath}/upload/list';
 		});
+		
 		
 	});
 
@@ -41,8 +42,10 @@
 			<div class="btn_location">
 				<form id="frm_upload" method="post">
 					<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
-					<input type="button" value="게시글편집" id="btn_upload_edit" class="btn"> 			
-					<input type="button" value="게시글삭제" id="btn_upload_remove" class="btn"> 			
+					<c:if test="${loginUser.id == 'admin' || loginUser.id == upload.id}">
+						<input type="button" value="게시글편집" id="btn_upload_edit" class="btn"> 			
+						<input type="button" value="게시글삭제" id="btn_upload_remove" class="btn"> 			
+					</c:if>
 					<input type="button" value="게시글목록" id="btn_upload_list" class="btn"> 			
 				</form>
 			</div>
@@ -67,11 +70,11 @@
 						<c:forEach items="${attachList}" var="attach" varStatus="status">
 						<input type="hidden" class="attachCnt" value="${status.count}">	
 							<div>
-								<a class="attachFile attachFileDown" href="${contextPath}/upload/download?attachNo=${attach.attachNo}&uploadNo=${attach.uploadNo}">${attach.origin}</a>
+								<a class="attachFile attachFileDown" href="${contextPath}/upload/download?attachNo=${attach.attachNo}&uploadNo=${attach.uploadNo}">${attach.origin}&nbsp;&nbsp;|&nbsp; 다운로드 수 ▶ ${attach.downloadCnt}</a>
 							</div>
 						</c:forEach>
 						<div>
-							<a class="attachFile" href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
+							<a class="attachFile attachFileDownAll" href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
 						</div>
 					</div>
 				
@@ -114,7 +117,8 @@
 		</div>
 		<c:if test="${loginUser.id == null}">
 			<div class="unlogin_comment">
-				<span>댓글을 작성하시려면 로그인이 필요합니다.</span>
+				<span>비회원은 댓글을 읽을 수 없습니다.<br></span>
+				<span>로그인 후에 바로 열람 가능합니다.</span>
 			</div>
 		</c:if>
 </div>
@@ -124,7 +128,7 @@
 	
 	<script>
 		
-		// 함수 호출
+		// 함수 호출	
 		fn_comment_submit_return();
 		fn_attach_download_return();
 		fn_attachblind();
@@ -255,9 +259,11 @@
 							div += comment.id;
 							div += comment.commContent;
 							// 작성자만 지울 수 있도록 if 처리 필요
-							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
-							// 댓글만 답글을 달 수 있도록 if 처리 필요
-							
+							if(${loginUser.id == 'admin'}) {
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
+							} else if ('${loginUser.id}' == comment.id){
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
+							}
 							if(comment.depth == 0) {
 								div += '<input type="button" value="답글" class="btn_reply_area">'; // comment의 commentNo가 groupNo와 같다.
 							}

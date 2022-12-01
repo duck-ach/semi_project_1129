@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="게시글 수정" name="edit" />
+	<jsp:param value="${bbs.bbsNo}번 게시글 수정" name="edit" />
 </jsp:include>
 <!DOCTYPE html>
 <html>

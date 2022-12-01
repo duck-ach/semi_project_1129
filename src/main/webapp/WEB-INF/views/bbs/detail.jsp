@@ -2,9 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<jsp:include page="../layout/header.jsp">
-	<jsp:param value="${bbs.bbsNo}번 게시글 상세내용" name="title" />
+
+<c:if test="${loginUser.id == 'admin'}">
+<jsp:include page="../admin/admin_layout/header.jsp">
+   <jsp:param value="갤러리 관리 페이지" name="title" />
 </jsp:include>
+</c:if>
+
+<c:if test="${loginUser.id != 'admin'}">
+<jsp:include page="../layout/header.jsp">
+   <jsp:param value="${bbs.bbsTitle}" name="title" />
+</jsp:include>
+</c:if>
+
+<script src="${contextPath}/resources/js/moment-with-locales.js"></script>
 
 <style>
 	.blind {
@@ -13,11 +24,33 @@
 	.div_title {
 		font-size: 32px;
 		font-weight: 1000;
+		margin-top: 50px;
+		margin-left: 10px;
+		
 	}
 	.div_iddate{
 		text-align: right;
     	color: #C8C8C8;
     	font-size: 12px;
+    	margin-top: 20px;
+    	margin-right: 20px;
+	}
+	.commentId {
+		font-weight: bold;
+	}
+	.div_bbs_comm_list {
+		margin-bottom: 5px;
+	}
+	.div_bbs_content {
+		height: 300px;
+	    overflow-x: auto;
+	}
+	.div_paging{
+		width: 30%;
+	    display: flex;
+	    flex-wrap: nowrap;
+	    justify-content: space-evenly;
+	    margin: 0 auto;	
 	}
 	
 </style>
@@ -25,16 +58,63 @@
 <div>
 
 	<div class="div_title">${bbs.bbsTitle}</div>
-	<div class="div_iddate">작성자 ${bbs.id} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  작성일 ${bbs.bbsCreateDate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; IP ${bbs.bbsIp} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  조회수 ${bbs.bbsHit}</div>
+	<div class="div_iddate">
+		▷ 작성자 ${bbs.id} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+		▷ 작성일 ${bbs.bbsCreateDate}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		▷ IP ${bbs.bbsIp} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+		▷ 조회수 ${bbs.bbsHit}
+	</div>
 	
-	<hr>	
+	<hr  style="background: #000; height: 1px;">	
 	
-	<div>${bbs.bbsContent}</div>
+	<div class="div_bbs_content">${bbs.bbsContent}</div>
+	
+
+	<hr>
+	
+	<div style="margin-bottom: 10px;">
+		<span id="btn_comment_list" style="font-size: 20px;">
+			댓글 <span id="bbs_comm_count"></span>개
+		</span>
+	</div>
+	
+	
+	<div id="comment_area">		<!-- class="blind" -->
+		<div id="bbs_comm_list"></div>
+		<div id="paging" class="div_paging"></div>
+	</div>
+	
+	<hr>
+	
+	<div>
+		<form id="frm_add_comment">
+			<div class="add_comment">
+				<div class="add_comment_input">
+					<input type="text" name="commContent" id="commContent" >
+				</div>
+				<c:if test="${loginUser.id != null}">
+					<div class="add_comment_btn">
+						<input type="button" value="댓글 쓰기" id="btn_add_comment">
+					</div>
+				</c:if>
+			</div>
+			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
+		</form>
+	</div>
+	<c:if test="${loginUser.id == null}">
+		<div class="unlogin_comment">
+			<span>댓글을 작성하시려면 로그인이 필요합니다.</span>
+		</div>
+	</c:if>
 	
 	<div>
 		<form id="frm_btn" method="post">
 			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
 			<c:if test="${loginUser.id == bbs.id}">
+				<input type="button" value="수정" id="btn_edit_bbs">
+				<input type="button" value="삭제" id="btn_remove_bbs">
+			</c:if>
+			<c:if test="${loginUser.id == 'admin'}">
 				<input type="button" value="수정" id="btn_edit_bbs">
 				<input type="button" value="삭제" id="btn_remove_bbs">
 			</c:if>
@@ -54,39 +134,12 @@
 		</script>
 	</div>
 	
-	<hr>
-	
-	<span id="btn_comment_list">
-		<span id="bbs_comm_count"></span>개의 댓글
-	</span>
-	
-	<hr>
-	
-	<div id="comment_area">		<!-- class="blind" -->
-		<div id="bbs_comm_list"></div>
-		<div id="paging"></div>
-	</div>
-	
-	<hr>
-	
-	<div>
-		<form id="frm_add_comment">
-			<div class="add_comment">
-				<div class="add_comment_input">
-					<input type="text" name="commContent" id="commContent" >
-				</div>
-				<div class="add_comment_btn">
-					<input type="button" value="댓글 쓰기" id="btn_add_comment">
-				</div>
-			</div>
-			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
-		</form>
-	</div>
-	
 	<input type="hidden" id="page" value="1">
 	
 	<script>
+	
 		// 함수호출
+		fn_comment_submit_return();
 		fn_commentCount();
 		fn_switchCommentList();
 		fn_addComment();
@@ -96,8 +149,17 @@
 		fn_switchReplyArea();
 		fn_addReply();
 		
-		
 		// 함수정의
+		
+ 		function fn_comment_submit_return() {
+			$('.unlogin_comment').click(function(){
+				location.href='${contextPath}/user/login/form';
+				return;
+			});
+		};
+		
+		
+		
 		function fn_commentCount(){
 			$.ajax({
 				type: 'get',
@@ -119,11 +181,10 @@
 		}
 		
 		
-		
-		
+	
 		function fn_addComment(){
 			$('#btn_add_comment').click(function(){
-				if($('#bbsComm').val() == ''){
+				if($('#commContent').val() == ''){
 					alert('댓글 내용을 입력하세요');
 					return;
 				}
@@ -157,18 +218,26 @@
 						if(comment.depth == 0){
 							div += '<div>';
 						} else {
-							div += '<div style="margin-left: 40px;">';
+							div += '<div style="margin-left: 20px;">';
 						}
 						if(comment.state == 1){
-							div += '<div>';
+							div += '<div>';	
+							if(comment.depth > 0){
+								div += '→&nbsp';
+							}
+							div += '<span class="commentId">';	
 							div += comment.id;
+							div += '</span>';	
+							div += '┃';
 							div += comment.commContent;
 							// 작성자 if 처리 
 							if(${loginUser.id == 'admin'}){
 								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';								
 							} else if('${loginUser.id}' == comment.id){
 								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
-							}
+							} else if(${loginUser.id != null}){
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
+							} 
 							if(comment.depth == 0){
 								if(${loginUser != null}) {
 									div += '<input type="button" value="답글" class="btn_reply_area">';	
@@ -183,6 +252,10 @@
 							}
 						}
 
+						div += '<div>';
+						moment.locale('ko-KR');
+						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.createDate).format('YYYY. MM. DD hh:mm') + '</span>';
+						div += '</div>';
 						div += '<div style="margin-left: 40px;" class="reply_area blind">';		// 공백으로 구분했기 때문에 현재 class 는 2개임
 						div += '<form class="frm_reply">';
 					
@@ -195,7 +268,7 @@
 						div += '</div>';
 
 						$('#bbs_comm_list').append(div);
-						$('#bbs_comm_list').append('<div style="border-bottom: 1px dotted gray;"></div>');
+						$('#bbs_comm_list').append('<div class="div_bbs_comm_list"></div>');
 					});
 					// paging
 					$('#paging').empty();

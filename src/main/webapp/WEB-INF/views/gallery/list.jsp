@@ -22,6 +22,7 @@
 					<td>작성자</td>
 					<td>작성일</td>
 					<td>조회수</td>
+					<td>좋아요</td>
 				</tr>
 			</thead>
 			
@@ -33,6 +34,7 @@
 						<td>${gallery.id}</td>						
 						<td>${gallery.createDate}</td>
 						<td>${gallery.hit}</td>
+						<td>${liked.likedCnt}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
