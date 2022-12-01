@@ -13,7 +13,9 @@
 
 		<div class="container">
 
-
+		<c:if test="${loginUser == 'admin'}">
+			
+		</c:if>
 
 
 		</div>
