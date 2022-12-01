@@ -95,7 +95,7 @@
 		</form>
 	</div>
 	</c:if>		
-	<c:if test="${loginUser.id == null}">
+		<c:if test="${loginUser.id == 'admin' || loginUser.id != null}">
 		<div>
 			<div class="unlogin_comment">
 					<span></span>
