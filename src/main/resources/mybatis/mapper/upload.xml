@@ -124,4 +124,10 @@
 		 WHERE ID = #{id}
 	</select>
 	
+	<update id="updateUserPointRemoveBoard" parameterType="String">
+		UPDATE USERS
+		   SET POINT = POINT - 10
+		 WHERE ID = #{id}
+	</update>
+	
 </mapper>

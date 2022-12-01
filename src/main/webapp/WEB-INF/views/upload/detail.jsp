@@ -20,7 +20,7 @@
 		
 		// 게시글 삭제
 		$('#btn_upload_remove').click(function(event){
-			if(confirm('첨부된 모든 파일이 함께 삭제됩니다. 삭제할까요?')){
+			if(confirm('첨부된 모든 파일이 함께 삭제되고, 포인트가 10 차감됩니다.\n삭제하시겠습니까?')){
 				$('#frm_upload').attr('action', '${contextPath}/upload/remove');
 				$('#frm_upload').submit();
 			}
@@ -42,11 +42,7 @@
 			<div class="btn_location">
 				<form id="frm_upload" method="post">
 					<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
-					<c:if test="${loginUser.id == 'admin'}">
-						<input type="button" value="게시글편집" id="btn_upload_edit" class="btn"> 			
-						<input type="button" value="게시글삭제" id="btn_upload_remove" class="btn"> 			
-					</c:if>
-					<c:if test="${loginUser.id} == ${upload.id}">
+					<c:if test="${loginUser.id == 'admin' || loginUser.id == upload.id}">
 						<input type="button" value="게시글편집" id="btn_upload_edit" class="btn"> 			
 						<input type="button" value="게시글삭제" id="btn_upload_remove" class="btn"> 			
 					</c:if>
@@ -74,7 +70,7 @@
 						<c:forEach items="${attachList}" var="attach" varStatus="status">
 						<input type="hidden" class="attachCnt" value="${status.count}">	
 							<div>
-								<a class="attachFile attachFileDown" href="${contextPath}/upload/download?attachNo=${attach.attachNo}&uploadNo=${attach.uploadNo}">${attach.origin}</a>
+								<a class="attachFile attachFileDown" href="${contextPath}/upload/download?attachNo=${attach.attachNo}&uploadNo=${attach.uploadNo}">${attach.origin}&nbsp;&nbsp;|&nbsp; 다운로드 수 ▶ ${attach.downloadCnt}</a>
 							</div>
 						</c:forEach>
 						<div>
@@ -121,7 +117,8 @@
 		</div>
 		<c:if test="${loginUser.id == null}">
 			<div class="unlogin_comment">
-				<span>댓글을 작성하시려면 로그인이 필요합니다.</span>
+				<span>비회원은 댓글을 읽을 수 없습니다.<br></span>
+				<span>로그인 후에 바로 열람 가능합니다.</span>
 			</div>
 		</c:if>
 </div>

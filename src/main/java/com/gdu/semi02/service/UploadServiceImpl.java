@@ -491,7 +491,7 @@ public class UploadServiceImpl implements UploadService {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			
-			if(uploadResult > 0 && attachResult == files.size()) {
+			if(uploadResult > 0 || attachResult == files.size()) {
 				out.println("<script>");
 				out.println("alert('수정 되었습니다.');");
 				out.println("location.href='" + multipartRequest.getContextPath() + "/upload/detail?uploadNo=" + uploadNo + "'");
@@ -544,6 +544,11 @@ public class UploadServiceImpl implements UploadService {
 		
 		// DB에서 Upload 정보 삭제
 		int result = uploadMapper.deleteUpload(uploadNo);
+		
+		// 유저 포인트 차감(하나당 -5 point)
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		uploadMapper.updateUserPointRemoveBoard(loginUser.getId());
 		
 		// 첨부 파일 삭제
 		if(result > 0) {
