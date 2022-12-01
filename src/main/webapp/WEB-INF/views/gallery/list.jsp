@@ -10,14 +10,8 @@
 
 <div>
 	<h1>갤러리 목록(전체 ${totalRecord}개)</h1>
-	
-	<c:if test="${loginUser != null}">
-	
-		<input type="button" value="갤러리 작성하기" onclick="${contextPath}/gallery/write">
-	</c:if>
-<!-- 	<div> -->
-<%-- 		<input type="button" value="게시글 작성하기" onclick="location.href='${contextPath}/gallery/write'"> --%>
-<!-- 	</div> -->
+
+	<input type="button" id="moveWrite" value="게시글 작성하기" onclick="location.href='${contextPath}/gallery/write'">
 	
 	<div>
 		<table border="1">
@@ -52,6 +46,17 @@
 		</table>
 	</div>
 </div>
+<script>
+	$('#moveWrite').click(function(){
+		if(${loginUser == null}){
+			alert('작성하려면 로그인');
+			event.preventDefault();
+			history.back();
+			location.href='${contextPath}/user/login/form';
+			return;
+		}
+	})
+</script>
 
 </body>
 </html>

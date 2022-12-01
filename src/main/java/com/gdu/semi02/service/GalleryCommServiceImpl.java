@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gdu.semi02.domain.GalleryCommDTO;
+import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.mapper.GalleryCommMapper;
 import com.gdu.semi02.util.GalleryPageUtil;
 
@@ -29,8 +31,15 @@ public class GalleryCommServiceImpl implements GalleryCommService {
 	}
 	
 	@Override
-	public Map<String, Object> addComment(GalleryCommDTO comment) {
+	public Map<String, Object> addComment(GalleryCommDTO comment, HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
+		
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		
+		String id = loginUser.getId();
+		comment.setId(id);
+		
 		result.put("isAdd", commentMapper.insertComment(comment) == 1);
 		return result;
 	}

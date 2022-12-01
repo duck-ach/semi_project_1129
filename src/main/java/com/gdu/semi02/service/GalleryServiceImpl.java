@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.semi02.domain.GalleryDTO;
 import com.gdu.semi02.domain.SummernoteImageDTO;
+import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.mapper.GalleryMapper;
 import com.gdu.semi02.util.GalleryPageUtil;
 import com.gdu.semi02.util.MyFileUtil;
-import com.gdu.semi02.util.PageUtil;
 
 @Service
 public class GalleryServiceImpl implements GalleryService {
@@ -65,11 +66,13 @@ public class GalleryServiceImpl implements GalleryService {
 		Optional<String> opt = Optional.ofNullable(request.getHeader("X-Forwarded-For"));
 		String ip = opt.orElse(request.getRemoteAddr());
 		
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
 		GalleryDTO gallery = GalleryDTO.builder()
 				.galleryTitle(gallerytitle)
 				.galleryContent(GalleryContent)
 				.writerIp(ip)
-				.id("admin")
+				.id(loginUser.getId())
 				.build();
 		
 		// DB에 Gallery 저장
