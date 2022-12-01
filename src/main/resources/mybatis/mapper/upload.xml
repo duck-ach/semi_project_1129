@@ -117,4 +117,17 @@
 		   SET POINT = POINT - (#{downCnt} * 5)
 		 WHERE USER_NO = #{userNo}
 	</update>
+	
+	<select id="selectUserPoint" parameterType="String" resultType="int">
+		SELECT POINT
+		  FROM USERS
+		 WHERE ID = #{id}
+	</select>
+	
+	<update id="updateUserPointRemoveBoard" parameterType="String">
+		UPDATE USERS
+		   SET POINT = POINT - 10
+		 WHERE ID = #{id}
+	</update>
+	
 </mapper>

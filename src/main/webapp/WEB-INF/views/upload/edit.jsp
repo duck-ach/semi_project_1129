@@ -19,7 +19,7 @@
 		fn_removeAttach();
 		
 		// summernote
-		$('#content').summernote({
+ 		$('#content').summernote({
 			width: 800,
          	height: 400,
          	lang: 'ko-KR',
@@ -33,7 +33,7 @@
 			    ['para', ['ul', 'ol', 'paragraph']],
 			    ['height', ['height']]
 			]
-		});
+		}); 
 	});
 		
 	function fn_fileCheck(){
@@ -70,6 +70,8 @@
 			}
 		});
 	}
+	
+	
 	
 </script>
 </head>
