@@ -61,7 +61,6 @@ public class BbsCommServiceImpl implements BbsCommService {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("bbsCommList", bbsCommMapper.selectBbsCountList(map));
 		result.put("pageUtil", pageUtil);
-		System.out.println(result);
 		
 		return result;
 	}

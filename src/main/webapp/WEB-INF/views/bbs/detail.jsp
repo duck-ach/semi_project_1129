@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <jsp:include page="../layout/header.jsp">
-	<jsp:param value="${bbs.bbsNo}번 게시글 상세내용" name="title" />
+	<jsp:param value="${bbs.bbsTitle}" name="title" />
 </jsp:include>
 
 <style>
@@ -13,11 +13,19 @@
 	.div_title {
 		font-size: 32px;
 		font-weight: 1000;
+		margin-top: 50px;
+		margin-left: 10px;
+		
 	}
 	.div_iddate{
 		text-align: right;
     	color: #C8C8C8;
     	font-size: 12px;
+    	margin-top: 20px;
+    	margin-right: 20px;
+	}
+	.commentId {
+	
 	}
 	
 </style>
@@ -160,15 +168,19 @@
 							div += '<div style="margin-left: 40px;">';
 						}
 						if(comment.state == 1){
-							div += '<div>';
+							div += '<div>';	
+							div += '<span class="commentId">';	
 							div += comment.id;
+							div += '</span>';	
 							div += comment.commContent;
 							// 작성자 if 처리 
 							if(${loginUser.id == 'admin'}){
 								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';								
 							} else if('${loginUser.id}' == comment.id){
 								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
-							}
+							} else if(${loginUser.id != null}){
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
+							} 
 							if(comment.depth == 0){
 								if(${loginUser != null}) {
 									div += '<input type="button" value="답글" class="btn_reply_area">';	
