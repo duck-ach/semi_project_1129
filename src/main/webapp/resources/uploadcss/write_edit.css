@@ -22,21 +22,37 @@
 }
 
 
-/* button */
+/* BUTTON */
 .btn {
-	width : 80px !important;
-	display : inline-block !important;
-	height: 30px !important;
-	border-radius: 3px !important;
-	box-sizing: border-box !important;
-	line-height: 30px !important;
-	text-align: center !important;
-	background: #FFF !important;
-	border: 1px solid #c8c8c8 !important;
-	color: #464646 !important;
-	font-size: 11px !important;
-	margin: 1px !important;
+	width : 80px;
+	display : inline-block;
+	height: 30px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	line-height: 30px;
+	text-align: center;
+	background: #FFF;
+	border: 1px solid #c8c8c8;
+	color: #464646;
+	font-size: 11px;
+	margin: 1px;
 }
+
+.btn_submit {
+	width : 80px;
+	display : inline-block;
+	height: 30px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	line-height: 30px;
+	text-align: center;
+	background: #5a5a5a;
+	border: 1px solid #5a5a5a;
+	color: #F9FFFF;
+	font-size: 11px;
+	margin: 1px;
+}
+
 .btn_location {
 	text-align: right;
 }

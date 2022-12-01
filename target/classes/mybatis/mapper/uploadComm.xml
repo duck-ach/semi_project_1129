@@ -16,18 +16,17 @@
 	<!-- 댓글 삽입 -->
 	<insert id="insertComment" parameterType="UploadCommDTO">
 		INSERT INTO UPLOAD_COMM
-			(UPLOAD_COMM_NO, UPLOAD_NO, ID, USER_IP, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE)
+			(UPLOAD_COMM_NO, UPLOAD_NO, ID, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE)
 		VALUES
-			(UPLOAD_COMMENTS_SEQ.NEXTVAL, #{id}, #{uploadNo}, #{commUserIp},#{commContent}, 1, 0, COMMENTS_SEQ.CURRVAL, SYSDATE)
+			(UPLOAD_COMM_SEQ.NEXTVAL, #{uploadNo}, #{id}, #{commContent}, 1, 0, UPLOAD_COMM_SEQ.CURRVAL, SYSDATE)
 	</insert>
 	
 	<!-- 댓글 리스트 -->
 	<select id="selectCommentList" parameterType="Map" resultType="UploadCommDTO"> <!-- DEPTH 기준 오름차순(댓글/대댓글), GROUP_NO의 내림차순(최신 댓글이 위로 오도록) 만약 대댓글끼리도 하고싶으면 CREATE_DATE 이용하면 됨 -->
-		SELECT A.ROW_NUM, A.UPLOAD_COMM_NO, A.UPLOAD_NO, A.COMM_CONTENT, A.STATE, A.DEPTH, A.GROUP_NO, A.COMM_DATE
-		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY GROUP_NO DESC, DEPTH ASC, COMM_DATE DESC) AS ROW_NUM, UPLOAD_COMM_NO, UPLOAD_NO, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE
+		SELECT A.ROW_NUM, A.UPLOAD_COMM_NO, A.ID, A.UPLOAD_NO, A.COMM_CONTENT, A.STATE, A.DEPTH, A.GROUP_NO, A.COMM_DATE
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY GROUP_NO DESC, DEPTH ASC, COMM_DATE DESC) AS ROW_NUM, UPLOAD_COMM_NO, ID, UPLOAD_NO, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE
 		          FROM UPLOAD_COMM
-		         WHERE UPLOAD_NO = #{uploadNo}) A LEFT OUTER JOIN USERS U
-		 	ON A.ID = U.ID
+		         WHERE UPLOAD_NO = #{uploadNo}) A
 		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
 	</select>
 	
@@ -35,15 +34,15 @@
 	<delete id="deleteComment" parameterType="int">
 		UPDATE UPLOAD_COMM
 		   SET STATE = -1
-		 WHERE UPLOAD_COMM_NO = #{uploadCommentNo}
+		 WHERE UPLOAD_COMM_NO = #{uploadCommNo}
 	</delete>
 	
 	<!-- 답글 삽입 (DEPTH와 GROUP_NO가 달라짐) -->
 	<insert id="insertReply" parameterType="UploadCommDTO">
 		INSERT INTO UPLOAD_COMM
-			(UPLOAD_COMM_NO, UPLOAD_NO, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE)
+			(UPLOAD_COMM_NO, UPLOAD_NO, ID, COMM_CONTENT, STATE, DEPTH, GROUP_NO, COMM_DATE)
 		VALUES
-			(UPLOAD_COMM_SEQ.NEXTVAL, #{uploadNo}, #{commContent}, 1, 1, #{groupNo}, SYSDATE)
+			(UPLOAD_COMM_SEQ.NEXTVAL, #{uploadNo}, #{id}, #{commContent}, 1, 1, #{groupNo}, SYSDATE)
 	</insert>
 	
 </mapper>

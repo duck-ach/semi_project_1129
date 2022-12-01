@@ -58,14 +58,14 @@ public class UploadController {
 	// [첨부파일] 다운로드
 	@ResponseBody // 요청헤더를 뒤지는 애 @RequestHeader              // attachNo는 @RequestParam을 생략한 것 1. @RequestParam적어도되고, 2.뒤에 "attachNo"적고싶으면 적어도 되고, 3 생략하고 int attachNo만해도 되고
 	@GetMapping("/upload/download")
-	public ResponseEntity<Resource> download(@RequestHeader("User-Agent") String userAgent, @RequestParam("attachNo") int attachNo) {
-		return uploadService.download(userAgent, attachNo);
+	public ResponseEntity<Resource> download(HttpServletRequest request, HttpServletResponse response) {
+		return uploadService.download(request, response);
 	}
 	
 	@ResponseBody
 	@GetMapping("/upload/downloadAll")
-	public ResponseEntity<Resource> downloadAll(@RequestHeader("User-Agent") String userAgent, @RequestParam("uploadNo") int uploadNo) {
-		return uploadService.downloadAll(userAgent, uploadNo);
+	public ResponseEntity<Resource> downloadAll(@RequestHeader("User-Agent") String userAgent, @RequestParam("uploadNo") int uploadNo, HttpServletRequest request) {
+		return uploadService.downloadAll(userAgent, uploadNo, request);
 	}
 	
 	@PostMapping("/upload/edit")
