@@ -63,16 +63,6 @@
 		</div>
 		
 	</div>
-	
-	<script>
-		$('#btn_write').click(function(){
-			if(${loginUser == null}) {
-				alert('작성을 하시려면 로그인이 필요합니다.');
-				event.preventDefault();
-				location.href='${contextPath}/user/login/form';
-				return;
-			}
-		});
-	</script>
+
 </body>
 </html>
