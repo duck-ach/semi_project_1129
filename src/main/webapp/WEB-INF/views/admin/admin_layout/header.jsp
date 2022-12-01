@@ -212,16 +212,14 @@ $(function(){
 				<li class="header_top_menu_area_li">
 					회원
 					<ul class="close_ul_area">
-						<li> <a href="${contextPath}/admin/userAdmin"> - 가입/탈퇴/로그인/로그아웃</a> </li>						
+						<li> <a href="${contextPath}/admin/userAdmin"> - 전체유저 정보 및 탈퇴시키기</a> </li>		
+						<li> <a href="${contextPath}/admin/removeAdmin"> - 탈퇴한 유저 조회</a> </li>					
 					</ul>
 				</li>
 				<li class="header_top_menu_area_li">
 					자유 게시판
 					<ul class="close_ul_area">
-						<li> <a href=""> - 다단 계층 게시판</a></li>
-						<li> <a href=""> - 로그인한 유저만 작성 가능</a></li>
-						<li> <a href="">- 작성자만 삭제 가능</a> </li>
-						<li> <a href=""> - 작성자만 내용 수정 가능</a></li>
+						<li> <a href=""> - 다단 계층 게시판</a></li>						
 					</ul>
 				</li>
 

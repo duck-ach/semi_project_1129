@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gdu.semi02.domain.RetireUserDTO;
 import com.gdu.semi02.domain.UserDTO;
 
 @Mapper
@@ -20,5 +21,7 @@ public interface AdminMapper {
 	public UserDTO selectUsersByNo(int userNo);
 	
 	public int selectUploadUserAll();
+	
+	public List<RetireUserDTO> selectRemoveAllUsers();
 	 
 }

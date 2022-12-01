@@ -46,15 +46,19 @@
 	</insert>
 	
 	<!-- 게시글 수 세기 -->
-	<select id="selectUploadUserAll" resultType="int"  >
+	
+	<select id="selectUploadUserAll" resultType="int">
 		SELECT COUNT(*)
-		  FROM UPLOAD L INNER JOIN USERS U
-		    ON L.ID = U.ID
-		  WHERE USER_NO = #{userNo}
+  		  FROM UPLOAD L LEFT OUTER JOIN USERS U
+	 		ON L.ID = U.ID
 	</select>
 	
 	
-	
-	
+	<!-- 탈퇴한 회원 -->
+	<select id="selectRemoveAllUsers"  resultType="RetireUserDTO">
+		  SELECT USER_NO, ID,JOIN_DATE, RETIRE_DATE
+		  FROM RETIRE_USERS
+		  ORDER BY USER_NO
+	</select>
 	
 </mapper>

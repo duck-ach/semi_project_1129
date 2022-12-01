@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gdu.semi02.domain.RetireUserDTO;
 import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.service.AdminService;
 
@@ -39,8 +40,8 @@ public class AdminController {
 	
 	@ResponseBody
 	@GetMapping(value="/searchAllUsers", produces="application/json; charset=UTF-8")
-	public List<UserDTO> list(HttpServletRequest request) {
-		return adminService.getAllUserList(request);
+	public List<UserDTO> list(Model model, HttpServletRequest request) {
+		return adminService.getAllUserList(model, request);
 	}
 
 	@ResponseBody
@@ -51,6 +52,17 @@ public class AdminController {
 	}
 	
 	
+	@ResponseBody
+	@GetMapping(value="/searchRemoveAllUsers", produces="application/json; charset=UTF-8")
+	public List<RetireUserDTO> Removelist(Model model, HttpServletRequest request) {
+		return adminService.selectRemoveAllUsers(model, request);
+	}
+	
+	
+	 
+	
+	
+	
 	@PostMapping("/admin/remove")
 	public String remove(@RequestParam List<String> userNo, HttpServletResponse response, HttpServletRequest request ) {
 		for (String c : userNo) {
@@ -59,6 +71,12 @@ public class AdminController {
         return "/admin/remove";
 	}
 
+	
+	@GetMapping("/admin/removeAdmin")
+	public String requiredAdmin_removeAdmin() {
+		return "admin/removeAdmin";
+	}
+	
 	/*
 	@PostMapping("/admin/remove")
 	public void remove(HttpServletRequest request, HttpServletResponse response) {

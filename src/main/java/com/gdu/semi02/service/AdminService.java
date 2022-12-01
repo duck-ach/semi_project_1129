@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.ui.Model;
 
+import com.gdu.semi02.domain.RetireUserDTO;
 import com.gdu.semi02.domain.UserDTO;
 
 
@@ -14,12 +15,13 @@ public interface AdminService {
 	
 	
 	public int getAllUsercount(HttpServletRequest request);
-	public List<UserDTO> getAllUserList(HttpServletRequest request);
+	public List<UserDTO> getAllUserList(Model model, HttpServletRequest request);
 	public List<UserDTO> findSearchUserList(HttpServletRequest request, Model model); 
 	public void removeUsers(String userNo, HttpServletResponse response, HttpServletRequest request );   
 //	public void removeUsers(String userNo ,List<String> id,List<String> joinDate, HttpServletResponse response, HttpServletRequest request );   
 //	public void retire(HttpServletRequest request, HttpServletResponse response);
 	
+	public List<RetireUserDTO> selectRemoveAllUsers(Model model, HttpServletRequest request);
 	
 	
 
