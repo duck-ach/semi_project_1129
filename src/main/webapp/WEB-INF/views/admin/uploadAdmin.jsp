@@ -33,17 +33,7 @@
 	
 	
 
-	 $("body").on("click", ".checkUserNo", function() {
-		 /* 탈퇴 휴면 중복 체크 방지  */		  
-		 
-		 var thisPrevCheck = $(this).next('.checkSleepUserNo').children();
-		 if($(thisPrevCheck).is(":checked") == true){
-			 alert('탈퇴와 휴면을 동시에 진행할 순 없습니다.');
-			 $(thisPrevCheck).prop("checked", false); 
-			 $(this).children().prop("checked", false);
-		 }
-		 
-		 
+	 $("body").on("click", ".checkUserNo", function(event) {
 		 var td_check = $(this).children();
 		 var td_userNo = $(this).parent().children('.td_userNo').text();
 		 var td_userId = $(this).parent().children('.userId').text();
@@ -75,47 +65,7 @@
 		//	$('.remov_submit_check').clone().attr('value',td_val).attr('name','userNo').removeClass().appendTo($('#frm_search'));
 		
 	 });
-	 
-	 
-	 $("body").on("click", ".checkSleepUserNo", function() {
-		 /* 탈퇴 휴면 중복 체크 방지  */		 
-		 var thisPrevChecks = $(this).prev('.checkUserNo').children();
-		 if($(thisPrevChecks).is(":checked") == true  ){
-			 alert('탈퇴와 휴면을 동시에 진행할 순 없습니다.');
-			 $(thisPrevChecks).prop("checked", false); 
-			 $(this).children().prop("checked",false);
-		 }
-		 
-		 
-		 /* 휴면 테이블로 넘기기   */
-		 var td_check = $(this).children();
-		 var td_userNo = $(this).parent().children('.td_userNo').text();
-		 var td_userId = $(this).parent().children('.userId').text();
-		 var td_userJoinData = $(this).parent().children('.userJoinDate').text();
-		 
-		 if($(td_check).is(":checked") == true){			 
-			 $(this).children().attr('value',td_userNo);
-			 $(this).parent().children('.userIdIn').attr('name','id').attr('value',td_userId);
-			 $(this).parent().children('.userJoinDateIn').attr('name','joinDate').attr('value',td_userJoinData);
-			
-			 if(  $(this).children().val() == 1 )
-			 {
-			
-				 alert('[admin] 계정을 삭제하면 주인님과 저는 만날 수 없어요... \n\n ‧º·(˚ ˃̣̣̥⌓˂̣̣̥ )‧º·˚');		
-				 $(this).children().attr('value','');
-				 event.preventDefault();  // 서브밋을 막음
-					return;  // 코드 진행을 막음
-			 }
-		 
-		 }else{
-				$(this).children().attr('value','');
-				$(this).parent().children('.userIdIn').attr('name','').attr('value','');
-				 $(this).parent().children('.userJoinDateIn').attr('name','').attr('value','');
-			}
-		
-		 
-		 
-	 });
+	
 	
 	function fn_getlist() {
 		
@@ -142,8 +92,7 @@
 				//	.append($('<td>').text(${cntUserBoard}))
 					
 					
-					.append($('<td class="checkUserNo">').html("<input type='checkBox' name='userNo' >"))
-					.append($('<td class="checkSleepUserNo">').html("<input type='checkBox' name='userNo' >"))	
+					.append($('<td class="checkUserNo">').html("<input type='checkBox' name='userNo'   >"))							
 					.appendTo('#list');					
 				});
 				
@@ -195,7 +144,7 @@
 		
 		
 		$('.del_user_click').click(function(){
-			if(confirm('회원정보를 삭제할까요?') == false){
+			if(confirm('회원번호를 삭제할까요?') == false){
 				event.preventDefault();  // 서브밋을 막음
 				return;  // 코드 진행을 막음
 			}else{
@@ -204,19 +153,6 @@
 			}
 			
 		}); 
-		
-		$('.sleep_user_click').click(function(){
-			if(confirm('회원을 휴면계정으로 처리할까요?') == false){
-				event.preventDefault();  // 서브밋을 막음
-				return;  // 코드 진행을 막음
-			}else{
-				 $("#frm_search").attr("action","${contextPath}/admin/sleep").submit();				
-				
-			}
-			
-		}); 
-		
-		
 		
 		
 		$('#btn_init').click(function(){
@@ -273,8 +209,7 @@
 					<!--  
 						<td>작성 글 수</td>
 					-->
-						<td><button class="del_user_click">탈퇴처리</button>  </td>
-						<td><button class="sleep_user_click">휴면처리</button>  </td>
+						<td><button class="del_user_click">탈퇴</button>  </td>
 					</tr>
 				</thead>
 				<tbody id="list">

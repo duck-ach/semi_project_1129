@@ -1,4 +1,4 @@
- package com.gdu.semi02.service;
+package com.gdu.semi02.service;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -90,8 +90,8 @@ public class UploadServiceImpl implements UploadService {
 		// Session의 User 정보
 		HttpSession session = multipartRequest.getSession();
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-		
-		loginUser.setPoint(uploadMapper.updateUserPoint(loginUser.getUserNo()));
+		uploadMapper.updateUserPoint(loginUser.getUserNo());
+		loginUser.setPoint(loginUser.getPoint() + 10);
 		
 		// DB로 보낼 UploadDTO
 		UploadDTO upload = UploadDTO.builder()
@@ -101,8 +101,6 @@ public class UploadServiceImpl implements UploadService {
 				.id(loginUser.getId())
 				.build();
 
-		System.out.println(loginUser.toString());
-		
 		// DB에 UploadDTO 저장
 		int uploadResult = uploadMapper.insertUpload(upload);
 		
@@ -224,7 +222,7 @@ public class UploadServiceImpl implements UploadService {
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		
 		int downloadResult = uploadMapper.updateUserPointDownload(loginUser.getUserNo());
-		loginUser.setPoint(downloadResult);
+		loginUser.setPoint(loginUser.getPoint() - 5);
 		
 		// 다운로드 횟수 증가
 		uploadMapper.updateDownloadCnt(attachNo);
@@ -287,7 +285,7 @@ public class UploadServiceImpl implements UploadService {
 	
 	
 	@Override
-	public ResponseEntity<Resource> downloadAll(HttpServletRequest request, HttpServletResponse response) {
+	public ResponseEntity<Resource> downloadAll(HttpServletRequest request) {
 		
 		// 파라미터
 		int uploadNo = Integer.parseInt(request.getParameter("uploadNo"));
@@ -359,6 +357,7 @@ public class UploadServiceImpl implements UploadService {
 		
 		// Mapper 전달
 		uploadMapper.updateUserPointDownloadAll(map);
+		loginUser.setPoint(loginUser.getPoint() - (5 * attachList.size()));
 		
 		// 반환할 Resource
 		File file = new File(tmpPath, tmpName);
@@ -368,30 +367,6 @@ public class UploadServiceImpl implements UploadService {
 		if(resource.exists() == false) {
 			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
 		}
-		
-		// 응답메세지
-//		try {
-//			
-//			response.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = response.getWriter();
-//			
-//			if(minusPointResult > 0) { // files는 첨부된 모든 애들 (list는 size가 개수)
-//				out.println("<script>");
-//				out.println("alert('회원님의 포인트가" + (5 * attachList.size()) + "차감되었습니다.');");
-//				out.println("location.href='" + request.getContextPath() + "/upload/detail?uploadNo=" + uploadNo + "';");
-//				out.println("</script>");
-//			} else {
-//				out.println("<script>");
-//				out.println("alert('다운로드를 실패했습니다. 다시 시도해 주세요.');");
-//				out.println("'history.back();'");
-//				out.println("</script>");
-//			}
-//			
-//			out.close();
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 		
 		// 다운로드 헤더 만들기
 		HttpHeaders header = new HttpHeaders();
