@@ -183,7 +183,6 @@
 						.append($('<td>').text(users.email))
 						.append($('<td>').text(users.mobile))
 						.append($('<td>').text(users.joinDate))
-						.append($('<td>').text(users.userLevel))
 						.append($('<td>').text(users.point))
 						.append($("<input type='checkBox' name='userNo' value="+"${users.userNo}>"))
 						
@@ -268,7 +267,6 @@
 						<td>회원 주소</td>
 						-->
 						<td>회원 가입일</td>						
-						<td>회원 레벨</td>
 						<td>회원 포인트</td>	
 					<!--  
 						<td>작성 글 수</td>

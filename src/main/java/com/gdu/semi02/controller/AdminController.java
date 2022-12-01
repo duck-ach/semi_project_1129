@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.semi02.domain.RetireUserDTO;
+import com.gdu.semi02.domain.SleepUserDTO;
 import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.service.AdminService;
 import com.gdu.semi02.service.BbsService;
@@ -65,6 +66,12 @@ public class AdminController {
 	@GetMapping(value="/searchRemoveAllUsers", produces="application/json; charset=UTF-8")
 	public List<RetireUserDTO> Removelist(Model model, HttpServletRequest request) {
 		return adminService.selectRemoveAllUsers(model, request);
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/searchSleepAllUsers", produces="application/json; charset=UTF-8")
+	public List<SleepUserDTO> sleepList(HttpServletRequest request, Model model) {
+		return adminService.selectSleepAllUsers(model, request);
 	}
 	
 	
