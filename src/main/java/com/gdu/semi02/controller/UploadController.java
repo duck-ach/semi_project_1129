@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -64,8 +63,8 @@ public class UploadController {
 	
 	@ResponseBody
 	@GetMapping("/upload/downloadAll")
-	public ResponseEntity<Resource> downloadAll(@RequestHeader("User-Agent") String userAgent, @RequestParam("uploadNo") int uploadNo, HttpServletRequest request) {
-		return uploadService.downloadAll(userAgent, uploadNo, request);
+	public ResponseEntity<Resource> downloadAll(HttpServletRequest request, HttpServletResponse response) {
+		return uploadService.downloadAll(request, response);
 	}
 	
 	@PostMapping("/upload/edit")

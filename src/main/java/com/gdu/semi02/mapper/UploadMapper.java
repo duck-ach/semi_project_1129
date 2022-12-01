@@ -33,4 +33,5 @@ public interface UploadMapper {
 	public int updateUserPoint(int userNo);
 	public int updateUserPointDownload(int userNo);
 	public int updateUserPointDownloadAll(Map<String, Object> map);
+	public int selectUserPoint(String id);
 }

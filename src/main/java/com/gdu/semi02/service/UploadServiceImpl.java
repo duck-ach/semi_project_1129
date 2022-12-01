@@ -100,7 +100,8 @@ public class UploadServiceImpl implements UploadService {
 				.uploadUserIp(ip)
 				.id(loginUser.getId())
 				.build();
-		System.out.println(upload.toString());
+
+		System.out.println(loginUser.toString());
 		
 		// DB에 UploadDTO 저장
 		int uploadResult = uploadMapper.insertUpload(upload);
@@ -248,6 +249,8 @@ public class UploadServiceImpl implements UploadService {
 			e.printStackTrace();
 		}
 		
+		uploadMapper.selectUserPoint(loginUser.getId());
+		
 		// 응답메세지
 		try {
 			
@@ -262,7 +265,7 @@ public class UploadServiceImpl implements UploadService {
 			} else {
 				out.println("<script>");
 				out.println("alert('다운로드를 실패했습니다. 다시 시도해 주세요.');");
-				out.println("'history.back();'");
+				out.println("location.href='" + request.getContextPath() + "/upload/detail?uploadNo=" + uploadNo + "';");
 				out.println("</script>");
 			}
 			
@@ -284,10 +287,10 @@ public class UploadServiceImpl implements UploadService {
 	
 	
 	@Override
-	public ResponseEntity<Resource> downloadAll(String userAgent, int uploadNo, HttpServletRequest request) {
+	public ResponseEntity<Resource> downloadAll(HttpServletRequest request, HttpServletResponse response) {
 		
-		// storage/temp 디렉터리에 임시 zip 파일을 만든 뒤 이를 다운로드 받을 수 있음
-		// com.gdu.app14.batch.DeleteTmpFiles에 의해서 storage/temp 디렉터리의 임시 zip 파일은 주기적으로 삭제됨
+		// 파라미터
+		int uploadNo = Integer.parseInt(request.getParameter("uploadNo"));
 		
 		// 다운로드 할 첨부 파일들의 정보(경로, 이름)
 		List<AttachDTO> attachList = uploadMapper.selectAttachList(uploadNo);
@@ -344,6 +347,7 @@ public class UploadServiceImpl implements UploadService {
 			e.printStackTrace();
 		}
 		
+		
 		// 유저 포인트 차감(하나당 -5 point)
 		HttpSession session = request.getSession();
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
@@ -354,7 +358,7 @@ public class UploadServiceImpl implements UploadService {
 		map.put("downCnt", attachList.size());
 		
 		// Mapper 전달
-		int minusPointResult = uploadMapper.updateUserPointDownloadAll(map);
+		uploadMapper.updateUserPointDownloadAll(map);
 		
 		// 반환할 Resource
 		File file = new File(tmpPath, tmpName);
@@ -364,6 +368,30 @@ public class UploadServiceImpl implements UploadService {
 		if(resource.exists() == false) {
 			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);
 		}
+		
+		// 응답메세지
+//		try {
+//			
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			
+//			if(minusPointResult > 0) { // files는 첨부된 모든 애들 (list는 size가 개수)
+//				out.println("<script>");
+//				out.println("alert('회원님의 포인트가" + (5 * attachList.size()) + "차감되었습니다.');");
+//				out.println("location.href='" + request.getContextPath() + "/upload/detail?uploadNo=" + uploadNo + "';");
+//				out.println("</script>");
+//			} else {
+//				out.println("<script>");
+//				out.println("alert('다운로드를 실패했습니다. 다시 시도해 주세요.');");
+//				out.println("'history.back();'");
+//				out.println("</script>");
+//			}
+//			
+//			out.close();
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		// 다운로드 헤더 만들기
 		HttpHeaders header = new HttpHeaders();

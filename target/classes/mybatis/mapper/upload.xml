@@ -117,4 +117,11 @@
 		   SET POINT = POINT - (#{downCnt} * 5)
 		 WHERE USER_NO = #{userNo}
 	</update>
+	
+	<select id="selectUserPoint" parameterType="String" resultType="int">
+		SELECT POINT
+		  FROM USERS
+		 WHERE ID = #{id}
+	</select>
+	
 </mapper>

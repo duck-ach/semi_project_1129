@@ -11,7 +11,7 @@
 <script>
 
 	$(function(){
-		
+	
 		// 게시글 수정화면으로 이동
 		$('#btn_upload_edit').click(function(event){
 			$('#frm_upload').attr('action', '${contextPath}/upload/edit');
@@ -31,6 +31,7 @@
 			location.href = '${contextPath}/upload/list';
 		});
 		
+		
 	});
 
 </script>
@@ -41,8 +42,10 @@
 			<div class="btn_location">
 				<form id="frm_upload" method="post">
 					<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
-					<input type="button" value="게시글편집" id="btn_upload_edit" class="btn"> 			
-					<input type="button" value="게시글삭제" id="btn_upload_remove" class="btn"> 			
+					<c:if test="${loginUser.id == upload.id} || ${loginUser.userNo == 1}">
+						<input type="button" value="게시글편집" id="btn_upload_edit" class="btn"> 			
+						<input type="button" value="게시글삭제" id="btn_upload_remove" class="btn"> 			
+					</c:if>
 					<input type="button" value="게시글목록" id="btn_upload_list" class="btn"> 			
 				</form>
 			</div>
@@ -71,7 +74,7 @@
 							</div>
 						</c:forEach>
 						<div>
-							<a class="attachFile" href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
+							<a class="attachFile attachFileDownAll" href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
 						</div>
 					</div>
 				
@@ -124,8 +127,7 @@
 	
 	<script>
 		
-		// 함수 호출
-		fn_point_user_prevent();
+		// 함수 호출	
 		fn_comment_submit_return();
 		fn_attach_download_return();
 		fn_attachblind();
@@ -137,17 +139,6 @@
 		fn_removeComment();
 		fn_switchReplyArea();
 		fn_addReply();
-		
-		// 포인트 없으면 막기
-		function fn_point_user_prevent(){
-			$('.attachFileDown').click(function(){
-				if(${loginUser.point <= 5}) {
-					alert('첨부파일을 다운받으려면 하나당 5포인트가 필요합니다.');
-					event.preventDefault();
-					return;
-				}
-			});
-		}
 		
 		// 로그인안된 사용자가 댓글을 달려고할 때 막기
  		function fn_comment_submit_return() {
@@ -267,9 +258,11 @@
 							div += comment.id;
 							div += comment.commContent;
 							// 작성자만 지울 수 있도록 if 처리 필요
-							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
-							// 댓글만 답글을 달 수 있도록 if 처리 필요
-							
+							if(${loginUser.id == 'admin'}) {
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
+							} else if ('${loginUser.id}' == comment.id){
+								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
+							}
 							if(comment.depth == 0) {
 								div += '<input type="button" value="답글" class="btn_reply_area">'; // comment의 commentNo가 groupNo와 같다.
 							}
