@@ -26,7 +26,7 @@ public class BbsController {
 	}
 	
 	@GetMapping("/bbs/write")
-	public String write() {
+	public String requiredLogin_write() {
 		return "bbs/write";
 	}
 	
@@ -53,7 +53,7 @@ public class BbsController {
 	
 	
 	@PostMapping("bbs/edit")
-	public String edit(int bbsNo, Model model) {
+	public String requiredLogin_edit(int bbsNo, Model model) {
 		model.addAttribute("bbs", bbsService.getBbsByNo(bbsNo));
 		return "bbs/edit";
 	}
@@ -64,7 +64,7 @@ public class BbsController {
 	}
 	
 	@PostMapping("bbs/remove")
-	public void remove(HttpServletRequest request, HttpServletResponse response) {
+	public void requiredLogin_remove(HttpServletRequest request, HttpServletResponse response) {
 		bbsService.removeBbs(request, response);
 	}
 	

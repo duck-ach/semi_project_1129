@@ -12,20 +12,41 @@
 	</select>
 
 	<select id="selectAllBbsList" parameterType="Map" resultType="BbsDTO">
-		SELECT BBS_NO, USER_ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT
-		  FROM BBS
+		SELECT A.RW, A.BBS_NO, A.ID, A.BBS_TITLE, A.BBS_CONTENT, A.BBS_IP, A.BBS_CREATE_DATE, A.BBS_HIT
+        FROM (SELECT ROW_NUMBER() OVER(ORDER BY BBS_NO DESC) AS RW, BBS_NO, ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT
+                FROM BBS) A
+       WHERE A.RW BETWEEN #{begin} AND #{end}
 	</select>
 	
 	<insert id="insertBbs" parameterType="BbsDTO">
 		INSERT INTO BBS
-			(BBS_NO, USER_ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT)
+			(BBS_NO, ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT )
 		VALUES
-			(BBS_SEQ.NEXTVAL, #{userId}, #{bbsTitle}, #{bbsContent}, #{bbsIp}, SYSTIMESTAMP, 0)
+			(BBS_SEQ.NEXTVAL, #{id}, #{bbsTitle}, #{bbsContent}, #{bbsIp}, SYSTIMESTAMP, 0)
 	</insert>
 	
-	<delete id="deleteBbs" parameterType="BbsDTO">
-		DELETE
-		FROM BBS
+	<update id="updateHit" parameterType="int">
+		UPDATE BBS
+		   SET BBS_HIT = BBS_HIT + 1
+		 WHERE BBS_NO = #{bbsNo}
+	</update>
+	
+	<select id="selectBbsByNo" parameterType="int" resultType="BbsDTO">
+		SELECT BBS_NO, ID, BBS_TITLE, BBS_CONTENT, BBS_IP, BBS_CREATE_DATE, BBS_HIT
+		  FROM BBS
+		 WHERE BBS_NO = #{bbsNo}
+	</select>
+	
+	<update id="updateBbs" parameterType="BbsDTO">
+		UPDATE BBS
+		   SET BBS_TITLE = #{bbsTitle}
+		     , BBS_CONTENT = #{bbsContent}
+		 WHERE BBS_NO = #{bbsNo}
+	</update>
+	
+	
+	<delete id="deleteBbs" parameterType="int">
+		DELETE BBS
 		WHERE BBS_NO = #{bbsNo}
 	</delete>
 
