@@ -12,14 +12,7 @@
 	.blind {
 		display: none;
 	}
-	.form {
-  font-family: 'Josefin Slab', serif;
-  font-size: 20px;
-  line-height: 24px;
-  color: #333;
-  background: #ececec;
-  overflow-y: scroll;
-}
+
 </style>
 	
 <div>

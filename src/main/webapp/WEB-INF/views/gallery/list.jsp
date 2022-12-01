@@ -71,11 +71,11 @@
 	<div>
 		<table>
 		<colgroup>
-					<col style="width:10%">
-					<col style="width:40%">
+					<col style="width:7%">
+					<col style="width:45%">
 					<col style="width:12%">
-					<col style="width:10%">
-					<col style="width:3%">
+					<col style="width:8%">
+					<col style="width:8%">
 				</colgroup>
 			<thead>
 				<tr>
