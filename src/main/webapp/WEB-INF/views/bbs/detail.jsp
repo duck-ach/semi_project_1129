@@ -2,9 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<jsp:include page="../layout/header.jsp">
-	<jsp:param value="${bbs.bbsTitle}" name="title" />
+<c:if test="${loginUser.id == 'admin'}">
+<jsp:include page="../admin/admin_layout/header.jsp">
+   <jsp:param value="갤러리 관리 페이지" name="title" />
 </jsp:include>
+</c:if>
+
+
+
+<c:if test="${loginUser.id != 'admin'}">
+<jsp:include page="../layout/header.jsp">
+   <jsp:param value="${bbs.bbsTitle}" name="title" />
+</jsp:include>
+</c:if>
 
 <style>
 	.blind {
@@ -25,7 +35,8 @@
     	margin-right: 20px;
 	}
 	.commentId {
-	
+		font-weight: bold;
+		margin-right: 30px;
 	}
 	
 </style>
@@ -43,6 +54,10 @@
 		<form id="frm_btn" method="post">
 			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
 			<c:if test="${loginUser.id == bbs.id}">
+				<input type="button" value="수정" id="btn_edit_bbs">
+				<input type="button" value="삭제" id="btn_remove_bbs">
+			</c:if>
+			<c:if test="${loginUser.id == 'admin'}">
 				<input type="button" value="수정" id="btn_edit_bbs">
 				<input type="button" value="삭제" id="btn_remove_bbs">
 			</c:if>
@@ -83,18 +98,26 @@
 				<div class="add_comment_input">
 					<input type="text" name="commContent" id="commContent" >
 				</div>
-				<div class="add_comment_btn">
-					<input type="button" value="댓글 쓰기" id="btn_add_comment">
-				</div>
+				<c:if test="${loginUser.id != null}">
+					<div class="add_comment_btn">
+						<input type="button" value="댓글 쓰기" id="btn_add_comment">
+					</div>
+				</c:if>
 			</div>
 			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
 		</form>
 	</div>
+	<c:if test="${loginUser.id == null}">
+		<div class="unlogin_comment">
+			<span>댓글을 작성하시려면 로그인이 필요합니다.</span>
+		</div>
+	</c:if>
 	
 	<input type="hidden" id="page" value="1">
 	
 	<script>
 		// 함수호출
+		fn_comment_submit_return();
 		fn_commentCount();
 		fn_switchCommentList();
 		fn_addComment();
@@ -105,7 +128,19 @@
 		fn_addReply();
 		
 		
+		
+		
 		// 함수정의
+		
+ 		function fn_comment_submit_return() {
+			$('.unlogin_comment').click(function(){
+				location.href='${contextPath}/user/login/form';
+				return;
+			});
+		};
+		
+		
+		
 		function fn_commentCount(){
 			$.ajax({
 				type: 'get',
@@ -127,8 +162,7 @@
 		}
 		
 		
-		
-		
+	
 		function fn_addComment(){
 			$('#btn_add_comment').click(function(){
 				if($('#bbsComm').val() == ''){
@@ -169,6 +203,9 @@
 						}
 						if(comment.state == 1){
 							div += '<div>';	
+							if(comment.depth > 0){
+								div += '→&nbsp';
+							}
 							div += '<span class="commentId">';	
 							div += comment.id;
 							div += '</span>';	
