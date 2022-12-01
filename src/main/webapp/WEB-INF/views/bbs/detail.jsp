@@ -327,7 +327,7 @@
 		
 		function fn_switchReplyArea(){
 			$(document).on('click', '.btn_reply_area', function(){
-				$(this).parent().next().toggleClass('blind');
+				$(this).parent().next().next().toggleClass('blind');
 			});
 		}
 		
