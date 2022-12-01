@@ -125,6 +125,7 @@
 	<script>
 		
 		// 함수 호출
+		fn_point_user_prevent();
 		fn_comment_submit_return();
 		fn_attach_download_return();
 		fn_attachblind();
@@ -136,6 +137,17 @@
 		fn_removeComment();
 		fn_switchReplyArea();
 		fn_addReply();
+		
+		// 포인트 없으면 막기
+		function fn_point_user_prevent(){
+			$('.attachFileDown').click(function(){
+				if(${loginUser.point <= 5}) {
+					alert('첨부파일을 다운받으려면 하나당 5포인트가 필요합니다.');
+					event.preventDefault();
+					return;
+				}
+			});
+		}
 		
 		// 로그인안된 사용자가 댓글을 달려고할 때 막기
  		function fn_comment_submit_return() {
