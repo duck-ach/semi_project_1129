@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.gdu.semi02.domain.RetireUserDTO;
+import com.gdu.semi02.domain.SleepUserDTO;
 import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.mapper.AdminMapper;
 import com.gdu.semi02.util.SecurityUtil;
@@ -47,6 +48,11 @@ public class AdminServiceImple implements AdminService {
 	@Override
 	public List<RetireUserDTO> selectRemoveAllUsers(Model model, HttpServletRequest request) {
 		return adminMapper.selectRemoveAllUsers();
+	}
+	
+	@Override
+	public List<SleepUserDTO> selectSleepAllUsers(Model model, HttpServletRequest request) {
+		return adminMapper.selectSleepAllUsers(); 
 	}
 	
 	@Override
@@ -103,6 +109,45 @@ public class AdminServiceImple implements AdminService {
 	
 	}
 	
+	
+	@Override
+	public void SleepAllUsers(String userNo, HttpServletResponse response, HttpServletRequest request) {
+int userIntNo = Integer.parseInt(userNo);
+
+	    
+		int result = 0;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		// 유저정보 불러오기
+		UserDTO user = adminMapper.selectUsersByNo(userIntNo);
+	
+		map.put("userNo", userNo);
+		map.put("id", user.getId());
+		map.put("joinDate", user.getJoinDate());
+		result = adminMapper.deleteUsers(map);
+		int retireUserResult = adminMapper.insertSleepAllUsers(map);
+		response.setContentType("text/html; charset=UTF-8");
+		
+		try {
+			PrintWriter out = response.getWriter();
+			if(result > 0 && retireUserResult > 0) {  // if(result == 1) {
+				out.println("<script>");
+				out.println("alert('회원 휴면 처리가 되었습니다.');");
+				out.println("location.href='" + request.getContextPath() + "/admin/userAdmin';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('회원 휴면 처리에 실패했습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+			}
+			out.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	
 }

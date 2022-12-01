@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <jsp:include page="admin_layout/header.jsp"> 
-	<jsp:param value="탈퇴 유저 페이지" name="title" />
+	<jsp:param value="휴면 유저 페이지" name="title" />
 </jsp:include>
 
 
@@ -23,7 +23,7 @@
 		
 		$.ajax({
 			type: 'get',
-			url : '${contextPath}/searchRemoveAllUsers',
+			url : '${contextPath}/searchSleepAllUsers',
 			dataType: 'json',
 			success: function(resData) {
 				$('#list').empty();				
@@ -64,7 +64,14 @@
 	<div class="wrap">
 	<h1>전체 목록 <span class="title_count" ></span> 개</h1>
 	
-		<form id="frm_search" method="post">			
+		<form id="frm_search" method="post">
+			<select id="column" name="column">
+				<option value="NAME">이름</option>
+				<option value="USER_NO">회원번호</option>
+				<!-- 
+				<option value="DESCRIPTION">내용</option>
+				 -->
+			</select>
 			<input type="text" id="searchText" name="searchText">
 			<input type="button" id="btn_search" value="검색">
 			<input type="button" id="btn_init" value="초기화">

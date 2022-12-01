@@ -16,12 +16,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.gdu.semi02.domain.RetireUserDTO;
 import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.service.AdminService;
+import com.gdu.semi02.service.BbsService;
+import com.gdu.semi02.service.GalleryService;
 
 @Controller
 public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private BbsService bbsService;
+	
+	
+	@Autowired
+	private GalleryService galleryService;
 	
 	
 	@GetMapping("/admin/adminIndex")
@@ -70,6 +79,15 @@ public class AdminController {
 		}
         return "/admin/remove";
 	}
+	
+	
+	@PostMapping("/admin/sleep")
+	public String sleep(@RequestParam List<String> userNo, HttpServletResponse response, HttpServletRequest request ) {
+		for (String c : userNo) {
+			adminService.SleepAllUsers(c,  response,  request );
+		}
+        return "/admin/sleep";
+	}
 
 	
 	@GetMapping("/admin/removeAdmin")
@@ -77,11 +95,27 @@ public class AdminController {
 		return "admin/removeAdmin";
 	}
 	
-	/*
-	@PostMapping("/admin/remove")
-	public void remove(HttpServletRequest request, HttpServletResponse response) {
-		adminService.removeUsers(request, response);
+	@GetMapping("/admin/sleepAdmin")
+	public String requiredAdmin_sleepAdmin() {
+		return "admin/sleepAdmin";
 	}
-	*/
+	
+	
+	
+	@GetMapping("/admin/bbsAdmin")
+	public String requiredAdmin_bbsAdmin(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		bbsService.findAllBbsList(model);
+		return "admin/bbsAdmin";
+	}
+	
+	
+	@GetMapping("/admin/galleryAdmin")
+	public String list(HttpServletRequest request, Model model) {
+		galleryService.getGalleryList(request, model);
+		return "admin/galleryAdmin";
+	}
+	
+	
 	
 }
