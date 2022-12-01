@@ -63,7 +63,6 @@
 		</div>
 		<hr>
 		<!-- 첨부파일 -->
-
 			<div>
 				<div class="attach_location">
 					<span id="cnt"></span>
@@ -95,7 +94,7 @@
 				<form id="frm_add_comment">
 					<div class="add_comment">
 						<div class="add_comment_input">
-								<input type="text" name="commContent" id="content" placeholder="댓글을 작성해주세요.">
+								<input type="text" name="commContent" id="content" class="content_write" placeholder="댓글을 작성해주세요.">
 						</div>
 						<div class="add_comment_btn">
 							<input type="button" value="작성완료" id="btn_add_comment">

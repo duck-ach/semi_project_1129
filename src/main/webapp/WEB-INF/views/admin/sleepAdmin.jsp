@@ -32,8 +32,13 @@
 					$('<tr>')
 					.append($('<td class="userId" name="id">').text(users.id))				
 					.append($('<td class="td_userNo">').text(users.userNo))				
-					.append($('<td class="userJoinDate">').text(users.joinDate))				
-					.append($('<td class="userJoinDate">').text(users.retireDate))			
+					.append($('<td>').text(users.name))			
+					.append($('<td>').text(users.gender))				
+					.append($('<td>').text(users.email))				
+					.append($('<td>').text(users.mobile))				
+					.append($('<td>').text(users.joinDate))				
+					.append($('<td>').text(users.sleepDate))				
+					.append($('<td>').text(users.point))			
 					.appendTo('#list');					
 				});
 				
@@ -87,10 +92,14 @@
 						
 						<td>회원 아이디</td>
 						<td>회원 번호</td>					
+						<td>이름</td>						
+						<td>성별</td>	
+						<td>이메일</td>	
+						<td>연락처</td>	
+						<td>회원가입일</td>	
+						<td>휴면처리일</td>	
+						<td>포인트</td>	
 						
-						<td>회원 가입일</td>						
-						
-						<td>회원 탈퇴일</td>	
 					<!--  
 						<td>작성 글 수</td>
 					-->
