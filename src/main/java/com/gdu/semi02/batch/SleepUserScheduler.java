@@ -14,7 +14,7 @@ public class SleepUserScheduler {
 	@Autowired
 	private UserService userService;
 
-	@Scheduled(cron="0 0 * * * *") 
+	@Scheduled(cron="0 * * * * *") 
 	public void execute() {
 		userService.sleepUserHandle();
 	}

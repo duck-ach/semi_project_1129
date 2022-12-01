@@ -8,7 +8,7 @@ import com.gdu.semi02.domain.UploadCommDTO;
 public interface UploadCommMapper {
 	public int selectCommentCount(int BlogNo);
 	public int insertComment(UploadCommDTO comment);
-	public List<UploadCommDTO> selectCommentList(Map<String, Object> map); // blogNo, begin, end 세개를 전달해야 하므로
+	public List<UploadCommDTO> selectCommentList(Map<String, Object> map);
 	public int deleteComment(int commentNo);
 	public int insertReply(UploadCommDTO reply);
 }

@@ -389,6 +389,83 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
+	
+	@Override
+	public void modifyInfo(HttpServletRequest request, HttpServletResponse response) {
+		
+		HttpSession session = request.getSession();
+		UserDTO loginUser = ((UserDTO)session.getAttribute("loginUser"));
+		
+		
+		String postcode = request.getParameter("postcode"); 
+		String roadAddress = request.getParameter("roadAddress");
+		String jibunAddress = request.getParameter("jibunAddress");
+		String detailAddress = request.getParameter("detailAddress");
+		String extraAddress = request.getParameter("extraAddress");
+		String mobile = request.getParameter("mobile");
+		String email = request.getParameter("email");
+		
+		
+		String id = loginUser.getId();
+		/*
+		 * String postcode = loginUser.getPostcode(); String roadAddress =
+		 * loginUser.getRoadAddress(); String jibunAddress =
+		 * loginUser.getJibunAddress(); String detailAddress =
+		 * loginUser.getDetailAddress(); String extraAddress =
+		 * loginUser.getExtraAddress(); String mobile = loginUser.getMobile(); String
+		 * email = loginUser.getEmail();
+		 */
+		
+		UserDTO user = UserDTO.builder()
+				.id(id)
+				.postcode(postcode)
+				.roadAddress(roadAddress)
+				.jibunAddress(jibunAddress)
+				.detailAddress(detailAddress)
+				.extraAddress(extraAddress)
+				.mobile(mobile)
+				.email(email)
+				.build();
+		
+		int result = userMapper.updateUserInfo(user);
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				
+				loginUser.setId(id);
+				loginUser.setPostcode(postcode);
+				loginUser.setJibunAddress(jibunAddress);
+				loginUser.setDetailAddress(detailAddress);
+				loginUser.setExtraAddress(extraAddress);
+				loginUser.setMobile(mobile);
+				loginUser.setEmail(email);
+				
+				out.println("<script>");
+				out.println("alert('정보가 수정되었습니다.');");
+				out.println("location.href='" + request.getContextPath() + "/user/mypage';");
+				out.println("</script>");
+				
+			} else {
+				
+				out.println("<script>");
+				out.println("alert('정보가 수정되지 않았습니다.');");
+				out.println("history.back();");
+				out.println("</script>");
+				
+			}
+			
+			out.close();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	
 	@Override
 	public void modifyPassword(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -415,10 +492,10 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		
-		int userNo = loginUser.getUserNo();
+		String id = loginUser.getId();
 		
 		UserDTO user = UserDTO.builder()
-				.userNo(userNo)
+				.id(id)
 				.pw(pw)
 				.build();
 		
@@ -435,7 +512,7 @@ public class UserServiceImpl implements UserService {
 				
 				out.println("<script>");
 				out.println("alert('비밀번호가 수정되었습니다.');");
-				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("location.href='" + request.getContextPath() + "/user/mypage';");
 				out.println("</script>");
 				
 			} else {

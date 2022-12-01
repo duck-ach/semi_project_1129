@@ -11,7 +11,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.gdu.semi02.domain.SleepUserDTO;
 import com.gdu.semi02.service.UserService;
 
-
 @Component
 public class SleepUserCheckingInterceptor implements HandlerInterceptor {
 

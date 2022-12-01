@@ -130,6 +130,11 @@ public class UserController {
 		return "user/mypage";
 	}
 	
+	@PostMapping("/user/modify/info")
+	public void requiredLogin_modifyInfo(HttpServletRequest request, HttpServletResponse response) {
+		userService.modifyInfo(request, response);
+	}
+	
 	@PostMapping("/user/modify/pw")
 	public void requiredLogin_modifyPw(HttpServletRequest request, HttpServletResponse response) {
 		userService.modifyPassword(request, response);
