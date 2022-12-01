@@ -15,33 +15,57 @@
 	
 	$(function(){
 	
-		fn_showHide();
+		fn_mobileCheck();
+		fn_emailCheck();
 		fn_init();
 		fn_pwCheck();
 		fn_pwCheckAgain();
-		fn_pwSubmit();
 		
 	});
 	
+	var mobilePass = false;
+	var emailPass = false;
 	var pwPass = false;
 	var rePwPass = false;
 	
-	function fn_showHide(){
+	function fn_mobileCheck(){
 		
-		$('#modify_info_area').hide();
-		
-		$('#btn_edit_pw').click(function(){
-			fn_init();
-			$('#modify_info_area').show();
+		$('#mobile').keyup(function(){
 			
-		});
-		
-		$('#btn_edit_info_cancel').click(function(){
-			fn_init();
-			$('#modify_info_area').hide();
+			let mobileValue = $(this).val();
 			
-		});
+			let regMobile = /^010[0-9]{7,8}$/;
+			
+			if(regMobile.test(mobileValue) == false){
+				$('#msg_mobile').text('휴대전화를 확인하세요.');
+				mobilePass = false;
+			} else {
+				$('#msg_mobile').text('');
+				mobilePass = true;
+			}
+			
+		}); 
 		
+	}
+	
+	function fn_emailCheck(){	
+		$('#btn_check').click(function(){
+			$.ajax({
+				type: 'get',
+				url: '${contextPath}/user/checkReduceEmail',
+				data: 'email=' + $('#email').val(),
+				dataType: 'json',
+				success: function(resData){
+					if(resData.isUser){
+						$('#msg_email').text('이미 사용중인 이메일입니다.');
+						emailPass = false;
+					} else {
+						$('#msg_email').text('사용 가능한 이메일입니다.');
+						emailPass = true;
+					}
+				}
+			});
+		});
 	}
 	
 	function fn_init(){
@@ -94,19 +118,6 @@
 		
 	}
 	
-	function fn_pwSubmit(){
-		
-		$('#frm_edit_info').submit(function(event){
-			
-			if(pwPass == false || rePwPass == false){
-				alert('비밀번호 입력을 확인하세요.');
-				event.preventDefault();
-				return;
-			}
-			
-		});	
-	}
-	
 </script>
 </head>
 <body>
@@ -115,67 +126,58 @@
 		
 		<h1>마이페이지</h1>
 		
-		<form>
+			<form id="frm_edit_info" action="${contextPath}/user/modify/info" method="post">
 			
-		</form>
-		
-		<div>
-			<input type="button" value="비밀번호변경" id="btn_edit_pw">
-		</div>
-		<div id="modify_info_area">
-			<form id="frm_edit_info" action="${contextPath}/user/modify/pw" method="post">
 				<div>
-					<label for="id">아이디*</label>
-					<input type="text" name="id" id="id" readonly value="${user.id}">
-					<span id="msg_id"></span>
+					아이디 : ${loginUser.id}
 				</div>
 				
 				<div>
-					<label for="name">이름*</label>
-					<input type="text" name="name" id="name" value="${name}">
+					이름 : ${loginUser.name}
 				</div>
 				
 				<div>
-					<label for="none">선택 안함</label>
-					<input type="radio" name="gender" id="none" value="NO" checked="checked">
-					<label for="male">남자</label>
-					<input type="radio" name="gender" id="male" value="M">
-					<label for="female">여자</label>
-					<input type="radio" name="gender" id="female" value="F">
+					성별 : ${loginUser.gender}
 				</div>
 			
 				<div>
 					<label for="mobile">휴대전화*</label>
-					<input type="text" name="mobile" id="mobile" placeholder=" - 제외">
+					<input type="text" name="mobile" id="mobile" placeholder=" - 제외" value="${loginUser.mobile}">
 					<span id="msg_mobile"></span>
 				</div>
 			
 				<div>
-					<label for="birthyear">생년월일*</label>
-					<select name="birthyear" id="birthyear"></select>
-					<select name="birthmonth" id="birthmonth"></select>
-					<select name="birthdate" id="birthdate"></select>				
+					생년월일 : ${loginUser.birthyear}${loginUser.birthday}
 				</div>
 				
 				<div>
-					<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly>
+					<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly value="${loginUser.postcode}">
 					<input type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
-					<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" readonly><br>
+					<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly value="${loginUser.roadAddress}">
+					<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" readonly value="${loginUser.jibunAddress}"><br>
 					<span id="guide" style="color:#999;display:none"></span>
-					<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
-					<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" readonly>
+					<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${loginUser.detailAddress}">
+					<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" readonly value="extraAddress">
 					<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 				</div>
 				
 				<div>
 					<label for="email">이메일*</label>
-					<input type="text" name="email" id="email">
-					<input type="button" value="인증번호받기" id="btn_getAuthCode">
-					<span id="msg_email"></span><br>
-					<input type="text" name="authCode" id="authCode" placeholder="인증코드 입력">
-					<input type="button" value="인증하기" id="btn_verifyAuthCode">
+					<input type="text" name="email" id="email" value="${loginUser.email}">
+					<input type="button" value="중복체크" id="btn_check">
+					<span id="msg_email"></span>
 				</div>
+				
+				<div>
+					<button>개인정보 변경하기</button>
+					<input type="button" value="취소하기" id="btn_edit_info_cancel">
+				</div>
+				
+			</form>
+		
+			<form id="frm_edit_pw" action="${contextPath}/user/modify/pw" method="post">
+				
+				
 				<div>
 					<label for="pw">비밀번호</label>
 					<input type="password" name="pw" id="pw">
@@ -187,11 +189,14 @@
 					<input type="password" id="re_pw">
 					<span id="msg_re_pw"></span>
 				</div>
+				
 				<div>
 					<button>비밀번호 변경하기</button>
-					<input type="button" value="취소하기" id="btn_edit_info_cancel">
+					<input type="button" value="취소하기">
 				</div>
+				
 			</form>
+			
 		</div>
 		
 		
@@ -205,8 +210,6 @@
 			}
 		</script>
 		
-	</div>
-	
 
 </body>
 </html>
