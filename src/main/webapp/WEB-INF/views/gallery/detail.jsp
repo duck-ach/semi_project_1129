@@ -18,7 +18,7 @@
 	<h1>${gallery.galleryTitle}</h1>
 	
 	<div>
-		<span>▷ 작성자 | ${gallery.id}</span>
+		<span>▷ 작성자 | ${loginUser.id}</span>
 		&nbsp;&nbsp;&nbsp;
 		<span>▷ 작성일 <fmt:formatDate value="${gallery.createDate}" pattern="yyyy.M.d HH:mm"/></span>
 		&nbsp;&nbsp;&nbsp;
