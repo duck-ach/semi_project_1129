@@ -7,6 +7,7 @@
 	<jsp:param value="업로드게시판-${upload.uploadTitle}" name="title" />
 </jsp:include>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script src="${contextPath}/resources/js/moment-with-locales.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/uploadcss/detail.css">
 <script>
 
@@ -296,7 +297,6 @@
 							if(comment.depth == 0) {
 								div += '<input type="button" value="답글" class="btn_reply_area">'; // comment의 commentNo가 groupNo와 같다.
 							}
-							div += comment.commDate;
 							div += '</div>';
 						} else {
 							if(comment.depth == 0) {
@@ -375,7 +375,7 @@
 		
 		function fn_switchReplyArea() {
 			$(document).on('click', '.btn_reply_area', function() {
-				$(this).parent().next('.reply_area').toggleClass('blind'); // this의 부모의 형제의 형제
+				$(this).parent().next().next().toggleClass('blind'); // this의 부모의 형제의 형제
 			}); // event
 		} // function
 		
