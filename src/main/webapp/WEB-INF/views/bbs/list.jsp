@@ -11,6 +11,7 @@
 		text-align: center;
 		width: 80%;
     	margin: auto;
+    	border-collapse: collapse;
 	}
 	.div_bbs_deamoon {
 		font-size: 32px;
@@ -18,7 +19,9 @@
 	    margin: auto;
 	    width: 80%;
 	    text-align: left;
-	    margin-bottom: 35px;
+	    margin-bottom: 60px;
+	    margin-top: 40px;
+	    color: #D5C2EE;
 	}
 	.div_paging{
 		width: 30%;
@@ -37,17 +40,38 @@
 	
 	.a_write_link{
 		text-align: right;
-		border: 1px solid #000;
 	    display: block;
-	    width: 40px;
 	    text-align: center;
 	    margin-left: auto;
 	    margin-bottom: 15px;
 	    position: absolute;
 	    right: 113px;
 	    top: -29px;
+	    color: #fff;
+	    background-color: #D5C2EE;
+	    border-radius: 3px;
+	    font-size: 20px;
 	}
 	
+	.tr-class {
+		height: 30px;	
+	}
+	
+	.tr-class:hover {
+		background-color: #D5C2EE;
+		color: #FFF;
+		/* opacity: 0.2; */
+	}
+	
+	.tr-class:hover  a{
+		background-color: #D5C2EE;
+		color: #FFF;
+	}
+	
+	.title-a-class:hover {
+		color: #FFF;
+	}
+
 
 </style>
 
@@ -56,13 +80,13 @@
 	<div></div>
 	
 	<div class="div_write_link">
-		<a class="a_write_link" href="${contextPath}/bbs/write">작성</a>
+		<a class="a_write_link" href="${contextPath}/bbs/write">작성하기</a>
 	</div>
 	
 	<div>
 		<table class="table_class">
 			<thead>
-				<tr>	
+				<tr style="height: 40px; font-size: 18px; font-weight: bold; color: #D5C2EE;">	
 					<td>번호</td>
 					<td>제목</td>
 					<td>작성자</td>
@@ -72,9 +96,9 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${bbsList}" var="bbs" varStatus="vs">
-					<tr>
+					<tr class="tr-class">
 						<td>${beginNo - vs.index}</td>
-						<td><a href="${contextPath}/bbs/increase/hit?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
+						<td><a class="title-a-class" href="${contextPath}/bbs/increase/hit?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></td>
 						<td>${bbs.id}</td>
 						<td>${bbs.bbsCreateDate}</td>
 						<td>${bbs.bbsHit}</td>

@@ -26,6 +26,7 @@
 		font-weight: 1000;
 		margin-top: 50px;
 		margin-left: 10px;
+		color: #D5C2EE;
 		
 	}
 	.div_iddate{
@@ -51,11 +52,56 @@
 	    flex-wrap: nowrap;
 	    justify-content: space-evenly;
 	    margin: 0 auto;	
+	    margin-bottom: 30px;
 	}
+	
+	.btn {
+	   width : 70px;
+	   display : inline-block;
+	   height: 30px;
+	   border-radius: 3px;
+	   box-sizing: border-box;
+	   line-height: 30px;
+	   text-align: center;
+	   background: #FFF;
+	   border: 1px solid #D5C2EE;
+	   color: #D5C2EE;
+	   font-size: 14px;
+	   margin: 1px;
+	   margin-left: 10px;
+	}
+
+	.btn:hover {
+	   width : 70px;
+	   display : inline-block;
+	   height: 30px;
+	   border-radius: 3px;
+	   box-sizing: border-box;
+	   line-height: 30px;
+	   text-align: center;
+	   background-color: #D5C2EE;
+	   border: 1px solid #D5C2EE;
+	   color: #fff;
+	   font-size: 14px;
+	   margin: 1px;
+	   margin-left: 10px;
+	}
+		
+	.add_comment {
+		margin: 0 auto;
+		margin-bottom: 15px;
+		width: 1100px;
+	}
+	
+	.div-buttons {
+		margin-right: 0;
+		margin-bottom: 50px;
+	}
+	
 	
 </style>
 
-<div>
+<div style="width: 80%; margin: 0 auto;">
 
 	<div class="div_title">${bbs.bbsTitle}</div>
 	<div class="div_iddate">
@@ -65,12 +111,12 @@
 		▷ 조회수 ${bbs.bbsHit}
 	</div>
 	
-	<hr  style="background: #000; height: 1px;">	
+	<hr  style="background: #D5C2EE; height: 1px; color: #D5C2EE;">	
 	
 	<div class="div_bbs_content">${bbs.bbsContent}</div>
 	
 
-	<hr>
+	<hr style="color: #7B68EE;">
 	
 	<div style="margin-bottom: 10px;">
 		<span id="btn_comment_list" style="font-size: 20px;">
@@ -83,19 +129,18 @@
 		<div id="bbs_comm_list"></div>
 		<div id="paging" class="div_paging"></div>
 	</div>
-	
-	<hr>
+
 	
 	<div>
 		<form id="frm_add_comment">
 			<div class="add_comment">
-				<div class="add_comment_input">
-					<input type="text" name="commContent" id="commContent" >
-				</div>
+				<span class="add_comment_input">
+					<input type="text" name="commContent" id="commContent" style="width: 80%; height: 45px; border-color: #D5C2EE; border-radius: 3px;">
+				</span>
 				<c:if test="${loginUser.id != null}">
-					<div class="add_comment_btn">
-						<input type="button" value="댓글 쓰기" id="btn_add_comment">
-					</div>
+					<span class="add_comment_btn">
+						<input class="btn" type="button" value="댓글 쓰기" id="btn_add_comment">
+					</span>
 				</c:if>
 			</div>
 			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
@@ -107,18 +152,18 @@
 		</div>
 	</c:if>
 	
-	<div>
+	<div class="div-buttons">
 		<form id="frm_btn" method="post">
 			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
 			<c:if test="${loginUser.id == bbs.id}">
-				<input type="button" value="수정" id="btn_edit_bbs">
-				<input type="button" value="삭제" id="btn_remove_bbs">
+				<input class="btn" type="button" value="수정" id="btn_edit_bbs">
+				<input class="btn" type="button" value="삭제" id="btn_remove_bbs">
 			</c:if>
 			<c:if test="${loginUser.id == 'admin'}">
-				<input type="button" value="수정" id="btn_edit_bbs">
-				<input type="button" value="삭제" id="btn_remove_bbs">
+				<input class="btn" type="button" value="수정" id="btn_edit_bbs">
+				<input class="btn" type="button" value="삭제" id="btn_remove_bbs">
 			</c:if>
-			<input type="button" value="목록" onclick="location.href='${contextPath}/bbs/list'">
+			<input class="btn" type="button" value="목록" onclick="location.href='${contextPath}/bbs/list'">
 		</form>
 		<script>
 			$('#btn_edit_bbs').click(function(){
@@ -232,15 +277,15 @@
 							div += comment.commContent;
 							// 작성자 if 처리 
 							if(${loginUser.id == 'admin'}){
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';								
+								div += '<input type="button" value="삭제" class="btn_comment_remove btn" data-bbs_comm_no="' + comment.bbsCommNo + '">';								
 							} else if('${loginUser.id}' == comment.id){
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
-							} else if(${loginUser.id != null}){
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
-							} 
+								div += '<input type="button" value="삭제" class="btn_comment_remove btn" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
+							} /* else if(${loginUser.id != null}){
+								div += '<input type="button" value="삭제" class="btn_comment_remove btn" data-bbs_comm_no="' + comment.bbsCommNo + '">';	
+							}  */
 							if(comment.depth == 0){
 								if(${loginUser != null}) {
-									div += '<input type="button" value="답글" class="btn_reply_area">';	
+									div += '<input type="button" value="답글" class="btn_reply_area btn">';	
 								}
 							}
 							div += '</div>';
@@ -261,9 +306,9 @@
 					
 						div += '<input type="hidden" name="bbsNo" value="' + comment.bbsNo + '">';
 						div += '<input type="hidden" name="groupNo" value="' + comment.groupNo + '">';
-						div += '<input type="text" name="commContent">';
+						div += '<input type="text" name="commContent" style="width: 500px; height: 25px; border-color: #D5C2EE;">';
 						// 로그인한 사용자만 볼 수 있도록 if 처리
-						div += '<input type="button" value="답글 쓰기" class="btn_reply_add">';
+						div += '<input type="button" value="답글 쓰기" class="btn_reply_add btn">';
 						div += '</form>';
 						div += '</div>';
 

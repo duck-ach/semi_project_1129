@@ -15,6 +15,39 @@
 <script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
+<style>
+	.btn {
+	   width : 70px;
+	   display : inline-block;
+	   height: 30px;
+	   border-radius: 3px;
+	   box-sizing: border-box;
+	   line-height: 30px;
+	   text-align: center;
+	   background: #FFF;
+	   border: 1px solid #D5C2EE;
+	   color: #D5C2EE;
+	   font-size: 14px;
+	   margin: 1px;
+	   margin-left: 10px;
+	}
+
+	.btn:hover {
+	   width : 70px;
+	   display : inline-block;
+	   height: 30px;
+	   border-radius: 3px;
+	   box-sizing: border-box;
+	   line-height: 30px;
+	   text-align: center;
+	   background-color: #D5C2EE;
+	   border: 1px solid #D5C2EE;
+	   color: #fff;
+	   font-size: 14px;
+	   margin: 1px;
+	   margin-left: 10px;
+	}
+</style>
 </head>
 <body>
 <script>
@@ -65,9 +98,7 @@
 	});
 
 </script>
-</head>
-<body>
-	
+
 
 	<div>
 		<form id="frm_edit" action="${contextPath}/bbs/modify" method="post">
@@ -84,8 +115,8 @@
 			</div>
 			<div>
 				<button>작성완료</button>
-				<input type="reset" value="입력초기화">
-				<input type="button" value="목록" id="btn_list"> 
+				<input class="btn" type="reset" value="입력초기화">
+				<input class="btn" type="button" value="목록" id="btn_list"> 
 			</div>
 		</form>
 	</div>
