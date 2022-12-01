@@ -89,7 +89,7 @@
 	</update>
 	
 	<!-- 좋아요 테이블 조회 -->
-	<select id="selectLiked" resultType="LikedDTO">
+	<select id="selectLiked" resultType="int" parameterType="Map">
 		SELECT ISLIKED
 		FROM LIKED
 		WHERE USER_NO = #{userNo} AND GALLERY_NO = #{galleryNo}

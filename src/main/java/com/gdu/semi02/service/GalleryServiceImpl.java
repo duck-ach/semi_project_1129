@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.semi02.domain.GalleryDTO;
+import com.gdu.semi02.domain.LikedDTO;
 import com.gdu.semi02.domain.SummernoteImageDTO;
 import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.mapper.GalleryMapper;
@@ -303,12 +304,13 @@ public class GalleryServiceImpl implements GalleryService {
 		}
 
 	}
-
 	@Override
-	public int getLike(int galleryNo) {
-		// TODO Auto-generated method stub
-		return 0;
+	public Map<String, Object> getLikedUser(LikedDTO liked) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("likeUser", galleryMapper.selectLikedCnt(liked) == 1);
+		return result;
 	}
+
 	
 //	@Override
 //	public Map<String, Object> getLiked(map) {

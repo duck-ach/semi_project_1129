@@ -9,7 +9,51 @@
    <jsp:param value="갤러리 관리 페이지" name="title" />
 </jsp:include>
 </c:if>
+<style>
+/* *{ */
+/* background-color: white; */
+/* } */
+/* .h2{ */
+/*   font-size: 30px; */
+/*   color: #fff; */
+/*   text-transform: uppercase; */
+/*   font-weight: 300; */
+/*   text-align: center; */
+/*   margin-bottom: 15px; */
+/* } */
+/* table{ */
+/*   background-color:rgba(255,255,255,0.3); */
+/*   width:100%; */
+/*   table-layout: fixed; */
+/* } */
+/* .tbl-header{ */
+/*   background-color: #C1AEEE ; */
+/*  } */
+/* .tbl-content{ */
+/*   height:300px; */
+/*   overflow-x:auto; */
+/*   margin-top: 0px; */
+/*   border: 1px solid rgba(255,255,255,0.3); */
+/* } */
+/* thead{ */
+/*   padding: 20px 15px; */
+/*   text-align: left; */
+/*   font-weight: 500; */
+/*   font-size: 12px; */
+/*   color: #fff; */
+/*   text-transform: uppercase; */
+/* } */
+/* td{ */
+/*   padding: 15px; */
+/*   text-align: left; */
+/*   vertical-align:middle; */
+/*   font-weight: 300; */
+/*   font-size: 12px; */
+/*   color: #fff; */
+/*   border-bottom: solid 1px rgba(255,255,255,0.1); */
+/* } */
 
+</style>
 
 
 <c:if test="${loginUser.id != 'admin'}">
@@ -19,12 +63,20 @@
 </c:if>
 
 <div>
-	<h1>갤러리 목록(전체 ${totalRecord}개)</h1>
-
-	<input type="button" id="moveWrite" value="게시글 작성하기" onclick="location.href='${contextPath}/gallery/write'">
-	
+	<div class="header">
+	<h2>갤러리 게시판</h2>
+	</div>
+	<input type="button" class="button" id="moveWrite" value="게시글 작성하기" onclick="location.href='${contextPath}/gallery/write'">
+	<h4>갤러리 목록(전체 ${totalRecord}개)</h4>
 	<div>
-		<table border="1">
+		<table>
+		<colgroup>
+					<col style="width:10%">
+					<col style="width:40%">
+					<col style="width:12%">
+					<col style="width:10%">
+					<col style="width:3%">
+				</colgroup>
 			<thead>
 				<tr>
 					<td>순번</td>
@@ -32,7 +84,7 @@
 					<td>작성자</td>
 					<td>작성일</td>
 					<td>조회수</td>
-					<td>좋아요</td>
+
 				</tr>
 			</thead>
 			
