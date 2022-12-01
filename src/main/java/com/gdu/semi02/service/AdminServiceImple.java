@@ -112,7 +112,7 @@ public class AdminServiceImple implements AdminService {
 	
 	@Override
 	public void SleepAllUsers(String userNo, HttpServletResponse response, HttpServletRequest request) {
-int userIntNo = Integer.parseInt(userNo);
+		int userIntNo = Integer.parseInt(userNo);
 
 	    
 		int result = 0;
