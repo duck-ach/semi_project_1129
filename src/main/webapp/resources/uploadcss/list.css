@@ -84,7 +84,7 @@ td {
 	
 	width: 25px;
 	height:25px;
-	background-color: #a0a0a0;
+	background-color: #7B68EE;
 	color : white;
 		
 	text-align: center;
@@ -115,6 +115,12 @@ td {
 /* PAGE */
 .write_div {
 	text-align: right;
+}
+
+.lnk {
+	color:#7B68EE;
+	width:25px;
+	height:25px;
 }
 
 
@@ -148,7 +154,7 @@ display: none;
 	text-align: center;
 	background: #FFF;
 	border: 1px solid #c8c8c8;
-	color: #464646;
+	color: #7B68EE;
 	font-size: 11px;
 	margin: 1px;
 }

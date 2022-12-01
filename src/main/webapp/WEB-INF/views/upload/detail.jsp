@@ -285,17 +285,19 @@
 						}
 						if(comment.state == 1) {
 							div += '<div>';
-							div += comment.id;
+							div += '<span class="reply_writer">' + comment.id + '&nbsp; ▷ &nbsp;</span>';
 							div += comment.commContent;
+							div += '<div class="reply_button_scope">'
 							// 작성자만 지울 수 있도록 if 처리 필요
 							if(${loginUser.id == 'admin'}) {
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
+								div += '<input type="button" value="삭제" class="btn_comment_remove btn_reply" data-comment_no="' + comment.uploadCommNo + '">';
 							} else if ('${loginUser.id}' == comment.id){
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
+								div += '<input type="button" value="삭제" class="btn_comment_remove btn_reply" data-comment_no="' + comment.uploadCommNo + '">';
 							}
 							if(comment.depth == 0) {
-								div += '<input type="button" value="답글" class="btn_reply_area">'; // comment의 commentNo가 groupNo와 같다.
+								div += '<input type="button" value="답글" class="btn_reply_area btn_reply">'; // comment의 commentNo가 groupNo와 같다.
 							}
+							div += '</div>';
 							div += '</div>';
 						} else {
 							if(comment.depth == 0) {
@@ -312,7 +314,7 @@
 						div += '<form class="frm_reply">';
 						div += '<input type="hidden" name="uploadNo" value="' + comment.uploadNo + '">'; // hidden에는 name속성이 있어야함(serialize로 보낼것임)
 						div += '<input type="hidden" name="groupNo" value="' + comment.uploadCommNo + '">';
-						div += '<input type="text" name="commContent" placeholder="답글을 작성하려면 로그인을 해 주세요">'
+						div += '<input type="text" name="commContent" placeholder="댓글 내용을 입력하세요">'
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">' // type을 submit으로 해버리면 ajax 처리가 안됨. mvc처리가 됨
 						div += '</form>';
