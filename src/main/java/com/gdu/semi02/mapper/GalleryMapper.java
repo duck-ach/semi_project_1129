@@ -18,6 +18,7 @@ public interface GalleryMapper {
 	// insert
 	public int insertGallery(GalleryDTO gallery);
 	public int insertSummernoteImage(SummernoteImageDTO summernote);
+	public int updateUserPoint(int userNo);
 	
 	// detail
 	public GalleryDTO selectGalleryByNo(int galleryNo);
@@ -28,5 +29,9 @@ public interface GalleryMapper {
 	
 	// delete
 	public int deleteGallery(int galleryNo);
+	public int cancelUserPoint(int userNo);
+	
+	// liked
+	public
 
 }

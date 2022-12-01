@@ -14,9 +14,9 @@
 	
 	<insert id="insertComment" parameterType="GalleryCommDTO">
 		INSERT INTO GALLERY_COMM
-			(GALLERY_COMM_NO, GALLERY_NO, COMM_CONTENT, COMM_STATE, COMM_DEPTH, COMM_GROUP_NO, COMM_DATE)
+			(GALLERY_COMM_NO, GALLERY_NO, COMM_CONTENT, COMM_STATE, COMM_DEPTH, COMM_GROUP_NO, COMM_DATE, ID)
 		VALUES
-			(GALLERY_COMM_SEQ.NEXTVAL, #{galleryNo}, #{commContent}, 1, 0, GALLERY_COMM_SEQ.CURRVAL, SYSDATE)
+			(GALLERY_COMM_SEQ.NEXTVAL, #{galleryNo}, #{commContent}, 1, 0, GALLERY_COMM_SEQ.CURRVAL, SYSDATE, #{id})
 	</insert>
 	
 	<select id="selectCommentList" parameterType="Map" resultType="GalleryCommDTO">

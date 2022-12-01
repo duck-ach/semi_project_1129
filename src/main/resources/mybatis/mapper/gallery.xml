@@ -68,10 +68,33 @@
 		  FROM SUMMERNOTE_IMAGE
 		 WHERE GALLERY_NO = #{galleryNo}
 	</select>
-
+	
 	<select id="selectAllSummernoteImageList" resultType="SummernoteImageDTO">
 		SELECT GALLERY_NO, FILESYSTEM
 		  FROM SUMMERNOTE_IMAGE
 	</select>
+	
+	<!-- 이미지게시하면 포인트+ -->
+	<update id="updateUserPoint" parameterType="int">
+		UPDATE USERS
+		SET POINT = POINT + 5
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<!-- 게시글 삭제하면 포인트- -->
+	<update id="cancelUserPoint" parameterType="int">
+		UPDATE USERS
+		SET POINT = POINT - 5
+		WHERE USER_NO = #{userNo}
+	</update>
+	
+	<!-- 갤러리 좋아요 카운트 -->
+	<select id="selectLikedCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM LIKED
+	</select>
+	
+	
+	
 	
 </mapper>

@@ -29,7 +29,7 @@ public class GalleryController {
 	}
 	
 	@GetMapping("/gallery/write")
-	public String write() {
+	public String requiredLogin_write() {
 		return "gallery/write";
 	}
 	
@@ -55,7 +55,7 @@ public class GalleryController {
 	}
 	
 	@GetMapping("/gallery/detail") // model에다 실어놓으면 수정하기 할때 재활용이 X
-	public String detail (@RequestParam(value="galleryNo", required=false, defaultValue="0") int galleryNo, Model model) {
+	public String detail(@RequestParam(value="galleryNo", required=false, defaultValue="0") int galleryNo, Model model) {
 		model.addAttribute("gallery", galleryService.getGalleryByNo(galleryNo));
 		return "/gallery/detail";
 	}

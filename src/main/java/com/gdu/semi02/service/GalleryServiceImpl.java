@@ -68,6 +68,7 @@ public class GalleryServiceImpl implements GalleryService {
 		
 		HttpSession session = request.getSession();
 		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		
 		GalleryDTO gallery = GalleryDTO.builder()
 				.galleryTitle(gallerytitle)
 				.galleryContent(GalleryContent)
@@ -143,6 +144,11 @@ public class GalleryServiceImpl implements GalleryService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// 포인트 업데이트
+		HttpSession session = multipartRequest.getSession();
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		loginUser.setPoint(galleryMapper.updateUserPoint(loginUser.getUserNo()));
 		
 		// 저장된 파일을 확인할 수 있는 매핑을 반환
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -271,6 +277,11 @@ public class GalleryServiceImpl implements GalleryService {
 				}
 				
 				out.println("alert('삭제 성공');");
+				
+				HttpSession session = request.getSession();
+				UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+				loginUser.setPoint(galleryMapper.cancelUserPoint(loginUser.getUserNo()));
+				
 				out.println("location.href='" + request.getContextPath() + "/gallery/list';");
 			} else {
 				out.println("alert('삭제 실패');");

@@ -29,7 +29,7 @@
 				<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
 					<tr>
 						<td>${beginNo - vs.index}</td>
-						<td><a href="${contextPath}/gallery/increase/hit?galleryNo=${gallery.galleryNo}">${gallery.galleryTitle}</a> </td>
+						<td><a id="moveDetail" href="${contextPath}/gallery/increase/hit?galleryNo=${gallery.galleryNo}">${gallery.galleryTitle}</a></td>
 						<td>${gallery.id}</td>						
 						<td>${gallery.createDate}</td>
 						<td>${gallery.hit}</td>
@@ -47,9 +47,9 @@
 	</div>
 </div>
 <script>
-	$('#moveWrite').click(function(){
+	$('#moveDetail').click(function(){
 		if(${loginUser == null}){
-			alert('작성하려면 로그인');
+			alert('로그인한 뒤 조회가능합니다.');
 			event.preventDefault();
 			history.back();
 			location.href='${contextPath}/user/login/form';

@@ -10,5 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class LikedDTO {
-	private int attachNo;
+	int galleryNo;
+    int isLiked;
+    String id;
 }

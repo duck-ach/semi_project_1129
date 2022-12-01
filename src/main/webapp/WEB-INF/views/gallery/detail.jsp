@@ -4,11 +4,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="${gallery.galleryNo}번 게시글" name="title"/> 
 </jsp:include>
-
+<script src="${contextPath}/resources/galleryjs/moment-with-locales.js"></script>
 <style>
 	.blind {
 		display: none;
@@ -78,11 +77,13 @@
    
    <!-- name="content", name="galleryNo" 을 form 안에 넣은 이유 ? serialize()로 보내기 위해서 -->
    <!-- serialize()하면 form안에 있는 모든 name을 넘겨준다 -->
+	<c:if test="${loginUser.id != null}">
 	<div>
 		<form id="frm_add_comment">
 			<div class="add_comment">
 				<div class="add_comment_input">
-					<input type="text" name="commContent" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요">
+					<span>${loginUser.id}</span>
+					<input type="text" name="commContent" id="content">
 				</div>
 				<div class="add_comment_btn">
 					<input type="button" value="작성완료" id="btn_add_comment">
@@ -91,10 +92,18 @@
 			<input type="hidden" name="galleryNo" value="${gallery.galleryNo}">
 		</form>
 	</div>
+	</c:if>		
+	<c:if test="${loginUser.id == null}">
+		<div>
+			<div class="unlogin_comment">
+					<span></span>
+					<input type="text" name="commContent" id="content" placeholder="댓글을 작성하려면 로그인 해 주세요" readonly="readonly">
+				</div>
+		</div>
+	</c:if>
 	
 	<!-- 현재 페이지 번호를 저장하고 있는 hidden -->
 	<input type="hidden" id="page" value="1">
-   <script src="${contextPath}/resources/js/moment-with-locales.js"></script> 
    <script>
    
 	// 함수 호출
@@ -180,7 +189,9 @@
 						div += '<div style="margin-left: 40px;">';
 					}
                   if(comment.commState == 1) {   // state:1 정상, state:-1은 삭제라서 보여주면 x
-                     div += '<div>' + comment.commContent;   // 정상일 때 내용 보여줌
+                     div += '<div>'
+                     div += comment.id + '<br>';
+                     div += comment.commContent;   // 정상일 때 내용 보여줌
                      // 작성자만 삭제할 수 있도록 if 처리 필요
 						div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.galleryCommNo + '">';
 						if(comment.commDepth == 0) {
@@ -253,7 +264,7 @@
                   $.ajax({
                      type: 'post',
                      url: '${contextPath}/galleryComm/remove',
-                     data: 'galleryCommNo=' + $(this).data('gallery_comm_no'), // 코멘트 번호에 삭제버튼 넣어놨음
+                     data: 'galleryCommNo=' + $(this).data('comment_no'), // 코멘트 번호에 삭제버튼 넣어놨음
                      dataType: 'json',
                      success: function(resData) {   // resData = {"isRemove" : true}
                         if(resData.isRemove) {
