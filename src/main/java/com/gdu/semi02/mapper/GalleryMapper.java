@@ -32,6 +32,10 @@ public interface GalleryMapper {
 	public int cancelUserPoint(int userNo);
 	
 	// liked
+	public int likedCnt(int i);
+	public int insertLiked(Map<String, Object> map);
+	public int deleteLiked(Map<String, Object> map);
+	public int likedCnt();
 
 
 }

@@ -19,5 +19,6 @@ public interface GalleryService {
 	public GalleryDTO getGalleryByNo(int galleryNo);
 	public void modifyGallery(HttpServletRequest request, HttpServletResponse response);
 	public void removeGallery(HttpServletRequest request, HttpServletResponse response);
-
+//	public Map<String, Object> getLikedUser(HttpServletRequest request);
+//	
 }

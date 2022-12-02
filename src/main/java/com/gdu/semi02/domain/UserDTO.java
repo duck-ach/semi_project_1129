@@ -33,6 +33,5 @@ public class UserDTO {
 	private Date infoModifyDate;
 	private String sessionId;
 	private Date sessionLimitDate;
-	private int userLevel;
 	private int point;
 }

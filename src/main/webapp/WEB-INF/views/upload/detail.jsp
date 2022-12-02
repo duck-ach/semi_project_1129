@@ -376,7 +376,7 @@
 		
 		function fn_switchReplyArea() {
 			$(document).on('click', '.btn_reply_area', function() {
-				$(this).parent().next().next().toggleClass('blind'); // this의 부모의 형제의 형제
+				$(this).parent().parent().next().next().toggleClass('blind'); // this의 부모의 형제의 형제
 			}); // event
 		} // function
 		

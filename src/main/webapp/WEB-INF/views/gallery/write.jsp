@@ -89,7 +89,7 @@
 				alert('제목은 필수입니다.');
 				event.preventDefault(); // 서브밋 취소
 				return; // 더 이상 코드 실행할 필요 없음
-			}else if()
+			}
 		});
 		
 	});
@@ -99,26 +99,27 @@
 <div>
 
 	<h1>작성 화면</h1>
-	
-	<form id="frm_write" action="${contextPath}/gallery/add" method="post">
-	
-		<div>
-			<label for="title">제목</label>
-			<input type="text" name="title" id="title">
-		</div>
+	<div>
+		<form id="frm_write" action="${contextPath}/gallery/add" method="post">
 		
-		<div>
-			<label for="content">내용</label>
-			<textarea name="content" id="content"></textarea>				
-		</div>
-		
-		<div>
-			<button>작성완료</button>
-			<input type="reset" value="입력초기화">
-			<input type="button" value="목록" id="btn_list">
-		</div>
-		
-	</form>
+			<div>
+				<label for="title">제목</label>
+				<input type="text" name="title" id="title">
+			</div>
+			
+			<div>
+				<label for="content">내용</label>
+				<textarea name="content" id="content"></textarea>				
+			</div>
+			
+			<div>
+				<button>작성완료</button>
+				<input type="reset" value="입력초기화">
+				<input type="button" value="목록" id="btn_list">
+			</div>
+			
+		</form>
+	</div>
 	
 </div>
 
