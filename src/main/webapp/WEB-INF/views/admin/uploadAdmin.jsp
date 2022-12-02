@@ -35,6 +35,7 @@ $(function(){
 	
 	// 게시글 삭제
 	$('#btn_upload_remove').click(function(event){
+		alert('hi');
 		if(confirm('첨부된 모든 파일이 함께 삭제되고, 포인트가 10 차감됩니다.\n삭제하시겠습니까?')){
 			$('#frm_upload').attr('action', '${contextPath}/upload/remove');
 			$('#frm_upload').submit();
