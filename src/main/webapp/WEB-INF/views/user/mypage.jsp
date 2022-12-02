@@ -133,10 +133,6 @@
 				</div>
 							
 				<div>
-					레벨 : ${loginUser.userLevel}
-				</div>
-							
-				<div>
 					포인트 : ${loginUser.point}
 				</div>
 				
