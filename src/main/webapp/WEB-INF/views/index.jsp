@@ -148,6 +148,7 @@ body {
 		border:3px solid #cbb8ee;
 		position:relative;
 		border-radius:0 20px 20px 20px;
+		overflow: hidden;
 	}
 	
 	.boards_box span{
@@ -180,12 +181,13 @@ body {
 		font-size:20px;
 		width:90%;
 		margin:0 auto 10px;
+		position: relative;
 	}
 	.boards_box p::after{
 	content:"";
 	}
 	.boards_box p:hover::after{
-	
+	position:absolute;
 	display:block;
 	width:70%;
 	height:2px;
@@ -196,7 +198,9 @@ body {
 	color:#000;
 }
 
-
+.boards_box a{
+	color:#000 !important;
+}
 
 </style>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
@@ -250,7 +254,7 @@ $(function(){
           <p>
           	업로드를 두려워 하신다고요? <br>
 			저를 찾아오세요.<br>
-			엄희라. 98토끼띠.<br>
+			엄희라. 99토끼띠.<br>
 			난...독기 가득하다.. 그래서 난.. 독기띠다...🐰
           </p>
         </div>
@@ -274,16 +278,17 @@ $(function(){
 	<div class="boards_box_area">
 		<div class="boards_box">
 			<span>자유 게시판</span>
-			<i>+</i>
+			<a href="${contextPath}/bbs/write"><i>+</i></a>
+			<div></div>
 			<div>
 				<c:forEach items="${bbsList}" var="bbs" varStatus="vs">
-					<div><a href="${contextPath}/bbs/increase/hit?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></div>
+					<p><a href="${contextPath}/bbs/increase/hit?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></p>
 				</c:forEach>
 			</div>
 		</div>
 		<div class="boards_box">
 			<span>갤러리 게시판</span>
-			<i>+</i>
+			<a href="${contextPath}/gallery/write"><i>+</i></a>
 			<div></div>
 			<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
 				<p><a id="moveDetail" href="${contextPath}/gallery/increase/hit?galleryNo=${gallery.galleryNo}">${gallery.galleryTitle}</a></p>
@@ -291,7 +296,7 @@ $(function(){
 		</div>
 		<div class="boards_box">
 			<span>업로드 게시판</span>
-			<i>+</i>
+			<a href="${contextPath}/upload/write"><i>+</i></a>
 			<div></div>
 			<c:forEach items="${uploadList}" var="upload">
 			<p><a href="${contextPath}/upload/increase/hit?uploadNo=${upload.uploadNo}">${upload.uploadTitle}</a></p>

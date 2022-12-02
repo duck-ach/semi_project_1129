@@ -2,6 +2,7 @@ package com.gdu.semi02.service;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -42,8 +43,10 @@ public class BbsServiceImpl implements BbsService {
 		map.put("begin", pageUtil.getBegin());
 		map.put("end", pageUtil.getEnd());
 
+		List<BbsDTO> bbsList = bbsMapper.selectAllBbsList(map);
+		
 		model.addAttribute("totalRecord", totalRecord);
-		model.addAttribute("bbsList", bbsMapper.selectAllBbsList(map));
+		model.addAttribute("bbsList", bbsList);
 		model.addAttribute("beginNo", totalRecord - (page -1) * pageUtil.getRecordPerPage());
 		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/bbs/list"));
 
