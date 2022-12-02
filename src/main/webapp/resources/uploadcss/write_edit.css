@@ -32,8 +32,8 @@
 	line-height: 30px;
 	text-align: center;
 	background: #FFF;
-	border: 1px solid #7B68EE;
-	color: #7B68EE;
+	border: 1px solid #D5C2EE;
+	color: #D5C2EE;
 	font-size: 11px;
 	margin: 1px;
 }
@@ -46,8 +46,8 @@
 	box-sizing: border-box;
 	line-height: 30px;
 	text-align: center;
-	background: #7B68EE;
-	border: 1px solid #7B68EE;
+	background: #D5C2EE;
+	border: 1px solid #D5C2EE;
 	color: #F9FFFF;
 	font-size: 11px;
 	margin: 1px;
@@ -55,6 +55,7 @@
 
 .btn_location {
 	text-align: right;
+	margin-top: 3px;
 }
 .remove_btn {
 	width : 40px;
@@ -78,6 +79,7 @@
 /* FILE */
 .filebox {
 	text-align: right;
+	margin-bottom: 3px;
 }
 
 .filebox label {
@@ -90,11 +92,16 @@
 	text-align: center;
 	background: #FFF;
 	border: 1px solid #c8c8c8;
-	color: #464646;
+	color: #D5C2EE;
 	font-size: 11px;
 	margin: 1px;
 }
 
 .filebox input[type="file"] {  /* 파일 필드 숨기기 */
 	display: none;
+}
+
+/* HR TAG */
+.hr_color {
+	background: D5C2EE;
 }

@@ -87,10 +87,11 @@
 			
 				<div>
 					<label for="title"></label>
-					<input type="text" id="title" name="title" value="${upload.uploadTitle}" required="required">
+					<input type="text" id="title" name="title" value="${upload.uploadTitle}" required="required" maxlength="30">
 				</div>
-				<div>
-					<label for="files"></label>
+				<hr class="hr_color">
+				<div class="filebox">
+					<label for="files">파일첨부</label>
 					<input type="file" id="files" name="files" multiple="multiple">
 				</div>
 				<div>
@@ -99,7 +100,7 @@
 	         	</div>
 				<div class="btn_location">
 					<input type="button" class="btn" value="목록" onclick="location.href='${contextPath}/upload/list'">
-					<button class="btn">수정완료</button>
+					<button class="btn_submit">수정완료</button>
 				</div>
 			
 			</form>
@@ -108,7 +109,7 @@
 				<h3>첨부파일 목록</h3>	
 				<c:forEach items="${attachList}" var="attach">
 					<div>
-						${attach.origin}<input type="button" class="remove_btn" value="삭제" class="btn_attach_remove" data-upload_no="${upload.uploadNo}" data-attach_no="${attach.attachNo}">
+						${attach.origin}<input type="button" class="remove_btn btn_attach_remove" value="삭제" data-upload_no="${upload.uploadNo}" data-attach_no="${attach.attachNo}">
 					</div>
 				</c:forEach>
 			</div>

@@ -25,29 +25,10 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String index(HttpServletRequest request, Model model) {
+		bbsService.findAllBbsList(request, model);
 		galleryService.getGalleryList(request, model);
 		uploadService.getUploadList(request, model);
 		return "index";
 	}
-	
-	@GetMapping("/index/view/freeList")
-	public String bbsList(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
-		bbsService.findAllBbsList(request, model);
-		return "bbs/list";
-	}
-	
-	@GetMapping("index/view/galleryList")
-	public String gallList(HttpServletRequest request, Model model) {
-		galleryService.getGalleryList(request, model);
-		return "gallery/list";
-	}
-	
-	@GetMapping("index/view/uploadList")
-	public String UploadList(HttpServletRequest request, Model model) {
-		uploadService.getUploadList(request, model);
-		return "upload/list";
-	}
-	
 	
 }
