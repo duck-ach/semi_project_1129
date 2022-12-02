@@ -24,7 +24,9 @@ public class MainController {
 	private UploadService uploadService;
 	
 	@GetMapping("/")
-	public String index() {
+	public String index(HttpServletRequest request, Model model) {
+		galleryService.getGalleryList(request, model);
+		uploadService.getUploadList(request, model);
 		return "index";
 	}
 	

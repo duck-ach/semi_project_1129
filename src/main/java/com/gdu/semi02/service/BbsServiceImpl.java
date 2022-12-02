@@ -120,10 +120,10 @@ public class BbsServiceImpl implements BbsService {
 			
 			out.println("<script>");
 			if(result > 0 ) {
-				out.println("alert('수정 성공!');");
+				out.println("alert('수정이 완료되었습니다!');");
 				out.println("location.href='" + request.getContextPath() + "/bbs/detail?bbsNo=" + bbsNo + "';");
 			} else {
-				out.println("alert('수정 실패');");
+				out.println("alert('수정에 실패했습니다!');");
 				out.println("history.back();");
 			}
 			out.println("</script>");
@@ -144,10 +144,10 @@ public class BbsServiceImpl implements BbsService {
 			
 			out.println("<script>");
 			if(result >0 ) {
-				out.println("alert('삭제성공');");
+				out.println("alert('삭제가 완료되었습니다!');");
 				out.println("location.href='" + request.getContextPath() + "/bbs/list';");
 			} else {
-				out.println("alert('삭제실패');");
+				out.println("alert('삭제를 실패했습니다!');");
 				out.println("history.back();");
 			}
 			out.println("</script>");

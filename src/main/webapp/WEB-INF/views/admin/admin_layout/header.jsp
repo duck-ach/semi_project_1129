@@ -227,28 +227,16 @@ $(function(){
 				<li class="header_top_menu_area_li">
 					이미지 게시판
 					<ul class="close_ul_area">
-						<li> <a href="/admin/galleryAdmin">- 이미지 게시판 리스트 및 삭제</a> </li>						
+						<li> <a href="${contextPath}/admin/galleryAdmin">- 이미지 게시판 리스트 및 삭제</a> </li>						
 					</ul>
 				</li>
 
 				<li class="header_top_menu_area_li">
 					업로드/다운게시판
 					<ul class="close_ul_area">
-						<li> <a href="">- 로그인한 유저만 작성 가능</a> </li>
-						<li> <a href=""> - 작성자는 파일 업로드 가능</a> </li>
-						<li> <a href=""> - 작성자만 삭제 가능</a></li>
-						<li> <a href="">- 작성자만 내용/첨부 수정 가능</a> </li>
-						<li> <a href=""> - 상세보기에서 다운로드 지원</a></li>
-						<li> <a href=""> - 글 작성 시 포인트 지급</a></li>
+						<li> <a href="${contextPath}/admin/uploadAdmin">- 업로드 게시판 리트트 및 삭제</a> </li>						
 					</ul>
-				</li>
-				<li class="header_top_menu_area_li">
-					관리자
-					<ul class="close_ul_area">
-						<li>admin</li>
-						
-					</ul>
-				</li>
+				</li>		
 
 
 			</ul>
