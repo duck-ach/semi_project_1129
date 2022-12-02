@@ -15,6 +15,55 @@
 <script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>
 <script src="${contextPath}/resources/summernote-0.8.18-dist/lang/summernote-ko-KR.min.js"></script>
 <link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
+<style>
+	.btn {
+	   width : 75px;
+	   display : inline-block;
+	   height: 30px;
+	   border-radius: 3px;
+	   box-sizing: border-box;
+	   line-height: 30px;
+	   text-align: center;
+	   background: #FFF;
+	   border: 1px solid #D5C2EE;
+	   color: #D5C2EE;
+	   font-size: 14px;
+	   margin: 1px;
+	   margin-left: 10px;
+	}
+
+	.btn:hover {
+	   width : 75px;
+	   display : inline-block;
+	   height: 30px;
+	   border-radius: 3px;
+	   box-sizing: border-box;
+	   line-height: 30px;
+	   text-align: center;
+	   background-color: #D5C2EE;
+	   border: 1px solid #D5C2EE;
+	   color: #fff;
+	   font-size: 14px;
+	   margin: 1px;
+	   margin-left: 10px;
+	}
+	.div-write {
+		width: 80%;
+    	margin: auto;	
+	}
+	.note-editor {
+		width: 100% !important;
+	}
+	.title-class {
+		border: 0px;
+		font-size: 32px;
+	}
+	
+	input::placeholder {
+	  color: #c8c8c8;
+	
+	}
+</style>
 </head>
 <body>
 <script>
@@ -71,20 +120,21 @@
 </head>
 <body>
 
-	<div>
+	<div class="div-write">
 		<form id="frm_write" action="${contextPath}/bbs/add" method="post">
-			<div>
-				<label for="title">제목</label>
-				<input type="text" name="bbsTitle" id="title">
+			<div style="margin-top: 50px; margin-bottom: 15px">
+				<input class="title-class" type="text" name="bbsTitle" id="title" placeholder="제목">
 			</div>
-			<div>
-				<label for="content">내용</label>
+			
+			<hr>
+			
+			<div style="margin-top: 20px">
 				<textarea name="bbsContent" id="content"></textarea>
 			</div>
-			<div>
-				<button>작성완료</button>
-				<input type="reset" value="입력초기화">
-				<input type="button" value="목록" id="btn_list"> 
+			<div style="margin-top: 20px; text-align: right;">
+				<button class="btn">작성완료</button>
+				<input class="btn" type="reset" value="입력초기화">
+				<input class="btn" type="button" value="목록" id="btn_list"> 
 			</div>
 		</form>
 	</div>

@@ -6,7 +6,7 @@
 <jsp:include page="../layout/header.jsp">
 	<jsp:param value="게시글 리스트" name="list" />
 </jsp:include>
-<<style>
+<style>
 	.table_class {
 		text-align: center;
 		width: 80%;
@@ -19,7 +19,7 @@
 	    margin: auto;
 	    width: 80%;
 	    text-align: left;
-	    margin-bottom: 60px;
+	    margin-bottom: 15px;
 	    margin-top: 40px;
 	    color: #D5C2EE;
 	}
@@ -32,7 +32,7 @@
 	    margin-top: 30px;
 	}	
 	
-	.div_write_link{
+	/* .div_write_link{
 		position: relative;	
 		width: 80%;
 		margin: 0 auto;
@@ -51,7 +51,7 @@
 	    background-color: #D5C2EE;
 	    border-radius: 3px;
 	    font-size: 20px;
-	}
+	} */
 	
 	.tr-class {
 		height: 30px;	
@@ -71,16 +71,67 @@
 	.title-a-class:hover {
 		color: #FFF;
 	}
+	.btn {
+	    width: 100px;
+	    display: inline-block;
+	    height: 40px;
+	    border-radius: 3px;
+	    box-sizing: border-box;
+	    line-height: 30px;
+	    text-align: center;
+	    background: #FFF;
+	    border: 3px solid #D5C2EE;
+	    color: #D5C2EE;
+	    font-size: 19px;
+	    margin: 1px;
+	    margin-left: 10px;
+	}
 
+	.btn:hover {
+	   width : 100px;
+	   display : inline-block;
+	   height: 40px;
+	   border-radius: 3px;
+	   box-sizing: border-box;
+	   line-height: 30px;
+	   text-align: center;
+	   background-color: #D5C2EE;
+	   border: 1px solid #D5C2EE;
+	   color: #fff;
+	   font-size: 19px;
+	   margin: 1px;
+	   margin-left: 10px;
+	}	
+	
+	.div_btn_write {
+		text-align: right;
+	    width: 89%;
+	    margin-bottom: 20px;
+	}
+	
+	.div_poo {
+		width: 80%;
+	    color: #B7A4EE;
+	    text-align: #B7A4EE;
+	    text-align: left;
+	    margin: auto;
+	    font-size: 12px;
+	}
 
 </style>
-
+<script>
+	$(document).ready(function(){
+		$('#btn_write').click(function(){
+			location.href = '${contextPath}/bbs/write';
+		});	
+	});
+</script>
 	
 	<div class="div_bbs_deamoon">자유 게시판</div>
-	<div></div>
+	<div class="div_poo">내가 싸고싶은 똥을 텍스트로 싸질러요! <br> 똥은 똥꼬로만 싸는게 아니에요~! 손가락으로도 쌀 수 있어요!</div>
 	
-	<div class="div_write_link">
-		<a class="a_write_link" href="${contextPath}/bbs/write">작성하기</a>
+	<div class="div_btn_write">
+		<input class="btn" type="button" value="작성하기" id="btn_write"> 
 	</div>
 	
 	<div>
