@@ -19,6 +19,7 @@ import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.service.AdminService;
 import com.gdu.semi02.service.BbsService;
 import com.gdu.semi02.service.GalleryService;
+import com.gdu.semi02.service.UploadService;
 
 @Controller
 public class AdminController {
@@ -32,6 +33,9 @@ public class AdminController {
 	
 	@Autowired
 	private GalleryService galleryService;
+	
+	@Autowired
+	private UploadService uploadService;
 	
 	
 	@GetMapping("/admin/adminIndex")
@@ -121,6 +125,20 @@ public class AdminController {
 		galleryService.getGalleryList(request, model);
 		return "admin/galleryAdmin";
 	}
+	
+	@GetMapping("/admin/uploadAdmin")
+	public String uploadAdminlist(HttpServletRequest request, Model model) {
+		uploadService.getUploadList(request, model);
+		return "admin/uploadAdmin";
+	}
+	
+	
+	@PostMapping("/upload/adminRemove")
+	public void requiredLogin_remove(HttpServletRequest request, HttpServletResponse response) {
+		uploadService.removeUpload(request, response);
+		
+	}
+	
 	
 	
 	

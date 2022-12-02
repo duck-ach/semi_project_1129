@@ -88,10 +88,28 @@
 		WHERE USER_NO = #{userNo}
 	</update>
 	
-	<!-- 갤러리 좋아요 카운트 -->
-	<select id="selectLikedCnt" resultType="int">
-		SELECT COUNT(*)
+	<!-- 좋아요 테이블 조회 -->
+	<select id="selectLiked" resultType="int" parameterType="Map">
+		SELECT ISLIKED
 		FROM LIKED
+		WHERE USER_NO = #{userNo} AND GALLERY_NO = #{galleryNo}
+	</select>
+	
+	
+	<insert id="insertLiked" parameterType="Map">
+		INSERT INTO LIKED (GALLERY_NO, IS_LIKED, ID)
+		 VALUES (#{galleryNo}, 1, #{id})
+	</insert>
+	
+	<delete id="deleteLiked" parameterType="Map">
+		DELETE
+		FROM LIKED
+		WHERE ID = #{id} AND GALLERY_NO = #{galleryNo}
+	</delete>
+	
+	<select id="likedCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM LIKED
 	</select>
 	
 	

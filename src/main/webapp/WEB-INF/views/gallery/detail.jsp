@@ -12,14 +12,14 @@
 	.blind {
 		display: none;
 	}
+
 </style>
 	
 <div>
 	<h1>${gallery.galleryTitle}</h1>
 	
 	<div>
-		<span>▷ 작성자 | ${loginUser.id}</span>
-		&nbsp;&nbsp;&nbsp;
+		
 		<span>▷ 작성일 <fmt:formatDate value="${gallery.createDate}" pattern="yyyy.M.d HH:mm"/></span>
 		&nbsp;&nbsp;&nbsp;
 		<span>▷ 수정일 <fmt:formatDate value="${gallery.modifyDate}" pattern="yyyy.M.d HH:mm"/></span>
@@ -37,32 +37,81 @@
 		${gallery.galleryContent}
 	</div>
 	
+	
 	<div>
 		<form id="frm_btn" method="post">
 			<input type="hidden" name="galleryNo" value="${gallery.galleryNo}">
-			<input type="button" value="수정" id="btn_edit_gallery">
-			<input type="button" value="삭제" id="btn_remove_gallery">
+			<c:if test="${loginUser.id != null}">
+				<input type="button" value="수정" id="btn_edit_gallery">
+				<input type="button" value="삭제" id="btn_remove_gallery">
+			</c:if>
 		</form>
-		
+	</div>
+<%-- 	<c:if test="${loginUser.id == null}"> --%>
+<%-- 	<img src="${contextPath}/resources/galleryImg/dislike.png" id="likeimg" width="60px" height="60px" --%>
+<!-- 		class="rounded-circle mt-2"> -->
+<%-- 		${b.like_count} <br><br> --%>
+<!-- 	추천 기능은 <a href="user/login/form" type="button" id="newLogin" -->
+<!-- 	class="btn">로그인</a> 후 사용 가능합니다. -->
+<%-- 	</c:if> --%>
+<%-- 	<c:if test="${loginUser.id != null}"> --%>
+<!-- 		<div> -->
+<!-- 	<input class="unliked_go" type="hidden" name="isLiked" value="0"> -->
+<%-- 	<img id="likeimg" src="${contextPath}/resources/galleryImg/dislike.png" --%>
+<%-- 	width="60px" height="60px"> ${b.like_count} --%>
+<!-- 	</div> -->
+<%-- 	</c:if> --%>
+   
+   <hr>
 		
 		<script>
+// 			$('#likeimg').on("click", function(){
+// 			//	$('#likeFrm').submit();
+// 				$.ajax({
+// 					type:'post',
+// 					url: '${contextPath}/gallery/liked',
+// 					data : {'galleryNo' : ${gallery.galleryNo}, 'isLiked' : $('.unliked_go').val() },
+// 					dataType: 'json',
+// 					 success: function (data) {
+// 				          if (data == 1) {
+// 				              $("#likeimg").attr("src", "${contextPath}/resources/galleryImg/like.png");
+// 				              location.reload();
+// 				          } else {
+// 				              $("#likeimg").attr("src", "${contextPath}/resources/galleryImg/dislike.png");
+// 				              location.reload();
+// 				          }
+// 				}
+// 				})
+// 			});
+			
+			
+		
 			$('#btn_edit_gallery').click(function(){
 				$('#frm_btn').attr('action', '${contextPath}/gallery/edit');
 				$('#frm_btn').submit();
 			});
 			$('#btn_remove_gallery').click(function(){
-				if(confirm('블로그를 삭제하면 블로그에 달린 댓글을 더 이상 확인할 수 없습니다. 삭제하시겠습니까?')){
+				if(confirm('게시글을 삭제하면 적립된 포인트가 회수됩니다. 삭제하시겠습니까?')){
 					$('#frm_btn').attr('action', '${contextPath}/gallery/remove');
 					$('#frm_btn').submit();
 				}
 			});
-		</script> 
+			
+			
+			
+// 			$('#likeimg').click(function(){
+// 				if($('.unliked_go').val('0')) {
+// 					$('.unliked_go').attr('value',1);
+// 				}else{
+// 					$('.unliked_go').attr('value',0);
+// 				}
+// 			});
+</script> 
 		
-	</div>
-   
-   <hr>
+
    
    <!-- 댓글영역 -->
+   
 	<span id="btn_comment_list">
 		댓글
 		<span id="comment_count"></span>개
@@ -93,7 +142,7 @@
 		</form>
 	</div>
 	</c:if>		
-	<c:if test="${loginUser.id == null}">
+		<c:if test="${loginUser.id == null}">
 		<div>
 			<div class="unlogin_comment">
 					<span></span>
@@ -192,9 +241,14 @@
                      div += '<div>'
                      div += comment.id + '<br>';
                      div += comment.commContent;   // 정상일 때 내용 보여줌
-                     // 작성자만 삭제할 수 있도록 if 처리 필요
-						div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.galleryCommNo + '">';
+                     // 작성자, 로그인 유저만 댓글 삭제, 대댓글 가능
+                     if(${loginUser.id == 'admin'}) {
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.galleryCommNo + '">';
+						} else if ('${loginUser.id}' == comment.id){
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.galleryCommNo + '">';
+						}
 						if(comment.commDepth == 0) {
+						}if ('${loginUser.id}' == comment.id){
 							div += '<input type="button" value="답글" class="btn_reply_area">';
 						}
 						div += '</div>';

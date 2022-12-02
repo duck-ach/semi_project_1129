@@ -46,8 +46,8 @@ public class GalleryCommController {
 	
 	@ResponseBody
 	@PostMapping(value="/galleryComm/reply/add", produces="application/json")
-	public Map<String, Object> replyAdd(GalleryCommDTO reply){
-		return galleryCommService.addReply(reply);
+	public Map<String, Object> replyAdd(GalleryCommDTO reply, HttpServletRequest request){
+		return galleryCommService.addReply(reply, request);
 	}
 	
 }

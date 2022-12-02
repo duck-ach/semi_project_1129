@@ -22,11 +22,11 @@
 	}
 	*/
 </style>
-
+<!--  
 <script>
 
 $(function(){
-
+	
 	// 게시글 수정화면으로 이동
 	$('#btn_upload_edit').click(function(event){
 		$('#frm_upload').attr('action', '${contextPath}/upload/edit');
@@ -37,7 +37,7 @@ $(function(){
 	$('#btn_upload_remove').click(function(event){
 		alert('hi');
 		if(confirm('첨부된 모든 파일이 함께 삭제되고, 포인트가 10 차감됩니다.\n삭제하시겠습니까?')){
-			$('#frm_upload').attr('action', '${contextPath}/upload/remove');
+			$('#frm_upload').attr('action', '${contextPath}/upload/adminRemove');
 			$('#frm_upload').submit();
 		}
 	});
@@ -51,7 +51,22 @@ $(function(){
 });
 
 </script>
+-->
 
+<script type="text/javascript">
+$(function(){
+	$('#btn_upload_remove').click(function(){
+		if(confirm('첨부된 모든 파일이 함께 삭제되고, 포인트가 10 차감됩니다.\n삭제하시겠습니까?')){
+			$('#frm_upload').attr('action', '${contextPath}/upload/adminRemove').submit();;
+		//	$('#frm_upload').submit();
+		}
+	});
+	
+	
+})
+
+
+</script>
 </head>
 <body>
 

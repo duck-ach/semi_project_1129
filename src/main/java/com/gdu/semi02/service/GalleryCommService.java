@@ -11,5 +11,5 @@ public interface GalleryCommService {
 	public Map<String, Object> addComment(GalleryCommDTO comment, HttpServletRequest request);
 	public Map<String, Object> getCommentList(HttpServletRequest request);
 	public Map<String, Object> removeComment(int galleryCommNo);
-	public Map<String, Object> addReply(GalleryCommDTO reply);
+	public Map<String, Object> addReply(GalleryCommDTO reply, HttpServletRequest request);
 }
