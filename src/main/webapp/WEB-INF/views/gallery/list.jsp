@@ -10,12 +10,16 @@
 	</jsp:include>
 </c:if>
 <style>
+.parentsList{
+	width : 900px;
+	height : 1200px;
+	display : block;
+	margin: 0 auto;
+	padding-top: 30px;
+	margin-bottom: 50px;
+}
 body {
 	background: #fff;
-}
-header{
-
-	
 }
 
 .tbl {
@@ -56,17 +60,21 @@ border-radius: 2px;
 </style>
 
 
+<div class="parentsList">
 <c:if test="${loginUser.id != 'admin'}">
 	<jsp:include page="../layout/header.jsp">
 		<jsp:param value="${bbs.bbsNo}번 게시글 상세내용" name="title" />
 	</jsp:include>
 </c:if>
 
-<div>
 	<div class="header">
 		<h2>갤러리 게시판</h2>
 	</div>
-	<h4>갤러리 목록(전체 ${totalRecord}개)</h4>
+	<div>
+	<p id="" >갤러리 목록</p>
+	<p>(전체 ${totalRecord}개)</p>
+	</div>
+	
 	<div>
 		<table class="tbl">
 			<colgroup>

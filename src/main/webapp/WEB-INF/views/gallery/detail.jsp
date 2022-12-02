@@ -19,8 +19,7 @@
 	<h1>${gallery.galleryTitle}</h1>
 	
 	<div>
-		<span>▷ 작성자 | ${gallery.id}</span>
-		&nbsp;&nbsp;&nbsp;
+		
 		<span>▷ 작성일 <fmt:formatDate value="${gallery.createDate}" pattern="yyyy.M.d HH:mm"/></span>
 		&nbsp;&nbsp;&nbsp;
 		<span>▷ 수정일 <fmt:formatDate value="${gallery.modifyDate}" pattern="yyyy.M.d HH:mm"/></span>
@@ -42,7 +41,7 @@
 	<div>
 		<form id="frm_btn" method="post">
 			<input type="hidden" name="galleryNo" value="${gallery.galleryNo}">
-			<c:if test="${loginUser.id == null}">
+			<c:if test="${loginUser.id != null}">
 				<input type="button" value="수정" id="btn_edit_gallery">
 				<input type="button" value="삭제" id="btn_remove_gallery">
 			</c:if>

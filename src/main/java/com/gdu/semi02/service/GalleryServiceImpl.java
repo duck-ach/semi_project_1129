@@ -274,7 +274,11 @@ public class GalleryServiceImpl implements GalleryService {
 				galleryMapper.cancelUserPoint(loginUser.getUserNo());
 				loginUser.setPoint(loginUser.getPoint() - 5);
 				
-				out.println("location.href='" + request.getContextPath() + "/gallery/list';");
+				if(loginUser.getId().equals("admin")) {
+					out.println("location.href='" + request.getContextPath() + "/admin/galleryAdmin';");
+				} else {
+					out.println("location.href='" + request.getContextPath() + "/gallery/list';");
+				}
 			} else {
 				out.println("alert('게시글을 삭제할 수 없습니다.');");
 				out.println("history.back();");
