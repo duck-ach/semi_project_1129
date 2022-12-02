@@ -31,6 +31,5 @@ public class SleepUserDTO {
 	private Date joinDate;
 	private Date lastLoginDate;
 	private Date sleepDate;
-	private int userLevel;
 	private int point;
 }

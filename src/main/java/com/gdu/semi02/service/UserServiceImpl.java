@@ -396,7 +396,6 @@ public class UserServiceImpl implements UserService {
 		HttpSession session = request.getSession();
 		UserDTO loginUser = ((UserDTO)session.getAttribute("loginUser"));
 		
-		
 		String postcode = request.getParameter("postcode"); 
 		String roadAddress = request.getParameter("roadAddress");
 		String jibunAddress = request.getParameter("jibunAddress");
@@ -405,16 +404,7 @@ public class UserServiceImpl implements UserService {
 		String mobile = request.getParameter("mobile");
 		String email = request.getParameter("email");
 		
-		
 		String id = loginUser.getId();
-		/*
-		 * String postcode = loginUser.getPostcode(); String roadAddress =
-		 * loginUser.getRoadAddress(); String jibunAddress =
-		 * loginUser.getJibunAddress(); String detailAddress =
-		 * loginUser.getDetailAddress(); String extraAddress =
-		 * loginUser.getExtraAddress(); String mobile = loginUser.getMobile(); String
-		 * email = loginUser.getEmail();
-		 */
 		
 		UserDTO user = UserDTO.builder()
 				.id(id)
@@ -833,6 +823,64 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	@Override
+	public Map<String, Object> getUserIdByInfo(HttpServletRequest request) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("name", request.getParameter("name"));
+		map.put("email", request.getParameter("email"));
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("user", userMapper.selectUserByMap(map));
+		result.put("sleepUser", userMapper.selectSleepUserIdByInfo(map));
+		return result;
+	}
+	
+	@Override
+	public Map<String, Object> getUserPwByInfo(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", request.getParameter("id"));
+		map.put("name", request.getParameter("name"));
+		map.put("email", request.getParameter("email"));
+		
+		String authCode = securityUtil.getAuthCode(6);
+		System.out.println("발송된 인증코드 : " + authCode);
+		
+		Properties properties = new Properties();
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+		
+		Session session = Session.getInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
+		
+		try {
+			
+			Message message = new MimeMessage(session);
+			
+			message.setFrom(new InternetAddress(username, "인증코드관리자"));
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(request.getParameter("email")));
+			message.setSubject("[Application] 임시 비밀번호입니다.");
+			message.setContent("임시 비밀번호는 <strong>" + authCode + "</strong>입니다.", "text/html; charset=UTF-8");
+			
+			Transport.send(message);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("user", userMapper.selectUserByMap(map));
+		result.put("sleepUser", userMapper.selectSleepUserIdByInfo(map));
+		result.put("authCode", authCode);
+		return result;
 	}
 	
 }
