@@ -33,7 +33,7 @@ public class MainController {
 	@GetMapping("/index/view/freeList")
 	public String bbsList(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		bbsService.findAllBbsList(model);
+		bbsService.findAllBbsList(request, model);
 		return "bbs/list";
 	}
 	

@@ -549,7 +549,11 @@ public class UploadServiceImpl implements UploadService {
 			if(result > 0) {
 				out.println("<script>");
 				out.println("alert('삭제 되었습니다.');");
-				out.println("location.href='" + request.getContextPath() + "/upload/list'");
+				if(loginUser.getId().equals("admin")) {
+					out.println("location.href='" + request.getContextPath() + "/admin/uploadAdmin'");
+				} else {
+					out.println("location.href='" + request.getContextPath() + "/upload/list'");
+				}
 				out.println("</script>");
 			} else {
 				out.println("<script>");
