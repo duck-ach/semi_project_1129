@@ -14,8 +14,9 @@
 <title>${title}</title>
 <!-- 
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
--->
+ -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 <style type="text/css">
 
 	body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, input, legend, li, ol, p, select, table, td, textarea, th, ul {
