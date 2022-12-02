@@ -19,7 +19,6 @@ import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.service.AdminService;
 import com.gdu.semi02.service.BbsService;
 import com.gdu.semi02.service.GalleryService;
-import com.gdu.semi02.service.UploadService;
 
 @Controller
 public class AdminController {
@@ -34,8 +33,6 @@ public class AdminController {
 	@Autowired
 	private GalleryService galleryService;
 	
-	@Autowired
-	private UploadService uploadService;
 	
 	@GetMapping("/admin/adminIndex")
 	public String requiredAdmin_adminIndex() {
@@ -112,13 +109,12 @@ public class AdminController {
 	
 	
 	
-	
-	
-   @GetMapping("/admin/bbsAdmin")
-   public String requiredAdmin_bbsAdmin(HttpServletRequest request, Model model) {
-      bbsService.findAllBbsList(request, model);
-      return "admin/bbsAdmin";
-   }
+	@GetMapping("/admin/bbsAdmin")
+	public String requiredAdmin_bbsAdmin(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		bbsService.findAllBbsList(model);
+		return "admin/bbsAdmin";
+	}
 	
 	
 	@GetMapping("/admin/galleryAdmin")
@@ -127,16 +123,6 @@ public class AdminController {
 		return "admin/galleryAdmin";
 	}
 	
-	@GetMapping("/admin/uploadAdmin")
-	public String requiredAdmin_uploadAdminlist(HttpServletRequest request, Model model) {
-		uploadService.getUploadList(request, model);
-		return "admin/uploadAdmin";
-	}
 	
-	@PostMapping("/upload/adminRemove")
-	public String requiredLogin_remove(HttpServletRequest request, HttpServletResponse response) {
-		uploadService.removeUpload(request, response);
-		return "redirect:/admin/uploadAdmin";
-	}
 	
 }

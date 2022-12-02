@@ -9,7 +9,7 @@ import com.gdu.semi02.domain.BbsDTO;
 
 public interface BbsService {
 
-	public void findAllBbsList(HttpServletRequest request, Model model);
+	public void findAllBbsList(Model model);
 	public void saveBbs(HttpServletRequest request, HttpServletResponse response);
 	public int increaseBbsHit(int bbsNo);
 	public BbsDTO getBbsByNo(int bbsNo);
