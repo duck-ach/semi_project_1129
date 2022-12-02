@@ -83,11 +83,11 @@
 		<form id="frm_upload_add" action="${contextPath}/upload/add" method="post" enctype="multipart/form-data">
 				<div>
 					<label for="title"></label>
-					<input type="text" id="title" name="title" required="required" placeholder="제목">
+					<input type="text" id="title" name="title" required="required" placeholder="제목" maxlength="30">
 				</div>
-				<hr>
+				<hr class="hr_color">
 				<div class="filebox">
-					<label for="files">업로드</label>
+					<label for="files">파일첨부</label>
 					<input type="file" id="files" name="files" multiple="multiple"> <!-- multiple을 해주어야 다중첨부 가능 -->
 				</div>
 				<div>
