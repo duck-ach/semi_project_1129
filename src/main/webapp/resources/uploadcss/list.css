@@ -84,7 +84,7 @@ td {
 	
 	width: 25px;
 	height:25px;
-	background-color: #7B68EE;
+	background-color: #D5C2EE;
 	color : white;
 		
 	text-align: center;
@@ -118,7 +118,7 @@ td {
 }
 
 .lnk {
-	color:#7B68EE;
+	color:#D5C2EE;
 	width:25px;
 	height:25px;
 }
@@ -128,7 +128,7 @@ td {
 	display:inline-block;
 	width : 25px;
 	height: 25px;
-	background-color : #7B68EE;
+	background-color : #D5C2EE;
 	color : white;
 	
 	text-align: center;
@@ -153,9 +153,13 @@ display: none;
 	line-height: 30px;
 	text-align: center;
 	background: #FFF;
-	border: 1px solid #c8c8c8;
-	color: #7B68EE;
+	border: 1px solid #D5C2EE;
+	color: #D5C2EE;
 	font-size: 11px;
 	margin: 1px;
 }
+.btn:hover {
+	background: #D5C2EE;
+	color: #FFF;
 
+}

@@ -32,8 +32,8 @@
 	line-height: 30px;
 	text-align: center;
 	background: #FFF;
-	border: 1px solid #7B68EE;
-	color: #7B68EE;
+	border: 1px solid #D5C2EE;
+	color: #D5C2EE;
 	font-size: 11px;
 	margin: 1px;
 }
@@ -46,8 +46,8 @@
 	box-sizing: border-box;
 	line-height: 30px;
 	text-align: center;
-	background: #7B68EE;
-	border: 1px solid #7B68EE;
+	background: #D5C2EE;
+	border: 1px solid #D5C2EE;
 	color: #F9FFFF;
 	font-size: 11px;
 	margin: 1px;
@@ -92,7 +92,7 @@
 	text-align: center;
 	background: #FFF;
 	border: 1px solid #c8c8c8;
-	color: #7B68EE;
+	color: #D5C2EE;
 	font-size: 11px;
 	margin: 1px;
 }
@@ -103,5 +103,5 @@
 
 /* HR TAG */
 .hr_color {
-	background: 7B68EE;
+	background: D5C2EE;
 }

@@ -13,8 +13,8 @@
 
 	<div id="parentDiv">
 		<div class="upload_header_title">
-			<h2 id="upload_title">업로드용 게시판</h2>
-			<p id="upload_info">다양한 파일을 공유하는 게시판입니다. 첨부파일을 자유롭게 업로드해 보세요!<br>
+			<p id="upload_title" style="color: #D5C2EE; font-size: 28px; font-weight: bold; margin-bottom: 8px;">업로드용 게시판</p>
+			<p id="upload_info" style="color: #B7A4EE;">다양한 파일을 공유하는 게시판입니다. 첨부파일을 자유롭게 업로드해 보세요!<br>
 							게시글 작성 시 10포인트를 지급하고, 다운로드 시 첨부파일 하나당 5포인트가 차감됩니다.</p>
 		</div>
 		<div class="write_div">
@@ -34,7 +34,7 @@
 					<col style="width:8%">
 				</colgroup>
 				<thead>
-					<tr>
+					<tr style="color: #D5C2EE;">
 						<th>번호</th>
 						<th>제목</th>
 						<th>작성자</th>
