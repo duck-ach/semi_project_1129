@@ -24,14 +24,16 @@ public class MainController {
 	private UploadService uploadService;
 	
 	@GetMapping("/")
-	public String index() {
+	public String index(HttpServletRequest request, Model model) {
+		galleryService.getGalleryList(request, model);
+		uploadService.getUploadList(request, model);
 		return "index";
 	}
 	
 	@GetMapping("/index/view/freeList")
 	public String bbsList(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
-		bbsService.findAllBbsList(model);
+		bbsService.findAllBbsList(request, model);
 		return "bbs/list";
 	}
 	
