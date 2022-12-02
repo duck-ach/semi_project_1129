@@ -10,9 +10,26 @@
 	margin-bottom: 50px;
 }
 
+/* VIEW */
+.view_header {
+	position: relative;
+	width : 800px;
+	height : 30px;
+}
+.view_writer {
+	position: absolute;
+	width : 100px;
+	right : 0;
+	bottom : 0;
+	display: block;
+	text-align: right;
+	
+}
+
+
 /* TITLE */
 .view_title {
-	font-size: 25px;	
+	font-size: 25px;
 }
 
 /* DATE */
@@ -45,8 +62,84 @@
 #cnt {
 	cursor:pointer;
 }
+#cnt:hover {
+	color:#D5C2EE;
+}
 .attach_location {
 	text-align: right;
+}
+
+.attachFile:hover {
+	color:#D5C2EE;
+}
+
+/* COMMENT */
+.add_comment_input {
+	position: relative;
+	height: 50px;
+}
+.content_write {
+	display: block;
+	width : 700px;
+	height : 40px;
+	position: absolute;
+	border: 1px solid #D5C2EE;
+	outline-color: #D5C2EE;
+	border-radius: 3px;
+}
+#btn_add_comment {
+	display:block;
+	width : 80px;
+	height : 44px;
+	position: absolute;
+	right: 0;
+	margin-right: 10px;
+	background-color: #D5C2EE;
+	color:#fff;
+	border: none;
+	border-radius: 5px;
+}
+
+#btn_add_comment:hover {
+	display:block;
+	width : 80px;
+	height : 44px;
+	position: absolute;
+	right: 0;
+	margin-right: 10px;
+	background-color: #7B68EE;
+	color:#fff;
+	border: none;
+	border-radius: 5px;
+	transition: background-color 5s;
+}
+
+/* REPRY */
+.reply_writer {
+	font-weight: 700;
+}
+.btn_reply {
+	background-color: #D5C2EE;
+	width: 30px;
+	height:17px;
+	color:white;
+	border: none;
+	border-radius: 3px;
+	margin: 2px;
+}
+.btn_reply:hover {
+	background-color: #7B68EE;
+	width: 30px;
+	height:17px;
+	color:white;
+	border: none;
+	border-radius: 3px;
+	margin: 2px;
+	transition: background-color 3s;
+}
+.reply_button_scope {
+	text-align: right;
+	display: inline-block;
 }
 
 /* BLIND */
@@ -63,11 +156,27 @@
 	box-sizing: border-box;
 	line-height: 30px;
 	text-align: center;
-	background: #FFF;
-	border: 1px solid #c8c8c8;
-	color: #464646;
+	background: #D5C2EE;
+	border: none;
+	color: #fff;
 	font-size: 11px;
 	margin: 1px;
+}
+.btn:hover {
+	width : 80px;
+	display : inline-block;
+	height: 30px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	line-height: 30px;
+	text-align: center;
+	background: #7B68EE;
+	border: none;
+	color: #fff;
+	font-size: 11px;
+	margin: 1px;
+	transition: background-color 5s;
+	
 }
 .btn_location {
 	text-align: right;

@@ -51,14 +51,16 @@
 				</form>
 			</div>
 			<div class="date_location">
+				<span class="view_date">작성자 : ${upload.id}</span>
+				&nbsp;&nbsp;&nbsp;
 				<span class="view_date">작성일 : <fmt:formatDate value="${upload.createDate}" pattern="yyyy. M. d HH:mm" /></span>
 				&nbsp;&nbsp;&nbsp;
-				<span class="view_date">수정일 <fmt:formatDate value="${upload.modifyDate}" pattern="yyyy. M. d HH:mm" /></span>
+				<span class="view_date">수정일 : <fmt:formatDate value="${upload.modifyDate}" pattern="yyyy. M. d HH:mm" /></span>
 			</div>
 		<!-- 내용 -->
 		<div>
-			<div>
-				<span class="view_title">${upload.uploadTitle}</span>
+			<div class="view_header">
+				<div class="view_title">${upload.uploadTitle}</div>
 			</div>
 		</div>
 		<hr>
@@ -94,9 +96,7 @@
 				<form id="frm_add_comment">
 					<div class="add_comment">
 						<div class="add_comment_input">
-								<input type="text" name="commContent" id="content" class="content_write" placeholder="댓글을 작성해주세요.">
-						</div>
-						<div class="add_comment_btn">
+							<input type="text" name="commContent" id="content" class="content_write">
 							<input type="button" value="작성완료" id="btn_add_comment">
 						</div>
 					</div>
@@ -191,7 +191,7 @@
 				fn_switchAttachList();
 			}
 		};
-
+		
 		
 		// 첨부파일 없으면 안보이게 하는 것
 		function fn_attachblind() {
@@ -232,7 +232,7 @@
 		
 		function fn_addComment(){
 			$('#btn_add_comment').click(function(){
-				if($('#comment').val() == ''){
+				if($('#content').val() == ''){
 					alert('댓글 내용을 입력하세요');
 					return;
 				}
@@ -285,17 +285,19 @@
 						}
 						if(comment.state == 1) {
 							div += '<div>';
-							div += comment.id;
+							div += '<span class="reply_writer">' + comment.id + '&nbsp; ▷ &nbsp;</span>';
 							div += comment.commContent;
+							div += '<div class="reply_button_scope">'
 							// 작성자만 지울 수 있도록 if 처리 필요
 							if(${loginUser.id == 'admin'}) {
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
+								div += '<input type="button" value="삭제" class="btn_comment_remove btn_reply" data-comment_no="' + comment.uploadCommNo + '">';
 							} else if ('${loginUser.id}' == comment.id){
-								div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.uploadCommNo + '">';
+								div += '<input type="button" value="삭제" class="btn_comment_remove btn_reply" data-comment_no="' + comment.uploadCommNo + '">';
 							}
 							if(comment.depth == 0) {
-								div += '<input type="button" value="답글" class="btn_reply_area">'; // comment의 commentNo가 groupNo와 같다.
+								div += '<input type="button" value="답글" class="btn_reply_area btn_reply">'; // comment의 commentNo가 groupNo와 같다.
 							}
+							div += '</div>';
 							div += '</div>';
 						} else {
 							if(comment.depth == 0) {
@@ -312,7 +314,7 @@
 						div += '<form class="frm_reply">';
 						div += '<input type="hidden" name="uploadNo" value="' + comment.uploadNo + '">'; // hidden에는 name속성이 있어야함(serialize로 보낼것임)
 						div += '<input type="hidden" name="groupNo" value="' + comment.uploadCommNo + '">';
-						div += '<input type="text" name="commContent" placeholder="답글을 작성하려면 로그인을 해 주세요">'
+						div += '<input type="text" name="commContent" placeholder="댓글 내용을 입력하세요">'
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">' // type을 submit으로 해버리면 ajax 처리가 안됨. mvc처리가 됨
 						div += '</form>';
