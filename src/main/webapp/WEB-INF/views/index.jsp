@@ -22,12 +22,13 @@ a{
 .master_area{
 	border:1px solid #fff;
 	cursor:pointer;
+	background-color: #000;
 }
 
 .h1{color:#fff;}
 
 body {
-  background: #000;
+ /* background: #000;*/
   padding: 2rem;
 }
 
@@ -154,7 +155,7 @@ body {
 		padding:20px;
 		top:0;
 		left:0;
-		color:#fff;
+		color:#000;
 		font-size: 24px;
 	}
 	
@@ -163,7 +164,7 @@ body {
 		padding:10px;
 		top:0;
 		right:0;
-		color:#fff;
+		color:#000;
 		font-size: 30px;
 		font-style: unset;
 	}
@@ -175,7 +176,7 @@ body {
 	}
 	
 	.boards_box p{
-		color:#fff;
+		color:#000;
 		font-size:20px;
 		width:90%;
 		margin:0 auto 10px;
@@ -191,6 +192,12 @@ body {
 	float:left;
 	border-bottom: 1px solid #cbb8ee;
 }
+.boards_box p a{
+	color:#000;
+}
+
+
+
 </style>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
@@ -299,7 +306,7 @@ $(function(){
 	</div>
 	
 	<c:if test="${loginUser.id == 'admin'}">
-		<div class="master_area">
+		<div class="master_area"  >
 			
 			<h2>
 			  <span>어서오세요 주인님</span>  
