@@ -111,8 +111,7 @@ public class AdminController {
 	
 	@GetMapping("/admin/bbsAdmin")
 	public String requiredAdmin_bbsAdmin(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
-		bbsService.findAllBbsList(model);
+		bbsService.findAllBbsList(request, model);
 		return "admin/bbsAdmin";
 	}
 	
