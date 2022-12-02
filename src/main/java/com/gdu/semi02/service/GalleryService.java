@@ -13,12 +13,12 @@ import com.gdu.semi02.domain.GalleryDTO;
 public interface GalleryService {
 	
 	public void getGalleryList(HttpServletRequest request, Model model);
-	public Map<String, Object> saveSummernoteImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response);
+	public Map<String, Object> saveSummernoteImage(MultipartHttpServletRequest multipartRequest);
 	public void saveGallery(HttpServletRequest request, HttpServletResponse response);
 	public int increaseGalleryHit(int galleryNo);
 	public GalleryDTO getGalleryByNo(int galleryNo);
 	public void modifyGallery(HttpServletRequest request, HttpServletResponse response);
 	public void removeGallery(HttpServletRequest request, HttpServletResponse response);
-	public Map<String, Object> getLikedUser(HttpServletRequest request);
-	
+//	public Map<String, Object> getLikedUser(HttpServletRequest request);
+//	
 }

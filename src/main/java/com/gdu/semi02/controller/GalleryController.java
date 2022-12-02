@@ -40,8 +40,8 @@ public class GalleryController {
 	
 	@ResponseBody // ajax
 	@PostMapping(value="/gallery/uploadImage", produces = "application/json")
-	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest, HttpServletResponse response){
-		return galleryService.saveSummernoteImage(multipartRequest, response);
+	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest){
+		return galleryService.saveSummernoteImage(multipartRequest);
 	}
 	
 	@GetMapping("/gallery/increase/hit")
@@ -76,11 +76,11 @@ public class GalleryController {
 		galleryService.removeGallery(request, response); // 수정 후 목록보기로
 	}
 	
-	@ResponseBody
-	@PostMapping("/gallery/liked")
-	public void isLiked(HttpServletRequest request) {
-		galleryService.getLikedUser(request);
-	}
+//	@ResponseBody
+//	@PostMapping("/gallery/liked")
+//	public void isLiked(HttpServletRequest request) {
+//		galleryService.getLikedUser(request);
+//	}
 	
 }
 

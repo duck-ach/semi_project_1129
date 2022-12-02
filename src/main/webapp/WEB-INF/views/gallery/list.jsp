@@ -13,6 +13,10 @@
 body {
 	background: #fff;
 }
+header{
+
+	
+}
 
 .tbl {
 	border-collapse: collapse;
@@ -23,8 +27,8 @@ body {
 
 .tbl thead {
 	padding: 10px;
-	color: #168;
-	border-bottom: 3px solid #168;
+	background-color:rgba(213, 194, 238, 0.38);
+	border-bottom: 3px solid #D5C2EE;
 }
 
 .tbl td {
@@ -38,6 +42,10 @@ body {
 }
 .button{
 border: 0;
+width: 120px;
+padding: 7px;
+margin-top: 10px;
+margin-left:90%;
 background-color: #D5C2EE;
 border-radius: 2px;
 }

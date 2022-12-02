@@ -48,14 +48,13 @@
 			</c:if>
 		</form>
 	</div>
-				<hr>
-	<c:if test="${loginUser.id == null}">
-	<img src="${contextPath}/resources/galleryImg/dislike.png" id="likeimg" width="60px" height="60px"
-		class="rounded-circle mt-2">
-		${b.like_count} <br><br>
-	추천 기능은 <a href="user/login/form" type="button" id="newLogin"
-	class="btn">로그인</a> 후 사용 가능합니다.
-	</c:if>
+<%-- 	<c:if test="${loginUser.id == null}"> --%>
+<%-- 	<img src="${contextPath}/resources/galleryImg/dislike.png" id="likeimg" width="60px" height="60px" --%>
+<!-- 		class="rounded-circle mt-2"> -->
+<%-- 		${b.like_count} <br><br> --%>
+<!-- 	추천 기능은 <a href="user/login/form" type="button" id="newLogin" -->
+<!-- 	class="btn">로그인</a> 후 사용 가능합니다. -->
+<%-- 	</c:if> --%>
 	<c:if test="${loginUser.id != null}">
 		<div>
 	<input class="unliked_go" type="hidden" name="isLiked" value="0">
@@ -67,24 +66,24 @@
    <hr>
 		
 		<script>
-			$('#likeimg').on("click", function(){
-			//	$('#likeFrm').submit();
-				$.ajax({
-					type:'post',
-					url: '${contextPath}/gallery/liked',
-					data : {'galleryNo' : ${gallery.galleryNo}, 'isLiked' : $('.unliked_go').val() },
-					dataType: 'json',
-					 success: function (data) {
-				          if (data == 1) {
-				              $("#likeimg").attr("src", "${contextPath}/resources/galleryImg/like.png");
-				              location.reload();
-				          } else {
-				              $("#likeimg").attr("src", "${contextPath}/resources/galleryImg/dislike.png");
-				              location.reload();
-				          }
-				}
-				})
-			});
+// 			$('#likeimg').on("click", function(){
+// 			//	$('#likeFrm').submit();
+// 				$.ajax({
+// 					type:'post',
+// 					url: '${contextPath}/gallery/liked',
+// 					data : {'galleryNo' : ${gallery.galleryNo}, 'isLiked' : $('.unliked_go').val() },
+// 					dataType: 'json',
+// 					 success: function (data) {
+// 				          if (data == 1) {
+// 				              $("#likeimg").attr("src", "${contextPath}/resources/galleryImg/like.png");
+// 				              location.reload();
+// 				          } else {
+// 				              $("#likeimg").attr("src", "${contextPath}/resources/galleryImg/dislike.png");
+// 				              location.reload();
+// 				          }
+// 				}
+// 				})
+// 			});
 			
 			
 		
@@ -101,14 +100,14 @@
 			
 			
 			
-			$('#likeimg').click(function(){
-				if($('.unliked_go').val('0')) {
-					$('.unliked_go').attr('value',1);
-				}else{
-					$('.unliked_go').attr('value',0);
-				}
-			});
-		</script> 
+// 			$('#likeimg').click(function(){
+// 				if($('.unliked_go').val('0')) {
+// 					$('.unliked_go').attr('value',1);
+// 				}else{
+// 					$('.unliked_go').attr('value',0);
+// 				}
+// 			});
+</script> 
 		
 
    
