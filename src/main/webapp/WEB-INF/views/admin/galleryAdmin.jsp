@@ -20,6 +20,8 @@
 					<td>작성자</td>
 					<td>작성일</td>
 					<td>조회수</td>
+					<td>좋아요</td>
+					<td>삭제</td>
 				</tr>
 			</thead>
 			
@@ -31,6 +33,14 @@
 						<td>${gallery.id}</td>						
 						<td>${gallery.createDate}</td>
 						<td>${gallery.hit}</td>
+						<td>${liked.likedCnt}</td>
+						<td>
+						<form id="frm_btn" method="post">
+							<input type="hidden" name="galleryNo" value="${gallery.galleryNo}">				
+							<input type="button" value="삭제" id="btn_remove_gallery">
+						</form>
+						
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -44,5 +54,15 @@
 		</table>
 	</div>
 </div>
+	<script>
+		
+			$('#btn_remove_gallery').click(function(){
+				if(confirm('블로그를 삭제하면 블로그에 달린 댓글을 더 이상 확인할 수 없습니다. 삭제하시겠습니까?')){
+					$('#frm_btn').attr('action', '${contextPath}/gallery/remove');
+					$('#frm_btn').submit();
+				}
+			});
+		</script> 
+		
 </body>
 </html>
