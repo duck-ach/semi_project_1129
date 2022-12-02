@@ -131,6 +131,14 @@
 				<div>
 					아이디 : ${loginUser.id}
 				</div>
+							
+				<div>
+					레벨 : ${loginUser.userLevel}
+				</div>
+							
+				<div>
+					포인트 : ${loginUser.point}
+				</div>
 				
 				<div>
 					이름 : ${loginUser.name}

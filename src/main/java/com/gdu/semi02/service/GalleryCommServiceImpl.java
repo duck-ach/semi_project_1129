@@ -74,7 +74,11 @@ public class GalleryCommServiceImpl implements GalleryCommService {
 	}
 	
 	@Override
-	public Map<String, Object> addReply(GalleryCommDTO reply) {
+	public Map<String, Object> addReply(GalleryCommDTO reply, HttpServletRequest request) {
+		// Session의 User 정보
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		reply.setId(loginUser.getId());
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("isAdd", commentMapper.insertReply(reply) == 1);
 		return result;

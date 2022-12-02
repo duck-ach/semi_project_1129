@@ -31,4 +31,6 @@ public interface UserService {
 	public UserDTO getNaverUserById(String id);
 	public void naverLogin(HttpServletRequest request, UserDTO naverUser);
 	public void naverJoin(HttpServletRequest request, HttpServletResponse response);
+	public Map<String, Object> getUserIdByInfo(HttpServletRequest request);
+	public Map<String, Object> getUserPwByInfo(HttpServletRequest request);
 }

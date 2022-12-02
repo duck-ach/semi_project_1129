@@ -76,6 +76,12 @@ public class GalleryController {
 		galleryService.removeGallery(request, response); // 수정 후 목록보기로
 	}
 	
+//	@ResponseBody
+//	@PostMapping("/gallery/liked")
+//	public void isLiked(HttpServletRequest request) {
+//		galleryService.getLikedUser(request);
+//	}
+	
 }
 
 

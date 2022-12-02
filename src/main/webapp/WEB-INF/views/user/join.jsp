@@ -145,7 +145,7 @@
 	function fn_birthyear(){
 		let year = new Date().getFullYear();
 		let strYear = '<option value="">년도</option>';
-		for(let y = year - 100; y <= year + 1; y++){
+		for(let y = year - 100; y <= year; y++){
 			strYear += '<option value="' + y + '">' + y + '</option>';
 		}
 		$('#birthyear').append(strYear);
@@ -210,7 +210,7 @@
 				let emailValue = $('#email').val();
 				
 				if(regEmail.test(emailValue) == false){
-					reject(1);  
+					reject(1);
 					authCodePass = false;
 					return;  
 				}
@@ -348,11 +348,11 @@
 			
 			<div>
 				<label for="none">선택 안함</label>
-				<input type="radio" name="gender" id="none" value="NO" checked="checked">
+				<input type="radio" name="gender" id="none" value="선택안함" checked="checked">
 				<label for="male">남자</label>
-				<input type="radio" name="gender" id="male" value="M">
+				<input type="radio" name="gender" id="male" value="male">
 				<label for="female">여자</label>
-				<input type="radio" name="gender" id="female" value="F">
+				<input type="radio" name="gender" id="female" value="여자">
 			</div>
 		
 			<div>

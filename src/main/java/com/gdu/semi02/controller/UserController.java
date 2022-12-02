@@ -150,4 +150,16 @@ public class UserController {
 		userService.restoreUser(request, response);
 	}
 	
+	@ResponseBody
+	@GetMapping(value="/user/find/id", produces=MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> checkUserIdByInfo(HttpServletRequest request) {
+		return userService.getUserIdByInfo(request);
+	}
+	
+	@ResponseBody
+	@GetMapping(value="/user/find/pw", produces=MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> checkUserPwByInfo(HttpServletRequest request) {
+		return userService.getUserPwByInfo(request);
+	}
+	
 }
