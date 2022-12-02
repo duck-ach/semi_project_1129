@@ -54,13 +54,13 @@
 <!-- 	추천 기능은 <a href="user/login/form" type="button" id="newLogin" -->
 <!-- 	class="btn">로그인</a> 후 사용 가능합니다. -->
 <%-- 	</c:if> --%>
-	<c:if test="${loginUser.id != null}">
-		<div>
-	<input class="unliked_go" type="hidden" name="isLiked" value="0">
-	<img id="likeimg" src="${contextPath}/resources/galleryImg/dislike.png"
-	width="60px" height="60px"> ${b.like_count}
-	</div>
-	</c:if>
+<%-- 	<c:if test="${loginUser.id != null}"> --%>
+<!-- 		<div> -->
+<!-- 	<input class="unliked_go" type="hidden" name="isLiked" value="0"> -->
+<%-- 	<img id="likeimg" src="${contextPath}/resources/galleryImg/dislike.png" --%>
+<%-- 	width="60px" height="60px"> ${b.like_count} --%>
+<!-- 	</div> -->
+<%-- 	</c:if> --%>
    
    <hr>
 		
