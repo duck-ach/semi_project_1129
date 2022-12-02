@@ -19,13 +19,13 @@ public interface UserMapper {
 	public int deleteUser(int userNo);
 	public int insertRetireUser(RetireUserDTO retireUser);
 	public int updateSessionInfo(UserDTO user);
-	public UserDTO selectUserById(String id);
-	public int updateUserPassword(UserDTO user);
 	public int updateUserInfo(UserDTO user);
+	public int updateUserPassword(UserDTO user);
 	public int insertSleepUser();
 	public int deleteUserForSleep();
 	public SleepUserDTO selectSleepUserById(String id);
 	public int insertRestoreUser(String id);
 	public int deleteSleepUser(String id);
 	public int insertNaverUser(UserDTO user);
+	public SleepUserDTO selectSleepUserIdByInfo(Map<String, Object> map);
 }
