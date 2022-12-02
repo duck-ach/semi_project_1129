@@ -9,7 +9,7 @@
 <style>
 	.table_class {
 		text-align: center;
-		width: 80%;
+		width: 70%;
     	margin: auto;
     	border-collapse: collapse;
 	}
@@ -17,7 +17,7 @@
 		font-size: 32px;
 	    font-weight: bold;
 	    margin: auto;
-	    width: 80%;
+	    width: 70%;
 	    text-align: left;
 	    margin-bottom: 15px;
 	    margin-top: 40px;
@@ -110,12 +110,14 @@
 	}
 	
 	.div_poo {
-		width: 80%;
+		width: 70%;
 	    color: #B7A4EE;
 	    text-align: #B7A4EE;
 	    text-align: left;
 	    margin: auto;
 	    font-size: 12px;
+	    border-left: 1px solid;
+	    padding-left: 10px;
 	}
 
 </style>

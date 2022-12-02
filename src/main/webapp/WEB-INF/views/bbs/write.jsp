@@ -48,7 +48,7 @@
 	   margin-left: 10px;
 	}
 	.div-write {
-		width: 80%;
+		width: 70%;
     	margin: auto;	
 	}
 	.note-editor {
@@ -123,17 +123,17 @@
 	<div class="div-write">
 		<form id="frm_write" action="${contextPath}/bbs/add" method="post">
 			<div style="margin-top: 50px; margin-bottom: 15px">
-				<input class="title-class" type="text" name="bbsTitle" id="title" placeholder="제목">
+				<input class="title-class" type="text" name="bbsTitle" id="bbsTitle" placeholder="제목">
 			</div>
 			
-			<hr>
+			<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
 			
 			<div style="margin-top: 20px">
 				<textarea name="bbsContent" id="content"></textarea>
 			</div>
 			<div style="margin-top: 20px; text-align: right;">
 				<button class="btn">작성완료</button>
-				<input class="btn" type="reset" value="입력초기화">
+				<input class="btn" type="reset" value="제목초기화">
 				<input class="btn" type="button" value="목록" id="btn_list"> 
 			</div>
 		</form>

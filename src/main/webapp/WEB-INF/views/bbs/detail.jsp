@@ -101,7 +101,7 @@
 	
 </style>
 
-<div style="width: 80%; margin: 0 auto;">
+<div style="width: 70%; margin: 0 auto;">
 
 	<div class="div_title">${bbs.bbsTitle}</div>
 	<div class="div_iddate">
@@ -135,7 +135,7 @@
 		<form id="frm_add_comment">
 			<div class="add_comment">
 				<span class="add_comment_input">
-					<input type="text" name="commContent" id="commContent" style="width: 80%; height: 45px; border-color: #D5C2EE; border-radius: 3px;">
+					<input type="text" name="commContent" id="commContent" style="width: 70%; height: 45px; border-color: #D5C2EE; border-radius: 3px;">
 				</span>
 				<c:if test="${loginUser.id != null}">
 					<span class="add_comment_btn">

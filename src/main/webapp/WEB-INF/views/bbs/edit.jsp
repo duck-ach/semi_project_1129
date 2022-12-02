@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.css">
 <style>
 	.btn {
-	   width : 70px;
+	   width : 75px;
 	   display : inline-block;
 	   height: 30px;
 	   border-radius: 3px;
@@ -33,7 +33,7 @@
 	}
 
 	.btn:hover {
-	   width : 70px;
+	   width : 75px;
 	   display : inline-block;
 	   height: 30px;
 	   border-radius: 3px;
@@ -46,6 +46,22 @@
 	   font-size: 14px;
 	   margin: 1px;
 	   margin-left: 10px;
+	}
+	.div-write {
+		width: 70%;
+    	margin: auto;	
+	}
+	.note-editor {
+		width: 100% !important;
+	}
+	.title-class {
+		border: 0px;
+		font-size: 32px;
+	}
+	
+	input::placeholder {
+	  color: #c8c8c8;
+	
 	}
 </style>
 </head>
@@ -100,21 +116,22 @@
 </script>
 
 
-	<div>
+	<div class="div-write">
 		<form id="frm_edit" action="${contextPath}/bbs/modify" method="post">
 			
 			<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
 			
-			<div>
-				<label for="bbsTitle">제목</label>
-				<input type="text" name="bbsTitle" id="bbsTitle" value="${bbs.bbsTitle}">
+			<div style="margin-top: 50px; margin-bottom: 15px">
+				<input class="title-class" type="text" name="bbsTitle" id="bbsTitle" value="${bbs.bbsTitle}" placeholder="제목">
 			</div>
-			<div>
-				<label for="bbsContent">내용</label>
+			
+			<hr style="background: #D5C2EE; height: 1px; color: #D5C2EE;">
+			
+			<div style="margin-top: 20px">
 				<textarea name="bbsContent" id="bbsContent">${bbs.bbsContent}</textarea>
 			</div>
-			<div>
-				<button>작성완료</button>
+			<div style="margin-top: 20px; text-align: right;">
+				<button class="btn">작성완료</button>
 				<input class="btn" type="reset" value="입력초기화">
 				<input class="btn" type="button" value="목록" id="btn_list"> 
 			</div>
