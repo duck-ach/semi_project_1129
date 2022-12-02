@@ -139,6 +139,8 @@ public class BbsServiceImpl implements BbsService {
 	public void removeBbs(HttpServletRequest request, HttpServletResponse response) {
 		int bbsNo = Integer.parseInt(request.getParameter("bbsNo"));
 		int result = bbsMapper.deleteBbs(bbsNo);
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		try {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
@@ -146,7 +148,11 @@ public class BbsServiceImpl implements BbsService {
 			out.println("<script>");
 			if(result >0 ) {
 				out.println("alert('삭제가 완료되었습니다!');");
-				out.println("location.href='" + request.getContextPath() + "/bbs/list';");
+				if(loginUser.getId().equals("admin")) {
+					out.println("location.href='" + request.getContextPath() + "/admin/bbsAdmin'");
+				} else {
+					out.println("location.href='" + request.getContextPath() + "/bbs/list'");
+				}
 			} else {
 				out.println("alert('삭제를 실패했습니다!');");
 				out.println("history.back();");
