@@ -29,9 +29,9 @@ public class BbsServiceImpl implements BbsService {
 
 	
 	@Override
-	public void findAllBbsList(Model model) {		
+	public void findAllBbsList(HttpServletRequest request, Model model) {		
 		Map<String, Object> modelMap = model.asMap();
-		HttpServletRequest request = (HttpServletRequest)modelMap.get("request");
+		request = (HttpServletRequest)modelMap.get("request");
 		
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>인덱스_메인</title>
+<title>2조 프로젝트 메인 페이지</title>
  <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
@@ -233,28 +233,25 @@ $(function(){
         <div class="swiper-slide">
           <img src="${contextPath}/resources/image/ny.png">
           <p>
-          	안녕하세요.   <br>
-          	김나영 입니다.
-          	저는 조장입니다.
-          	돈 내놓으세요 십새들아
+          	자유. Freedom. 갈구하는자.<br>
+			자유의 여신상. 뉴욕.<br>
+			김나영.  94개띠.
           </p>
         </div>
         <div class="swiper-slide">
           <img src="${contextPath}/resources/image/jw.png">
           <p>
-          	안녕하세요.   <br>
-          	박지원 입니다.
-          	저는 조장입니다.
-          	돈 내놓으세요 십새들아
+          	Bring it on, Gallery! <br>
+			박지원. 96쥐띠 27살인디
           </p>
         </div>
         <div class="swiper-slide">
           <img src="${contextPath}/resources/image/hr.png">
           <p>
-          	안녕하세요.   <br>
-          	엄희라 입니다.
-          	저는 조장입니다.
-          	돈 내놓으세요 십새들아
+          	업로드를 두려워 하신다고요? <br>
+			저를 찾아오세요.<br>
+			엄희라. 98토끼띠.<br>
+			난...독기 가득하다.. 그래서 난.. 독기띠다...🐰
           </p>
         </div>
         <div class="swiper-slide">
@@ -278,29 +275,27 @@ $(function(){
 		<div class="boards_box">
 			<span>자유 게시판</span>
 			<i>+</i>
-			<div></div>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
+			<div>
+				<c:forEach items="${bbsList}" var="bbs" varStatus="vs">
+					<div><a href="${contextPath}/bbs/increase/hit?bbsNo=${bbs.bbsNo}">${bbs.bbsTitle}</a></div>
+				</c:forEach>
+			</div>
 		</div>
 		<div class="boards_box">
 			<span>갤러리 게시판</span>
 			<i>+</i>
 			<div></div>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
+			<c:forEach items="${galleryList}" var="gallery" varStatus="vs">
+				<p><a id="moveDetail" href="${contextPath}/gallery/increase/hit?galleryNo=${gallery.galleryNo}">${gallery.galleryTitle}</a></p>
+			</c:forEach>
 		</div>
 		<div class="boards_box">
 			<span>업로드 게시판</span>
 			<i>+</i>
 			<div></div>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
-			<p><a href=>최근 작성글 입니다~~~~~~~~~</a></p>
+			<c:forEach items="${uploadList}" var="upload">
+			<p><a href="${contextPath}/upload/increase/hit?uploadNo=${upload.uploadNo}">${upload.uploadTitle}</a></p>
+			</c:forEach>
 		</div>
 	
 	</div>

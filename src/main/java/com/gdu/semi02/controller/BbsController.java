@@ -20,8 +20,7 @@ public class BbsController {
 	
 	@GetMapping("/bbs/list")
 	public String list(HttpServletRequest request, Model model) {
-		model.addAttribute("request", request);
-		bbsService.findAllBbsList(model);
+		bbsService.findAllBbsList(request, model);
 		return "bbs/list";
 	}
 	
