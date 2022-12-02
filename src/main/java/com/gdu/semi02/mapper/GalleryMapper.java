@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gdu.semi02.domain.GalleryDTO;
-import com.gdu.semi02.domain.LikedDTO;
 import com.gdu.semi02.domain.SummernoteImageDTO;
 
 @Mapper
@@ -33,9 +32,10 @@ public interface GalleryMapper {
 	public int cancelUserPoint(int userNo);
 	
 	// liked
-	public int selectLikedCnt(LikedDTO liked);
-	public int insertLiked(int userNo);
-	public int deleteLiked(int userNo);
+	public int likedCnt(int i);
+	public int insertLiked(Map<String, Object> map);
+	public int deleteLiked(Map<String, Object> map);
+	public int likedCnt();
 
 
 }

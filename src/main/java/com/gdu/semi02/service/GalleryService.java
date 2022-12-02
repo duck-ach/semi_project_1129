@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.semi02.domain.GalleryDTO;
-import com.gdu.semi02.domain.LikedDTO;
 
 public interface GalleryService {
 	
@@ -20,6 +19,6 @@ public interface GalleryService {
 	public GalleryDTO getGalleryByNo(int galleryNo);
 	public void modifyGallery(HttpServletRequest request, HttpServletResponse response);
 	public void removeGallery(HttpServletRequest request, HttpServletResponse response);
-	public Map<String, Object> getLikedUser(LikedDTO liked);
+	public Map<String, Object> getLikedUser(HttpServletRequest request);
 	
 }

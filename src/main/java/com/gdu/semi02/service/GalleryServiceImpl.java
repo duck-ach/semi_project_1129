@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.semi02.domain.GalleryDTO;
-import com.gdu.semi02.domain.LikedDTO;
 import com.gdu.semi02.domain.SummernoteImageDTO;
 import com.gdu.semi02.domain.UserDTO;
 import com.gdu.semi02.mapper.GalleryMapper;
@@ -97,10 +96,11 @@ public class GalleryServiceImpl implements GalleryService {
 					}
 				}
 
-				out.println("alert('삽입 성공');");
+				out.println("alert('게시글이 등록되었습니다.');");
+				out.println("alert('5 포인트가 적립되었습니다.');");
 				out.println("location.href='" + request.getContextPath() + "/gallery/list';");
 			} else {
-				out.println("alert('삽입 실패');");
+				out.println("alert('게시글 등록에 실패했습니다.');");
 				out.println("history.back();");
 			}
 			out.println("</script>");
@@ -146,7 +146,7 @@ public class GalleryServiceImpl implements GalleryService {
 
 			if (multipartFile != null && multipartFile.isEmpty() == false) {
 			out.println("<script>");
-				out.println("alert('삽입 실패');");
+				out.println("alert('게시글 등록에 실패했습니다.');");
 				out.println("history.back();");
 			}
 			out.println("</script>");
@@ -237,11 +237,11 @@ public class GalleryServiceImpl implements GalleryService {
 					}
 				}
 
-				out.println("alert('수정 성공');");
+				out.println("alert('게시글을 수정하였습니다.');");
 				out.println(
 						"location.href='" + request.getContextPath() + "/gallery/detail?galleryNo=" + galleryNo + "';");
 			} else {
-				out.println("alert('수정 실패');");
+				out.println("alert('게시글을 수정할 수 없습니다.');");
 				out.println("history.back();");
 			}
 			out.println("</script>");
@@ -284,7 +284,7 @@ public class GalleryServiceImpl implements GalleryService {
 					}
 				}
 
-				out.println("alert('삭제 성공');");
+				out.println("alert('게시글을 삭제했습니다');");
 
 				HttpSession session = request.getSession();
 				UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
@@ -293,7 +293,7 @@ public class GalleryServiceImpl implements GalleryService {
 
 				out.println("location.href='" + request.getContextPath() + "/gallery/list';");
 			} else {
-				out.println("alert('삭제 실패');");
+				out.println("alert('게시글을 삭제할 수 없습니다.');");
 				out.println("history.back();");
 			}
 			out.println("</script>");
@@ -304,18 +304,36 @@ public class GalleryServiceImpl implements GalleryService {
 		}
 
 	}
+	
+	@Transactional
 	@Override
-	public Map<String, Object> getLikedUser(LikedDTO liked) {
+	public Map<String, Object> getLikedUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		String galleryNo = request.getParameter("galleryNo");
+		int isLiked = Integer.parseInt(request.getParameter("isLiked"));
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("galleryNo", galleryNo);
+		map.put("id", loginUser.getId());
+		
+		int likeCnt = 0;
+		
+		if(isLiked == 0) {
+			galleryMapper.insertLiked(map);
+			likeCnt = galleryMapper.likedCnt() + 1;
+		} else if(isLiked != 0) {
+			galleryMapper.deleteLiked(map);
+			likeCnt = galleryMapper.likedCnt() - 1;
+		}
+		
+		System.out.println(isLiked);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("likeUser", galleryMapper.selectLikedCnt(liked) == 1);
+		result.put("isLikedCnt", likeCnt);
 		return result;
 	}
 
 	
-//	@Override
-//	public Map<String, Object> getLiked(map) {
-//		
-//		return 0;
-//	}
-
 }

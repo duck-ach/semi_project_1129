@@ -96,18 +96,21 @@
 	</select>
 	
 	
-	<insert id="insertLiked" parameterType="LikedDTO">
-		INSERT INTO LIKED (GALLERY_NO, ISLIKED, ID)
+	<insert id="insertLiked" parameterType="Map">
+		INSERT INTO LIKED (GALLERY_NO, IS_LIKED, ID)
 		 VALUES (#{galleryNo}, 1, #{id})
-		 WHERE ISLIKED = 0
 	</insert>
 	
-	<delete id="deleteLiked" parameterType="LikedDTO">
-		DELETE ISLIKE
+	<delete id="deleteLiked" parameterType="Map">
+		DELETE
 		FROM LIKED
-		WHERE ISLIKE != 0
+		WHERE ID = #{id} AND GALLERY_NO = #{galleryNo}
 	</delete>
 	
+	<select id="likedCnt" resultType="int">
+		SELECT COUNT(*)
+		  FROM LIKED
+	</select>
 	
 	
 	
